@@ -1,0 +1,82 @@
+{
+  "stage": "Stage 20A & 20B — Native SV Accellera UVM-2020.3.1 Full-Chip Verification & All-Digital PVT/Thermal PID DVFS Controller IP (M19)",
+  "milestone_20a_native_sv_uvm_2020_3_1": {
+    "testbench_file": "uvm_tb/tb_sv_uvm_taalas_v3_hc2.sv",
+    "log_file": "results/stage20_sv_uvm_v3_hc2.log",
+    "simulator": "Verilator 5.054 (--binary --timing -O1)",
+    "uvm_library": "Accellera IEEE 1800.2 uvm-core-2020.3.1 (native SV uvm_pkg)",
+    "uvm_components_implemented": [
+      "taalas_v3_hc2_item (uvm_sequence_item)",
+      "taalas_v3_hc2_sequence (uvm_sequence)",
+      "uvm_sequencer #(taalas_v3_hc2_item)",
+      "taalas_v3_hc2_driver (uvm_driver)",
+      "taalas_v3_hc2_monitor (uvm_monitor)",
+      "taalas_v3_hc2_agent (uvm_agent)",
+      "taalas_v3_hc2_scoreboard (uvm_scoreboard)",
+      "taalas_v3_hc2_env (uvm_env)",
+      "taalas_v3_hc2_uvm_test (uvm_test)"
+    ],
+    "verified_rtl_modules": [
+      "rtl_v3/taalas_3b6b_wired_mac_array.sv (M02)",
+      "rtl_v3/taalas_mxfp4_hc2_mac_lane.sv (M03)",
+      "rtl_v3/taalas_sram_6t_banked_macro.sv (M05)",
+      "rtl_v3/taalas_flash_decode_attention.sv (M09 - 16-segment PWL reciprocal)",
+      "rtl_v3/taalas_rmsnorm_engine.sv (M10 - 2-cycle retimed NR rsqrt)",
+      "rtl_v3/taalas_ecc_bist_scrubber.sv (M18 - SEU patrol & Via-ROM CRC-16 BIST)",
+      "rtl_v3/taalas_dvfs_pvt_controller.sv (M19 - PVT RO + Anti-Windup PID + BBM DFS)",
+      "rtl_hc2/taalas_hc2_c2c_llr_serdes_ctrl.sv (H2 - 112G Go-Back-N LLR SerDes)",
+      "rtl_hc2/taalas_hc2_moe_mla_router.sv (H3 - DeepSeek-R1 Top-K MoE & MLA router)"
+    ],
+    "randomized_uvm_transactions_driven": 5120,
+    "total_scoreboard_observations": 5125,
+    "m19_bbm_onehot0_checks_passed": 5125,
+    "m19_anti_windup_checks_passed": 5125,
+    "m18_sbe_patrol_healed_count": 2560,
+    "h2_c2c_good_frames_delivered": 4964,
+    "h2_go_back_n_llr_replays_triggered": 80,
+    "h3_moe_tokens_routed": 5124,
+    "uvm_info_count": 4,
+    "uvm_warning_count": 2,
+    "uvm_error_count": 0,
+    "uvm_fatal_count": 0,
+    "simulation_walltime_sec": 0.212
+  },
+  "milestone_20b_dvfs_pvt_controller_m19": {
+    "rtl_file": "rtl_v3/taalas_dvfs_pvt_controller.sv",
+    "verilator_wall_lint_warnings": 0,
+    "yosys_formal_proof": {
+      "script": "formal/prove_stage20_dvfs_pvt.ys",
+      "log": "formal/stage20_dvfs_formal.log",
+      "engine": "Yosys 0.60 sat -verify -seq 16 -set-init-zero -prove-asserts",
+      "sequential_depth_cycles": 16,
+      "sat_variables": 653757,
+      "sat_clauses": 1923586,
+      "solve_time_sec": 5.83,
+      "status": "PROVED (SUCCESS - 0 counterexamples)",
+      "proved_properties": [
+        "PROP_M19_BREAK_BEFORE_MAKE_NO_GLITCH ($onehot0(clk_path_en_o) & all-zero break cycle between switches)",
+        "PROP_M19_ANTI_WINDUP_BOUND (pid_integ_q bounded in [-16384, +16384] under arbitrary thermal overload)",
+        "PROP_M19_THERMAL_TRIP_SAFETY (temp_c_q8_8_o >= 95.0 C -> thermal_trip_irq_o == 1 and active_pstate_o == P3_THROTTLE_700MHZ)"
+      ]
+    },
+    "asap7_7nm_synthesis_and_openroad_pnr": {
+      "netlist": "synth/netlists_v3/taalas_dvfs_pvt_controller_asap7_netlist.v",
+      "routed_def": "pnr/taalas_dvfs_pvt_controller_asap7_route.def",
+      "yosys_mapped_cells": 7306,
+      "yosys_cell_area_um2": 883.56,
+      "openroad_design_area_um2": 884.0,
+      "die_dimensions_um": "58.32 x 58.32",
+      "core_utilization_pct": 30.0,
+      "detailed_route_wirelength_um": 31049.65,
+      "post_route_critical_path_ps": 1979.36,
+      "post_route_fmax_mhz": 505.21,
+      "clock_skew_ps": 7.718,
+      "routing_congestion_overflow": 0,
+      "final_drc_violations": 0,
+      "final_antenna_violations": 0,
+      "total_power_mw": 89.4,
+      "vdd_worstcase_ir_drop_mv": 17.7,
+      "vdd_ir_drop_pct": 2.3
+    }
+  }
+}

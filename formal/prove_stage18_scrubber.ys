@@ -1,0 +1,16 @@
+# =============================================================================
+# Stage 18 Yosys Formal SAT Proof Script — Silicon Reliability & ECC Scrubber
+# Mathematically proves:
+#   1. PROP_S18_ZERO_STARVATION (0% active SRAM bandwidth stolen by patrol scrub)
+#   2. PROP_S18_SBE_WB_WE / PROP_S18_SBE_CNT / PROP_S18_SBE_CLEAN (SECDED healing)
+#   3. PROP_S18_DBE_IRQ / PROP_S18_DBE_REMAP (Double-bit error CAM spare-row repair)
+#   4. PROP_S18_DROOP_1CYC_STRETCH (1-cycle L*di/dt voltage-droop clock stretch)
+#   5. PROP_S18_BIST_CRC_MATCH (Via-ROM CRC-16-CCITT deterministic BIST signature)
+# =============================================================================
+
+design -reset
+read_verilog -sv -formal rtl_v3/taalas_ecc_bist_scrubber.sv
+chparam -set ROM_DEPTH 4 -set BANK_DEPTH 8 taalas_ecc_bist_scrubber
+prep -top taalas_ecc_bist_scrubber
+memory_map; async2sync; dffunmap; setundef -undriven -anyseq; opt -full
+sat -verify -seq 12 -set-init-zero -prove-asserts

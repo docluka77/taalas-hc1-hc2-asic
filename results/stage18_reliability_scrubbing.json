@@ -1,0 +1,92 @@
+{
+  "stage": 18,
+  "title": "Taalas HC1/HC2 Autonomous Silicon Reliability, Background SECDED SRAM Scrubber, Via-ROM CRC-16 BIST & Adaptive Droop Clock-Stretch Subsystem",
+  "rtl_module": "rtl_v3/taalas_ecc_bist_scrubber.sv",
+  "verilator_lint": {
+    "tool": "Verilator 5.x -Wall",
+    "warnings": 0,
+    "errors": 0,
+    "status": "CLEAN"
+  },
+  "yosys_formal_verification": {
+    "script": "formal/prove_stage18_scrubber.ys",
+    "log": "formal/stage18_yosys_formal.log",
+    "engine": "Yosys 0.60 SAT BMC (-seq 12 -prove-asserts)",
+    "bmc_depth_cycles": 12,
+    "sat_variables": 221095,
+    "sat_clauses": 606964,
+    "solve_time_sec": 124.72,
+    "properties_proven": [
+      "PROP_S18_ZERO_STARVATION (active_sram_req_i |-> !scrub_sram_re_o)",
+      "PROP_S18_SBE_WB_WE (SBE patrol scrub triggers 1-cycle atomic write-back)",
+      "PROP_S18_SBE_CNT (SBE patrol scrub increments sbe_scrubbed_cnt_o)",
+      "PROP_S18_SBE_CLEAN (Write-back codeword satisfies 72,64 SECDED parity)",
+      "PROP_S18_DBE_IRQ (Double-bit error asserts uncorrectable_dbe_irq_o)",
+      "PROP_S18_DBE_REMAP (Double-bit error allocates 8-entry CAM spare-row repair)",
+      "PROP_S18_DROOP_1CYC_STRETCH (Voltage droop canary_taps_i[5]==0 stretches clock in 1 cycle)",
+      "PROP_S18_BIST_CRC_MATCH (Via-ROM CRC-16-CCITT deterministic match/mismatch)"
+    ],
+    "counterexamples": 0,
+    "status": "PASS (Q.E.D.)"
+  },
+  "asap7_7nm_synthesis": {
+    "script": "synth/taalas_ecc_bist_scrubber_asap7_7nm.ys",
+    "netlist": "synth/netlists_v3/taalas_ecc_bist_scrubber_asap7_netlist.v",
+    "library": "asap7_rvt_ff.lib (ASAP7 7nm / TSMC N6 RVT FF)",
+    "per_tile_combinational_gates": 2105,
+    "per_tile_total_area_um2": 321.314,
+    "per_tile_sequential_area_um2": 130.024,
+    "per_tile_combinational_area_um2": 191.290,
+    "full_reticle_32tile_area_mm2": 0.01028,
+    "chip_area_overhead_pct": 0.00126,
+    "abc_critical_path_ps": 475.67,
+    "fmax_ghz": 2.102,
+    "per_tile_power_mw": 0.42,
+    "full_reticle_32tile_power_w": 0.0134,
+    "chip_power_overhead_pct": 0.0061
+  },
+  "uvm_1m_cycle_fault_resilience_campaign": {
+    "testbench": "uvm_tb/tb_stage18_fault_resilience.cpp",
+    "total_simulated_cycles": 1021908,
+    "wall_clock_runtime_sec": 0.417,
+    "simulation_speed_mhz": 2.451,
+    "phase1_via_rom_crc16_bist": {
+      "rom_words_swept": 8192,
+      "polynomial": "0x1021 (CRC-16-CCITT)",
+      "golden_signature_hex": "0x3528",
+      "clean_rom_bist_pass": true,
+      "single_bit_via_defect_injected_at_word": 4096,
+      "defect_detected_bist_pass_low": true
+    },
+    "phase2_cosmic_ray_seu_patrol_scrubbing": {
+      "simulated_cycles": 1000000,
+      "active_llm_kv_traffic_utilization_pct": 64.96,
+      "active_kv_reads_executed": 649635,
+      "active_traffic_stall_cycles": 0,
+      "bandwidth_stolen_pct": 0.0,
+      "cosmic_ray_seus_injected": 5000,
+      "seus_scrubbed_and_healed": 5000,
+      "seu_healing_rate_pct": 100.0,
+      "residual_latent_sram_errors": 0,
+      "corrupted_kv_cache_reads": 0,
+      "patrol_sweep_period_cycles": 23381,
+      "patrol_sweep_period_us_at_2ghz": 11.69,
+      "unscrubbed_sram_fit_rate": 4200.0,
+      "scrubbed_sram_fit_rate": 0.018,
+      "fit_reduction_factor": 233333.3
+    },
+    "phase3_mbu_dbe_cam_spare_row_repair": {
+      "defective_sram_rows_injected": 8,
+      "dbe_interrupts_raised": 8,
+      "cam_spare_rows_allocated": 8,
+      "active_read_spare_row_hits_verified": 8,
+      "repair_recovery_rate_pct": 100.0
+    },
+    "phase4_transient_didt_voltage_droop": {
+      "droop_events_injected": 500,
+      "voltage_step_v": "0.75V -> 0.67V (< 0.71V threshold, canary_taps_i=0x1F)",
+      "one_cycle_clock_stretch_engagements": 500,
+      "setup_timing_violations": 0
+    }
+  }
+}

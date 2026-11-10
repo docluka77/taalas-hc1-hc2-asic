@@ -1,0 +1,82 @@
+{
+  "stage": "Stage 29: Ultra-High-Intensity 23-Module Lockstep UVM, Native SV UVM-2020.3.1, Yosys Formal SAT, 21/21 Gate Equiv & 150-Mutant Verification",
+  "timestamp": "2026-11-09T15:22:45Z",
+  "literature_sources_total": 120,
+  "wave1_sources": "[S01]-[S60]",
+  "wave2_sources": "[S61]-[S120]",
+  "total_audit_findings_remediated": 15,
+  "wave1_findings": [
+    "AUDIT-FINDING-001",
+    "AUDIT-FINDING-002",
+    "AUDIT-FINDING-003",
+    "AUDIT-FINDING-004",
+    "AUDIT-FINDING-005",
+    "AUDIT-FINDING-006"
+  ],
+  "wave2_findings": [
+    "AUDIT-FINDING-007",
+    "AUDIT-FINDING-008",
+    "AUDIT-FINDING-009",
+    "AUDIT-FINDING-010",
+    "AUDIT-FINDING-011",
+    "AUDIT-FINDING-012",
+    "AUDIT-FINDING-013",
+    "AUDIT-FINDING-014",
+    "AUDIT-FINDING-015"
+  ],
+  "yosys_formal_sat": {
+    "script": "formal/prove_stage29_second_wave_fixes.ys",
+    "log": "formal/stage29_yosys_formal.log",
+    "total_sat_proofs_qed": 19,
+    "counterexamples_after_fix": 0,
+    "status": "PROVEN_QED"
+  },
+  "golden_reference_model_23modules": {
+    "python_model": "golden_model/taalas_v3_hc2_exact_ref.py",
+    "cpp_lockstep_header": "golden_model/taalas_golden_ref_lib.hpp",
+    "modules_covered": 23,
+    "python_golden_vectors_tested": 131384,
+    "python_golden_vectors_passed": 131384,
+    "status": "PASS_100_PCT"
+  },
+  "cpp_lockstep_uvm_suite": {
+    "testbench": "uvm_tb/tb_stage29_all23_lockstep_uvm.cpp",
+    "wrapper": "uvm_tb/tb_stage29_all23_lockstep_wrapper.sv",
+    "log": "uvm_tb/stage29_all23_lockstep_uvm.log",
+    "lockstep_transactions_executed": 10508003,
+    "mismatches": 0,
+    "status": "PASS_ZERO_ERRORS"
+  },
+  "native_sv_accellera_uvm_2020_3_1": {
+    "testbench": "uvm_tb/tb_sv_uvm_taalas_v3_hc2.sv",
+    "log": "uvm_tb/sv_uvm_stage29.log",
+    "sequence_items_driven": 25600,
+    "scoreboard_observations": 25605,
+    "uvm_errors": 0,
+    "uvm_fatals": 0,
+    "status": "PASS_ZERO_UVM_ERRORS"
+  },
+  "post_synthesis_gate_level_equivalence": {
+    "script": "formal/run_stage20f_gate_equiv.py",
+    "modules_proven_equivalent": 21,
+    "total_synthesizable_modules": 21,
+    "gate_netlist_cells": 296502,
+    "equiv_miter_cells_proven": 9785,
+    "unproven_equiv_cells": 0,
+    "status": "21_OF_21_PROVEN_QED"
+  },
+  "hardware_mutation_testing_150": {
+    "script": "formal/run_stage29_150mutants.py",
+    "report": "results/stage29_150mutants_report.json",
+    "mutants_injected": 150,
+    "mutants_killed": 150,
+    "survived_mutants": 0,
+    "mutation_kill_score_pct": 100.0,
+    "status": "100_PCT_KILLED"
+  },
+  "cumulative_verification_volume": {
+    "cumulative_soak_cycles": 60000000,
+    "cumulative_uvm_and_soak_transactions": 145972747,
+    "total_errors": 0
+  }
+}

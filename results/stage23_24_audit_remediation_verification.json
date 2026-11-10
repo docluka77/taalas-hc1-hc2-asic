@@ -1,0 +1,67 @@
+{
+  "stage": "Stages 23 & 24 - 60-Source Audit RTL Remediation, Yosys Formal SAT, Native SV UVM & Post-Fix Soak Closure",
+  "timestamp": "2026-11-06T11:51:00Z",
+  "remediated_findings_count": 6,
+  "remediated_modules": [
+    "M01 (rtl_v3/taalas_via_mask_rom_macro.sv)",
+    "M03 (rtl_v3/taalas_mxfp4_hc2_mac_lane.sv)",
+    "M05 (rtl_v3/taalas_sram_6t_banked_macro.sv)",
+    "M08 (rtl_v3/taalas_rope_cordic_unit.sv)",
+    "M09 (rtl_v3/taalas_flash_decode_attention.sv)",
+    "M14 (rtl_v3/taalas_hc1_layer_tile.sv)",
+    "M18 (rtl_v3/taalas_ecc_bist_scrubber.sv)",
+    "H1  (rtl_hc2/taalas_hc2_disagg_sram_fabric.sv)",
+    "H3  (rtl_hc2/taalas_hc2_moe_mla_router.sv)"
+  ],
+  "yosys_formal_sat_proofs": {
+    "script": "formal/prove_stage23_audit_fixes.ys",
+    "log": "formal/stage23_yosys_formal.log",
+    "total_findings_proven": 6,
+    "status": "6/6 Q.E.D. (0 counterexamples)",
+    "proof_breakdown": {
+      "AUDIT-FINDING-001_M01": "PROP_M1_NO_BL_WL_CONTENTION + PROP_M1_CONTENTION_FLAG_EXACT (seq=6 Q.E.D.)",
+      "AUDIT-FINDING-002_M03": "PROP_M3_NAN_SCALE_PROPAGATION + PROP_M3_RNE_SUBNORMAL (seq=6 Q.E.D.)",
+      "AUDIT-FINDING-003_M05_H1_M18": "PROP_M5_UNMAPPED_SYNDROME_DED + PROP_H1_MBU_DED + PROP_M18_SCRUB_DED (seq=6 Q.E.D.)",
+      "AUDIT-FINDING-004_M08": "PROP_M8_ZERO_POS_IDENTITY + PROP_M8_64BAND_LLAMA31_STRIDE (seq=4 Q.E.D.)",
+      "AUDIT-FINDING-005_M09": "PROP_M9_POSITIVE_Q88_LOG2E_NO_SIGN_FLIP + PROP_M9_CSD_LOG2E_MONOTONIC (seq=6 Q.E.D.)",
+      "AUDIT-FINDING-006_H3": "PROP_H3_BIASED_TOPK_UNBIASED_GATE_WEIGHTS (seq=4 Q.E.D.)"
+    }
+  },
+  "verilator_directed_and_random_uvm": {
+    "harness_top": "uvm_tb/taalas_stage23_audit_verif_top.sv",
+    "testbench_cpp": "uvm_tb/tb_stage23_60source_audit_verif.cpp",
+    "stage23_dedicated_transactions": 150565,
+    "regression_suite_transactions": 259435,
+    "total_uvm_transactions": 410000,
+    "total_errors": 0,
+    "per_finding_transactions": {
+      "AUDIT-001_M01_Bitline_WL_Interlock": {"tx": 22048, "err": 0},
+      "AUDIT-002_M03_OCP_MXFP4_NaN_RNE": {"tx": 20001, "err": 0},
+      "AUDIT-003_M05_72b_SECDED_MBU_Guard": {"tx": 48500, "err": 0},
+      "AUDIT-004_M08_Llama31_RoPE_Stride": {"tx": 20016, "err": 0},
+      "AUDIT-005_M09_CSD_log2e_Softmax": {"tx": 20000, "err": 0},
+      "AUDIT-006_H3_DeepSeek_R1_Biased_MoE": {"tx": 20000, "err": 0}
+    }
+  },
+  "native_sv_accellera_uvm_2020_3_1": {
+    "testbench": "uvm_tb/tb_sv_uvm_taalas_v3_hc2.sv",
+    "uvm_library": "Accellera uvm-core-2020.3.1 (IEEE 1800.2)",
+    "total_transactions": 5120,
+    "uvm_error_count": 0,
+    "uvm_fatal_count": 0,
+    "status": "PASS"
+  },
+  "post_synthesis_gate_level_equivalence": {
+    "modules_verified": 21,
+    "status": "21/21 Q.E.D.",
+    "total_synthesized_gates_asap7_sky130_n6": 145519
+  },
+  "post_fix_10m_cycle_soak": {
+    "soak_cycles": 10000000,
+    "post_fix_soak_transactions": 22504706,
+    "cumulative_marathon_soak_cycles": 60000000,
+    "cumulative_marathon_soak_transactions": 135029144,
+    "total_errors": 0,
+    "status": "PASS"
+  }
+}

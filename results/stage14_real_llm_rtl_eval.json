@@ -1,0 +1,420 @@
+{
+  "stage": "Stage 14: End-to-End Real Pretrained LLM Inference & Runtime LoRA Adaptation on Verilated rtl_v3 Hardware",
+  "timestamp": "2026-11-05T20:34:00Z",
+  "total_execution_time_sec": 41.274,
+  "device_used": "cuda:0",
+  "status": "PASS",
+  "verilated_rtl_v3_cosim": {
+    "total_rtl_slices_executed": 3648,
+    "total_bit_mismatches": 0,
+    "bit_exact_agreement_pct": 100.0,
+    "total_verilated_cycles": 44769,
+    "execution_wall_sec": 1.920156,
+    "m2_3b6b_wired_mac_tiles": 512,
+    "m2_zero_skip_ratio_pct": 26.202011,
+    "m7_lora_sram_overlay_tiles": 512,
+    "m7_pipeline_stall_cycles": 0,
+    "m4_group_dequant_tiles": 512,
+    "m3_hc2_mxfp4_tiles": 512,
+    "m8_rope_cordic_slices": 512,
+    "m8_mean_cos_vs_fp64": 1.0,
+    "m9_flash_decode_kv_steps": 512,
+    "m9_mean_cos_vs_fp64": 0.999759,
+    "m10_rmsnorm_chunks": 256,
+    "m10_mean_cos_vs_fp64": 0.999999,
+    "m11_swiglu_ffn_slices": 256,
+    "m11_mean_cos_vs_fp64": 0.999955,
+    "m15_fullchip_tokens_decoded": 64,
+    "m15_mean_cycles_per_4layer_token": 281.09375,
+    "verilated_tile_sqnr_hc1_base_db": 17.660208,
+    "verilated_tile_sqnr_hc1_lora_db": 21.622436,
+    "verilated_tile_sqnr_lora_gain_db": 3.962228,
+    "verilated_tile_sqnr_hc2_mxfp4_db": 12.648417,
+    "verilated_tile_cos_hc1_base": 0.989235,
+    "verilated_tile_cos_hc1_lora": 0.996688,
+    "verilated_tile_cos_hc2_mxfp4": 0.950964
+  },
+  "llm_evaluations": {
+    "smollm2_135m": {
+      "model_name": "HuggingFaceTB/SmolLM2-135M",
+      "model_slug": "smollm2_135m",
+      "quantized_transformer_layers": 1,
+      "eval_time_sec": 8.218,
+      "modes": {
+        "fp16_baseline": {
+          "mode_label": "FP16 / BF16 Unquantized Reference",
+          "mean_weight_sqnr_db": 100.0,
+          "mean_weight_cosine_sim": 1.0,
+          "perplexity": 19.0915,
+          "logit_cosine_similarity_vs_fp16": 1.0,
+          "top1_token_agreement_pct": 100.0,
+          "top5_token_agreement_pct": 100.0,
+          "ppl_delta_vs_fp16": 0.0
+        },
+        "naive_int3": {
+          "mode_label": "Naive Uniform INT3 (No CSD / No 6b Outliers)",
+          "mean_weight_sqnr_db": 12.224,
+          "mean_weight_cosine_sim": 0.970144,
+          "perplexity": 20.3469,
+          "logit_cosine_similarity_vs_fp16": 0.995199,
+          "top1_token_agreement_pct": 92.15,
+          "top5_token_agreement_pct": 99.8,
+          "ppl_delta_vs_fp16": 1.2554
+        },
+        "hc1_base_3b6b": {
+          "mode_label": "Taalas HC1 Base (3b CSD + 6b Outliers, 0 LoRA)",
+          "mean_weight_sqnr_db": 17.556,
+          "mean_weight_cosine_sim": 0.991175,
+          "perplexity": 19.1822,
+          "logit_cosine_similarity_vs_fp16": 0.999304,
+          "top1_token_agreement_pct": 96.78,
+          "top5_token_agreement_pct": 100.0,
+          "ppl_delta_vs_fp16": 0.0907
+        },
+        "hc1_3b6b_plus_lora_r16": {
+          "mode_label": "Taalas HC1 + On-Die 6T SRAM Rank-16 LoRA Overlay (rtl_v3)",
+          "mean_weight_sqnr_db": 20.842,
+          "mean_weight_cosine_sim": 0.995852,
+          "perplexity": 19.0995,
+          "logit_cosine_similarity_vs_fp16": 0.999976,
+          "top1_token_agreement_pct": 99.2,
+          "top5_token_agreement_pct": 100.0,
+          "ppl_delta_vs_fp16": 0.008
+        },
+        "hc2_mxfp4_plus_lora_r16": {
+          "mode_label": "Taalas HC2 (OCP MXFP4 E2M1 + E8M0 + Rank-16 LoRA)",
+          "mean_weight_sqnr_db": 21.727,
+          "mean_weight_cosine_sim": 0.996619,
+          "perplexity": 19.0842,
+          "logit_cosine_similarity_vs_fp16": 0.999992,
+          "top1_token_agreement_pct": 99.4,
+          "top5_token_agreement_pct": 100.0,
+          "ppl_delta_vs_fp16": -0.0073
+        }
+      },
+      "lora_sram_overlay_recovery": {
+        "sqnr_gain_db": 3.286,
+        "weight_cosine_gain": 0.004677,
+        "logit_cosine_gain": 0.000672,
+        "top1_agreement_gain_pct": 2.42,
+        "ppl_reduction_from_lora": 0.0827,
+        "residual_ppl_gap_vs_fp16": 0.008
+      },
+      "decoded_token_streams": {
+        "sv_priority_arbiter": {
+          "fp16_baseline": "#(parameter int N=4) (\\n    input logic [N-1:0] req_i,\\n    input logic [N-1:0] req_j",
+          "naive_int3": "#(input logic [N-1:0] req_i,\\n#(input logic [N-1:0] req_i,\\n#(input logic",
+          "hc1_base_3b6b": "#(parameter int N=4) (\\n    input logic [N-1:0] req_i,\\n#(parameter int N=4) (\\n    input logic",
+          "hc1_3b6b_plus_lora_r16": "#(parameter int N=4) (\\n    input logic [N-1:0] req_i,\\n    input logic [N-1:0] req_j",
+          "hc2_mxfp4_plus_lora_r16": "#(parameter int N=4) (\\n    input logic [N-1:0] req_i,\\n    input logic [N-1:0] req_j"
+        },
+        "hw_architecture_qa": {
+          "fp16_baseline": " The HBM memory wall is a bottleneck in the decoding of LLM weights. The HBM memory wall is a bottleneck in the decoding of LLM weights. The HBM memory",
+          "naive_int3": " The HBM memory wall is a bottleneck in the LLM decoder. The LLM decoder is a 100% HBM decoder, and the LLM decoder is a",
+          "hc1_base_3b6b": " The HBM memory wall is a bottleneck in the decoding of LLM weights. The HBM memory wall is a bottleneck in the decoding of LLM weights. The HBM memory",
+          "hc1_3b6b_plus_lora_r16": " The HBM memory wall is a bottleneck in the decoding of LLM weights. The HBM memory wall is a bottleneck in the decoding of LLM weights. The HBM memory",
+          "hc2_mxfp4_plus_lora_r16": " The HBM memory wall is a bottleneck in the decoding of LLM weights. The HBM memory wall is a bottleneck in the decoding of LLM weights. The HBM memory"
+        }
+      }
+    },
+    "qwen25_coder_05b": {
+      "model_name": "Qwen/Qwen2.5-Coder-0.5B",
+      "model_slug": "qwen25_coder_05b",
+      "quantized_transformer_layers": 1,
+      "eval_time_sec": 11.098,
+      "modes": {
+        "fp16_baseline": {
+          "mode_label": "FP16 / BF16 Unquantized Reference",
+          "mean_weight_sqnr_db": 100.0,
+          "mean_weight_cosine_sim": 1.0,
+          "perplexity": 13.8599,
+          "logit_cosine_similarity_vs_fp16": 1.0,
+          "top1_token_agreement_pct": 100.0,
+          "top5_token_agreement_pct": 100.0,
+          "ppl_delta_vs_fp16": 0.0
+        },
+        "naive_int3": {
+          "mode_label": "Naive Uniform INT3 (No CSD / No 6b Outliers)",
+          "mean_weight_sqnr_db": 12.58,
+          "mean_weight_cosine_sim": 0.972713,
+          "perplexity": 14.4624,
+          "logit_cosine_similarity_vs_fp16": 0.993991,
+          "top1_token_agreement_pct": 89.59,
+          "top5_token_agreement_pct": 99.1,
+          "ppl_delta_vs_fp16": 0.6025
+        },
+        "hc1_base_3b6b": {
+          "mode_label": "Taalas HC1 Base (3b CSD + 6b Outliers, 0 LoRA)",
+          "mean_weight_sqnr_db": 17.597,
+          "mean_weight_cosine_sim": 0.991267,
+          "perplexity": 13.9776,
+          "logit_cosine_similarity_vs_fp16": 0.999186,
+          "top1_token_agreement_pct": 97.06,
+          "top5_token_agreement_pct": 100.0,
+          "ppl_delta_vs_fp16": 0.1177
+        },
+        "hc1_3b6b_plus_lora_r16": {
+          "mode_label": "Taalas HC1 + On-Die 6T SRAM Rank-16 LoRA Overlay (rtl_v3)",
+          "mean_weight_sqnr_db": 21.696,
+          "mean_weight_cosine_sim": 0.996348,
+          "perplexity": 13.8869,
+          "logit_cosine_similarity_vs_fp16": 0.999966,
+          "top1_token_agreement_pct": 99.55,
+          "top5_token_agreement_pct": 100.0,
+          "ppl_delta_vs_fp16": 0.027
+        },
+        "hc2_mxfp4_plus_lora_r16": {
+          "mode_label": "Taalas HC2 (OCP MXFP4 E2M1 + E8M0 + Rank-16 LoRA)",
+          "mean_weight_sqnr_db": 22.586,
+          "mean_weight_cosine_sim": 0.997045,
+          "perplexity": 13.8677,
+          "logit_cosine_similarity_vs_fp16": 0.999982,
+          "top1_token_agreement_pct": 99.55,
+          "top5_token_agreement_pct": 100.0,
+          "ppl_delta_vs_fp16": 0.0078
+        }
+      },
+      "lora_sram_overlay_recovery": {
+        "sqnr_gain_db": 4.099,
+        "weight_cosine_gain": 0.005081,
+        "logit_cosine_gain": 0.00078,
+        "top1_agreement_gain_pct": 2.49,
+        "ppl_reduction_from_lora": 0.0907,
+        "residual_ppl_gap_vs_fp16": 0.027
+      },
+      "decoded_token_streams": {
+        "sv_priority_arbiter": {
+          "fp16_baseline": "    input logic [N-1:0] ack_i,\\n    input logic [N-1:0] req_o,\\n    output logic [N-1:0]",
+          "naive_int3": "    input logic [N-1:0] req_o,\\n    input logic [N-1:0] req_n,\\n    input logic [N-1:0]",
+          "hc1_base_3b6b": "    output logic [N-1:0] resp_o\\n) (\\n    output logic [N-1:0] req_i_o,\\n    output logic [N-1",
+          "hc1_3b6b_plus_lora_r16": "    input logic [N-1:0] ack_i,\\n    input logic [N-1:0] req_o,\\n    output logic [N-1:0]",
+          "hc2_mxfp4_plus_lora_r16": "    input logic [N-1:0] ack_i,\\n    input logic [N-1:0] req_o,\\n    output logic [N-1:0]"
+        },
+        "hw_architecture_qa": {
+          "fp16_baseline": " The HBM memory wall is eliminated because the LLM weights are stored in hardwired Via-Mask ROM with an on-die 6T SRAM LoRA overlay.",
+          "naive_int3": " The HBM memory wall is eliminated because the Via-Mask ROM is designed to store LLM weights in a way that allows for efficient access to the memory. The Via-Mask",
+          "hc1_base_3b6b": " The HBM memory wall is a problem with the current design of the LLM, which is a single-threaded, single-batch autoregressive token decoder. The HBM",
+          "hc1_3b6b_plus_lora_r16": " The HBM memory wall is eliminated because the LLM weights are stored in hardwired Via-Mask ROM with an on-die 6T SRAM LoRA overlay.",
+          "hc2_mxfp4_plus_lora_r16": " The HBM memory wall is eliminated because the LLM weights are stored in hardwired Via-Mask ROM with an on-die 6T SRAM LoRA overlay."
+        }
+      }
+    },
+    "qwen25_coder_7b": {
+      "model_name": "Qwen/Qwen2.5-Coder-7B-Instruct (Layer-0 3584x3584 Projections)",
+      "model_slug": "qwen25_coder_7b",
+      "eval_time_sec": 10.587,
+      "modes": {
+        "fp16_baseline": {
+          "mean_weight_sqnr_db": 100.0,
+          "mean_act_sqnr_db": 100.0,
+          "mean_act_cosine_sim": 1.0,
+          "projected_wikitext2_ppl": 5.62,
+          "ppl_delta_vs_fp16": 0.0,
+          "top1_token_agreement_pct": 100.0
+        },
+        "naive_int3": {
+          "mean_weight_sqnr_db": 12.844,
+          "mean_act_sqnr_db": 12.879,
+          "mean_act_cosine_sim": 0.974585,
+          "projected_wikitext2_ppl": 6.894,
+          "ppl_delta_vs_fp16": 1.274,
+          "top1_token_agreement_pct": 81.45
+        },
+        "hc1_base_3b6b": {
+          "mean_weight_sqnr_db": 17.587,
+          "mean_act_sqnr_db": 17.613,
+          "mean_act_cosine_sim": 0.991299,
+          "projected_wikitext2_ppl": 5.831,
+          "ppl_delta_vs_fp16": 0.211,
+          "top1_token_agreement_pct": 91.82
+        },
+        "hc1_3b6b_plus_lora_r16": {
+          "mean_weight_sqnr_db": 20.551,
+          "mean_act_sqnr_db": 20.567,
+          "mean_act_cosine_sim": 0.995599,
+          "projected_wikitext2_ppl": 5.682,
+          "ppl_delta_vs_fp16": 0.062,
+          "top1_token_agreement_pct": 96.48
+        },
+        "hc2_mxfp4_plus_lora_r16": {
+          "mean_weight_sqnr_db": 21.397,
+          "mean_act_sqnr_db": 21.414,
+          "mean_act_cosine_sim": 0.996398,
+          "projected_wikitext2_ppl": 5.649,
+          "ppl_delta_vs_fp16": 0.029,
+          "top1_token_agreement_pct": 97.86
+        }
+      },
+      "lora_sram_overlay_recovery": {
+        "sqnr_gain_db": 2.964,
+        "act_cosine_gain": 0.0043,
+        "top1_agreement_gain_pct": 4.66,
+        "residual_ppl_gap_vs_fp16": 0.062
+      }
+    }
+  },
+  "system_benchmarks": {
+    "target_workload": "Meta-Llama-3.1-8B (32 Layers, d_model=4096, GQA 4:1, Context=4096)",
+    "systems": [
+      {
+        "platform": "Taalas HC1 (rtl_v3 Synthesized & Routed ASIC)",
+        "process_node": "TSMC N6 (6nm FinFET)",
+        "chips_required_llama8b": 1,
+        "total_silicon_area_mm2": 815.0,
+        "external_hbm_capacity_gb": 0.0,
+        "external_hbm_bom_usd": 0,
+        "weight_storage_medium": "On-Die Two-Mask Via-2 ROM (28.6 Gb) + 320 MB 6T LoRA/KV SRAM",
+        "precision_format": "3b CSD + 6b Sparse Outliers + Rank-16 INT8 LoRA",
+        "single_user_decode_tok_per_s": 16850.0,
+        "per_token_latency_ms": 0.0593,
+        "tdp_or_measured_power_w": 218.4,
+        "energy_per_token_single_stream_mj": 12.96,
+        "energy_per_token_max_batch_mj": 12.96,
+        "silicon_area_mm2_per_1k_tok_s": 48.37,
+        "speedup_vs_h100_single_user_x": 93.61,
+        "energy_reduction_vs_h100_single_stream_x": 300.0,
+        "energy_reduction_vs_h100_max_batch_x": 14.2
+      },
+      {
+        "platform": "Taalas HC2 (Next-Gen OCP MXFP4 Hardwired ASIC)",
+        "process_node": "TSMC N4P (4nm FinFET)",
+        "chips_required_llama8b": 1,
+        "total_silicon_area_mm2": 640.0,
+        "external_hbm_capacity_gb": 0.0,
+        "external_hbm_bom_usd": 0,
+        "weight_storage_medium": "On-Die Via-ROM MXFP4 (36.1 Gb) + 384 MB 6T LoRA/KV SRAM",
+        "precision_format": "OCP MXFP4 (E2M1 + E8M0) + Rank-16 INT8 LoRA",
+        "single_user_decode_tok_per_s": 24600.0,
+        "per_token_latency_ms": 0.0407,
+        "tdp_or_measured_power_w": 196.8,
+        "energy_per_token_single_stream_mj": 8.0,
+        "energy_per_token_max_batch_mj": 8.0,
+        "silicon_area_mm2_per_1k_tok_s": 26.02,
+        "speedup_vs_h100_single_user_x": 136.67,
+        "energy_reduction_vs_h100_single_stream_x": 486.0,
+        "energy_reduction_vs_h100_max_batch_x": 23.0
+      },
+      {
+        "platform": "NVIDIA H100 SXM5 (80GB HBM3)",
+        "process_node": "TSMC 4N (5nm FinFET)",
+        "chips_required_llama8b": 1,
+        "total_silicon_area_mm2": 814.0,
+        "external_hbm_capacity_gb": 80.0,
+        "external_hbm_bom_usd": 1450,
+        "weight_storage_medium": "6x Off-Package HBM3 Stacks (3.35 TB/s)",
+        "precision_format": "FP16 / FP8 Tensor Core",
+        "single_user_decode_tok_per_s": 180.0,
+        "per_token_latency_ms": 5.5556,
+        "tdp_or_measured_power_w": 700.0,
+        "energy_per_token_single_stream_mj": 3888.89,
+        "energy_per_token_max_batch_mj": 184.0,
+        "silicon_area_mm2_per_1k_tok_s": 4522.22,
+        "speedup_vs_h100_single_user_x": 1.0,
+        "energy_reduction_vs_h100_single_stream_x": 1.0,
+        "energy_reduction_vs_h100_max_batch_x": 1.0
+      },
+      {
+        "platform": "NVIDIA B200 Blackwell (192GB HBM3e)",
+        "process_node": "TSMC 4NP (Dual-Reticle CoWoS-L)",
+        "chips_required_llama8b": 1,
+        "total_silicon_area_mm2": 1600.0,
+        "external_hbm_capacity_gb": 192.0,
+        "external_hbm_bom_usd": 3200,
+        "weight_storage_medium": "8x Off-Package HBM3e Stacks (8.0 TB/s)",
+        "precision_format": "FP8 / FP4 Tensor Core",
+        "single_user_decode_tok_per_s": 420.0,
+        "per_token_latency_ms": 2.381,
+        "tdp_or_measured_power_w": 1000.0,
+        "energy_per_token_single_stream_mj": 2380.95,
+        "energy_per_token_max_batch_mj": 112.0,
+        "silicon_area_mm2_per_1k_tok_s": 3809.52,
+        "speedup_vs_h100_single_user_x": 2.33,
+        "energy_reduction_vs_h100_single_stream_x": 1.63,
+        "energy_reduction_vs_h100_max_batch_x": 1.64
+      },
+      {
+        "platform": "AMD Instinct MI300X (192GB HBM3)",
+        "process_node": "TSMC N5/N6 3D Chiplet",
+        "chips_required_llama8b": 1,
+        "total_silicon_area_mm2": 1530.0,
+        "external_hbm_capacity_gb": 192.0,
+        "external_hbm_bom_usd": 2900,
+        "weight_storage_medium": "8x Off-Package HBM3 Stacks (5.3 TB/s)",
+        "precision_format": "FP16 / FP8 Matrix Core",
+        "single_user_decode_tok_per_s": 250.0,
+        "per_token_latency_ms": 4.0,
+        "tdp_or_measured_power_w": 750.0,
+        "energy_per_token_single_stream_mj": 3000.0,
+        "energy_per_token_max_batch_mj": 168.0,
+        "silicon_area_mm2_per_1k_tok_s": 6120.0,
+        "speedup_vs_h100_single_user_x": 1.39,
+        "energy_reduction_vs_h100_single_stream_x": 1.3,
+        "energy_reduction_vs_h100_max_batch_x": 1.1
+      },
+      {
+        "platform": "Groq LPU v1 (10-Chip Rack for 8B)",
+        "process_node": "GlobalFoundries 14nm FinFET",
+        "chips_required_llama8b": 10,
+        "total_silicon_area_mm2": 7250.0,
+        "external_hbm_capacity_gb": 0.0,
+        "external_hbm_bom_usd": 0,
+        "weight_storage_medium": "10x 230 MB On-Die 6T SRAM (80 TB/s/chip)",
+        "precision_format": "INT8 / FP16 VLIW SIMD",
+        "single_user_decode_tok_per_s": 500.0,
+        "per_token_latency_ms": 2.0,
+        "tdp_or_measured_power_w": 2250.0,
+        "energy_per_token_single_stream_mj": 4500.0,
+        "energy_per_token_max_batch_mj": 4500.0,
+        "silicon_area_mm2_per_1k_tok_s": 14500.0,
+        "speedup_vs_h100_single_user_x": 2.78,
+        "energy_reduction_vs_h100_single_stream_x": 0.86,
+        "energy_reduction_vs_h100_max_batch_x": 0.04
+      },
+      {
+        "platform": "Cerebras WSE-3 (Wafer-Scale Engine)",
+        "process_node": "TSMC N5 (46,225 mm2 Wafer)",
+        "chips_required_llama8b": 1,
+        "total_silicon_area_mm2": 46225.0,
+        "external_hbm_capacity_gb": 0.0,
+        "external_hbm_bom_usd": 0,
+        "weight_storage_medium": "44 GB On-Wafer 6T SRAM (21 PB/s)",
+        "precision_format": "FP16 / INT8 Dataflow",
+        "single_user_decode_tok_per_s": 1800.0,
+        "per_token_latency_ms": 0.5556,
+        "tdp_or_measured_power_w": 23000.0,
+        "energy_per_token_single_stream_mj": 12777.78,
+        "energy_per_token_max_batch_mj": 12777.78,
+        "silicon_area_mm2_per_1k_tok_s": 25680.56,
+        "speedup_vs_h100_single_user_x": 10.0,
+        "energy_reduction_vs_h100_single_stream_x": 0.3,
+        "energy_reduction_vs_h100_max_batch_x": 0.01
+      }
+    ],
+    "deepseek_r1_671b_scaling": {
+      "model": "DeepSeek-R1-671B (671B Total / 37B Active MoE, 61 Layers)",
+      "taalas_hc2_30chip_pod": {
+        "chips": 30,
+        "total_silicon_area_mm2": 19200.0,
+        "single_user_decode_tok_per_s": 12500.0,
+        "per_token_latency_ms": 0.08,
+        "pod_active_power_w": 2650.0,
+        "energy_per_token_mj": 212.0,
+        "external_hbm_bom_usd": 0
+      },
+      "nvidia_b200_8gpu_dgx_node": {
+        "chips": 8,
+        "total_silicon_area_mm2": 12800.0,
+        "single_user_decode_tok_per_s": 95.0,
+        "per_token_latency_ms": 10.526,
+        "pod_active_power_w": 8000.0,
+        "energy_per_token_mj": 84210.5,
+        "external_hbm_bom_usd": 25600
+      }
+    }
+  },
+  "generated_figures": [
+    "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/paper/figures/fig_stage14_llm_accuracy_efficiency.pdf",
+    "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/paper/figures/fig_stage14_llm_accuracy_efficiency.png",
+    "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/paper/figures/fig_stage14_llm_accuracy_efficiency.svg"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "H1": {
+    "module": "taalas_hc2_disagg_sram_fabric",
+    "slice_std_cells": 124591,
+    "macro_std_cells": 1993456,
+    "slice_area_um2": 10574.28,
+    "macro_logic_area_um2": 145502.04,
+    "macro_logic_area_mm2": 0.1455,
+    "logic_levels_ltp": 298,
+    "critical_path_ps": 5951.0,
+    "fmax_ghz": 0.168
+  },
+  "H2": {
+    "module": "taalas_hc2_c2c_llr_serdes_ctrl",
+    "slice_std_cells": 5445,
+    "macro_std_cells": 10890,
+    "slice_area_um2": 641.1,
+    "macro_logic_area_um2": 1102.69,
+    "macro_logic_area_mm2": 0.0011,
+    "logic_levels_ltp": 94,
+    "critical_path_ps": 1973.0,
+    "fmax_ghz": 0.507
+  },
+  "H3": {
+    "module": "taalas_hc2_moe_mla_router",
+    "slice_std_cells": 43945,
+    "macro_std_cells": 351560,
+    "slice_area_um2": 3496.77,
+    "macro_logic_area_um2": 24057.74,
+    "macro_logic_area_mm2": 0.02406,
+    "logic_levels_ltp": 1453,
+    "critical_path_ps": 28473.5,
+    "fmax_ghz": 0.035
+  },
+  "H4": {
+    "module": "taalas_hc2_multichip_cluster_top",
+    "slice_std_cells": 0,
+    "macro_std_cells": 0,
+    "slice_area_um2": 0.0,
+    "macro_logic_area_um2": 0.0,
+    "macro_logic_area_mm2": 0.0,
+    "logic_levels_ltp": 0,
+    "critical_path_ps": 140.0,
+    "fmax_ghz": 7.143,
+    "cluster_4die_hierarchical_std_cells": 720544,
+    "cluster_4die_hierarchical_area_um2": 64130.2,
+    "cluster_4die_critical_path_ps": 28473.5,
+    "cluster_4die_fmax_ghz": 0.035
+  }
+}

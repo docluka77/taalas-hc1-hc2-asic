@@ -1,0 +1,13 @@
+# =============================================================================
+# Stage 20B Yosys Formal SAT Proof Script — All-Digital PVT/Thermal PID DVFS (M19)
+# Mathematically proves across 16 sequential clock cycles (sat -seq 16):
+#   1. PROP_M19_BREAK_BEFORE_MAKE_NO_GLITCH ($onehot0(clk_path_en_o) & zero-interlock)
+#   2. PROP_M19_ANTI_WINDUP_BOUND (pid_integ_q in [INTEG_MIN, INTEG_MAX])
+#   3. PROP_M19_THERMAL_TRIP_SAFETY (temp >= 95.0 C -> IRQ & P3_THROTTLE_700MHZ)
+# =============================================================================
+
+design -reset
+read_verilog -sv -formal rtl_v3/taalas_dvfs_pvt_controller.sv
+prep -top taalas_dvfs_pvt_controller
+memory_map; async2sync; dffunmap; setundef -undriven -anyseq; opt -full
+sat -verify -seq 16 -set-init-zero -prove-asserts

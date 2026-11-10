@@ -1,0 +1,50 @@
+# Verilator & UVM Simulation Build Artifacts
+obj_dir*/
+uvm_tb/obj_*/
+uvm_tb/*.dat
+uvm_tb/*.vcd
+uvm_tb/*.fst
+uvm_tb/*.log
+uvm_tb/cov_annotated/
+
+# Python Bytecode & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Yosys Formal & Synthesis Intermediate Logs / Netlist Dumps
+formal/*.log
+formal/equiv_work*/
+formal/mutant_work*/
+synth/*.log
+synth/netlists*/
+synth/*_synth.v
+
+# OpenROAD Large Generated DEF / SPEF / ODB Dumps (Scripts & JSON Telemetry Tracked)
+pnr/*_route.def
+pnr/*.spef
+pnr/*.odb
+pnr/*.log
+pnr/reports/
+
+# Results Directory Raw Logs (All 37 Structured *.json Ledgers Tracked)
+results/*.log
+results/stage14_rtl_stimulus_vectors.txt
+
+# LaTeX Intermediate Build Files (Keep .tex, .pdf, and figures/*.pdf, *.png)
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.toc
+paper/*.bbl
+paper/*.blg
+paper/*.synctex.gz
+paper/figures/*.svg
+
+# OS & Editor Files
+.DS_Store
+Thumbs.db
+*.swp
+*~

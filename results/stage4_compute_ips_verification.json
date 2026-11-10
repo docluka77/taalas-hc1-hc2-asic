@@ -1,0 +1,38 @@
+{
+  "stage": "Stage 4: Hardwired Compute Fabric IP RTL & Verification",
+  "verilator_lint_clean": true,
+  "yosys_formal_sat_proven": true,
+  "total_uvm_transactions": 12000,
+  "total_uvm_passed": 12000,
+  "total_uvm_failed": 0,
+  "total_sim_cycles": 36038,
+  "modules": {
+    "taalas_3b6b_wired_mac_array": {
+      "transactions": 3000,
+      "passed": 3000,
+      "failed": 0,
+      "zero_skip_power_savings_pct": 54.63,
+      "formal_csd_equivalence": "PROVEN_QED_0_ULP"
+    },
+    "taalas_mxfp4_hc2_mac_lane": {
+      "transactions": 3000,
+      "passed": 3000,
+      "failed": 0,
+      "formal_mxfp4_int_exact": "PROVEN_QED_0_ULP"
+    },
+    "taalas_group_dequant_scale_unit": {
+      "transactions": 3000,
+      "passed": 3000,
+      "failed": 0,
+      "saturation_events_verified": 1420,
+      "formal_dequant_exact": "PROVEN_QED_0_ULP"
+    },
+    "taalas_lora_sram_overlay_engine": {
+      "transactions": 3000,
+      "passed": 3000,
+      "failed": 0,
+      "max_pipeline_stall_cycles": 0,
+      "formal_zero_stall_invariant": "PROVEN_QED_0_STALL"
+    }
+  }
+}

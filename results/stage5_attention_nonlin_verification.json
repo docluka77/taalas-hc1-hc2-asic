@@ -1,0 +1,39 @@
+{
+  "stage": 5,
+  "subsystem": "Attention & Non-Linearity Subsystem IPs (M8, M9, M10, M11)",
+  "verilator_lint_errors": 0,
+  "verilator_lint_warnings": 0,
+  "yosys_formal_sat_all_4_modules_proven_qed": true,
+  "total_uvm_transactions": 12000,
+  "total_uvm_errors": 0,
+  "m8_rope_cordic_unit": {
+    "transactions": 3000,
+    "zero_pos_identity_matches": "500/500",
+    "mean_cosine_similarity": 1.000000,
+    "mean_norm_relative_error": 0.000694,
+    "errors": 0
+  },
+  "m9_flash_decode_attention": {
+    "sequences": 200,
+    "kv_token_steps": 3200,
+    "monotonic_max_checks": 12800,
+    "strict_positive_denom_checks": 12800,
+    "mean_cosine_similarity_vs_fp64": 0.999793,
+    "errors": 0
+  },
+  "m10_rmsnorm_engine": {
+    "vectors": 700,
+    "streaming_chunks": 2800,
+    "zero_div_floor_safe_checks": 700,
+    "mean_cosine_similarity_vs_fp64": 0.999999,
+    "mean_inv_rms_relative_error": 0.004421,
+    "errors": 0
+  },
+  "m11_swiglu_ffn_pipe": {
+    "transactions": 3000,
+    "boundary_exact_checks": 300,
+    "mean_silu_cosine_similarity": 0.999998,
+    "mean_hadamard_cosine_similarity": 0.999997,
+    "errors": 0
+  }
+}

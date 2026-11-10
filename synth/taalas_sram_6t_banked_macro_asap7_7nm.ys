@@ -1,0 +1,11 @@
+read_liberty -lib /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib;
+read_verilog -sv -DYOSYS -defer /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl/taalas_sram_6t_banked_macro.sv;
+hierarchy -check -top taalas_sram_6t_banked_macro -chparam NUM_BANKS 8 -chparam BANK_DEPTH 4 -chparam DATA_WIDTH 64 -chparam ECC_WIDTH 8 -chparam RAW_WIDTH 72;
+flatten;
+chformal -remove;
+proc; opt -fast; fsm; opt -fast; memory -nomap; opt_clean; opt -fast; techmap; opt -fast;
+ltp;
+dfflibmap -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib;
+abc -D 714 -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib -script +strash;scorr;dc2;strash;&get,-n;&dch,-f;&nf,{D};&put;buffer;upsize,{D};dnsize,{D};topo;stime,-p;print_stats;
+stat -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib;
+write_verilog -noattr -noexpr /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/netlists/taalas_sram_6t_banked_macro_asap7_7nm_netlist.v;

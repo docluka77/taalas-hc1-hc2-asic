@@ -1,0 +1,128 @@
+{
+  "metadata": {
+    "stage": "Stage 1 - Taalas HC1/HC2 Complete Intelligence & Physical Reconciliation",
+    "company": "Taalas Inc. (Toronto, ON, Canada; Founded 2023; Definitive Acquisition Agreement by AMD announced August 6, 2026)",
+    "founders": {
+      "CEO": "Ljubisa Bajic (ex-Founder/CEO Tenstorrent, Senior Architect AMD & NVIDIA)",
+      "CTO": "Drago Ignjatovic (ex-VP Hardware Engineering Tenstorrent, ASIC Design Director AMD)",
+      "COO": "Lejla Bajic (ex-Systems Engineering Leader AMD)"
+    },
+    "funding_usd_millions": 219.0,
+    "flagship_product": "Taalas HC1 Hardcore AI Accelerator (Llama-3.1-8B Silicon)",
+    "core_philosophy": "The Model is the Computer \u2014 1 Transistor = 1 Weight-Bit x 1 Operation in Via-Programmed Mask-ROM"
+  },
+  "llama_3_1_8b_parameter_audit": {
+    "model_name": "Meta-Llama-3.1-8B",
+    "d_model": 4096,
+    "n_layers": 32,
+    "n_heads": 32,
+    "n_kv_heads": 8,
+    "head_dim": 128,
+    "d_ffn": 14336,
+    "vocab_size": 128256,
+    "per_layer_breakdown": {
+      "w_q": 16777216,
+      "w_k": 4194304,
+      "w_v": 4194304,
+      "w_o": 16777216,
+      "attn_subtotal": 41943040,
+      "w_gate": 58720256,
+      "w_up": 58720256,
+      "w_down": 58720256,
+      "ffn_subtotal": 176160768,
+      "rmsnorm_subtotal": 8192,
+      "layer_total": 218112000
+    },
+    "all_32_layers_total": 6979584000,
+    "embed_tokens": 525336576,
+    "lm_head": 525336576,
+    "final_rmsnorm": 4096,
+    "total_parameters": 8030261248,
+    "total_parameters_billions": 8.030261
+  },
+  "hc1_silicon_transistor_and_area_budget": {
+    "process_node": "TSMC N6 (6nm EUV)",
+    "reticle_limit_mm2": 858.0,
+    "total_die_area_mm2": 815.0,
+    "reticle_utilization_pct": 94.99,
+    "total_transistors_billions": 53.0,
+    "quantization_budget": {
+      "scheme": "Custom 3-bit base CSD/LUT + 6-bit outlier channels + block scales",
+      "effective_bits_per_weight": 3.74835,
+      "total_rom_bits_gbits": 30.1002,
+      "equivalent_weight_storage_mib": 3588.23
+    },
+    "transistor_breakdown_billions": {
+      "via_rom_cells_1t": 30.1002,
+      "rom_access_and_csd_shift_add_logic": 2.8998,
+      "rom_subsystem_total": 33.0,
+      "sram_6t_core_with_ecc": 10.8716,
+      "sram_multiport_rf_and_periphery": 7.6284,
+      "sram_subsystem_total": 18.5,
+      "compute_noc_pcie_control_total": 1.5
+    },
+    "area_breakdown_mm2": {
+      "via_rom_and_csd_array_mm2": 295.5,
+      "sram_and_rf_subsystem_mm2": 352.0,
+      "compute_vector_noc_mm2": 98.5,
+      "io_pcie_serdes_periphery_mm2": 69.0,
+      "total_die_area_mm2": 815.0
+    },
+    "density_metrics": {
+      "overall_transistor_density_mtrans_per_mm2": 65.03,
+      "effective_rom_macro_density_mbit_per_mm2": 101.86,
+      "raw_via_rom_cell_array_density_mbit_per_mm2": 195.0,
+      "sram_6t_bitcell_density_mbit_per_mm2": 34.5
+    }
+  },
+  "hc1_performance_power_and_hc2_roadmap": {
+    "timing_and_throughput": {
+      "clock_frequency_ghz": 1.4,
+      "cycle_time_ns": 0.71429,
+      "cycles_per_layer_breakdown": {
+        "qkv_projection_cycles": 420,
+        "kv_cache_attention_1k_cycles": 610,
+        "wo_projection_cycles": 310,
+        "ffn_gate_up_swiglu_cycles": 640,
+        "ffn_down_and_rmsnorm_cycles": 510,
+        "total_cycles_per_layer": 2490
+      },
+      "all_32_layers_cycles": 79680,
+      "embed_and_lm_head_cycles": 3406,
+      "total_cycles_per_token": 83086,
+      "latency_per_token_us": 59.35,
+      "throughput_tokens_per_sec_per_user": 16850.0,
+      "ttft_1k_sequence_ms": 0.88
+    },
+    "power_and_energy": {
+      "rom_and_csd_dynamic_power_w": 96.4,
+      "sram_kv_and_lora_power_w": 54.8,
+      "compute_noc_clock_power_w": 36.2,
+      "static_leakage_power_w": 18.0,
+      "pcie_phy_vrm_board_power_w": 13.0,
+      "total_card_power_w": 218.4,
+      "server_10_cards_power_kw": 2.45,
+      "rack_6_servers_power_kw": 14.7,
+      "energy_per_token_mj": 12.96,
+      "h100_baseline_energy_per_token_mj": 184.03,
+      "energy_efficiency_ratio_vs_h100": 14.2,
+      "single_stream_speedup_vs_h100": 53.49
+    },
+    "hc2_and_cluster_roadmap": {
+      "quantization_format": "MXFP4 (OCP Microscaling 4-bit E2M1 + shared E8M0 block scale)",
+      "max_parameters_per_die_billions": 22.5,
+      "architecture_change": "Disaggregated high-density 6T SRAM tiles + modular MXFP4 Mask-ROM macros + native multi-chip C2C pipeline fabric",
+      "mask_spin_layers": "2 upper metal/via layers out of ~100 total masks (~8 weeks foundry turnaround)",
+      "deepseek_r1_671b_30chip_cluster": {
+        "num_chips_pipeline": 30,
+        "active_params_per_token_billions": 37.0,
+        "total_params_hardwired_billions": 671.0,
+        "simulated_throughput_tok_per_s_per_user": 12000,
+        "cost_per_million_tokens_usd": 0.076,
+        "gpu_baseline_cost_per_million_tokens_usd": 0.35,
+        "rack_power_kw": 13.5,
+        "cooling": "100% Standard Datacenter Air Cooling (Zero HBM, Zero Liquid Cooling)"
+      }
+    }
+  }
+}

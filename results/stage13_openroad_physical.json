@@ -1,0 +1,3019 @@
+{
+  "stage": "Stage 13: OpenROAD Physical Implementation (Floorplan, Placement, CTS, Detailed Routing, SPEF RCX, STA, & PDNSim IR Drop)",
+  "timestamp": "2026-11-05T19:00:25Z",
+  "openroad_binary": "/home/chenpei1/ISPD26-Contest/OpenROAD/build/bin/openroad",
+  "total_runtime_sec": 395.15,
+  "asap7_7nm_pnr_runs": [
+    {
+      "design": "taalas_3b6b_wired_mac_array",
+      "full_macro_description": "Taalas HC1 Multiplierless 3b/6b CSD Wired MAC Array (32-MAC Sub-Array Slice -> 32x Scaled 1024-MAC Array)",
+      "platform": "asap7",
+      "chparam": "-chparam VEC_LEN 8 -chparam OUT_CHANNELS 4 -chparam NUM_OUTLIERS 2",
+      "scale_to_full_macro": 32.0,
+      "target_clock_period": 800.0,
+      "time_unit": "ps",
+      "io_pins_count": 389,
+      "die_dimensions_um": "75.6 x 75.6",
+      "die_area_um2": 5715.36,
+      "core_area_um2": 5080.84,
+      "yosys_mapped_cells": 13051,
+      "yosys_cell_area_um2": 1701.02,
+      "openroad_design_area_um2": 1816.0,
+      "tsmc_n6_scaled_design_area_um2": 1561.76,
+      "full_macro_routed_design_area_um2": 58112.0,
+      "full_macro_routed_wirelength_um": 2357890.88,
+      "core_utilization_pct": 36.0,
+      "hpwl_original_um": 62090.4,
+      "hpwl_legalized_um": 62299.3,
+      "global_route_wirelength_um": 98718.0,
+      "detailed_route_wirelength_um": 73684.09,
+      "post_route_critical_path": 660.182,
+      "post_route_fmax_mhz": 1514.73,
+      "wns_setup": 139.818,
+      "wns_hold": 3.706,
+      "tns_setup": 0.0,
+      "clock_skew": 16.534,
+      "routing_congestion_usage_pct": 18.4,
+      "routing_congestion_overflow": 0,
+      "routing_congestion_by_layer": {
+        "M1": {
+          "resource": 0,
+          "demand": 0,
+          "usage_pct": 0.0,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M2": {
+          "resource": 133634,
+          "demand": 43569,
+          "usage_pct": 32.6,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M3": {
+          "resource": 198958,
+          "demand": 68582,
+          "usage_pct": 34.47,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M4": {
+          "resource": 146420,
+          "demand": 18944,
+          "usage_pct": 12.94,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M5": {
+          "resource": 138930,
+          "demand": 4039,
+          "usage_pct": 2.91,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M6": {
+          "resource": 116760,
+          "demand": 45,
+          "usage_pct": 0.04,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        }
+      },
+      "final_drc_violations": 0,
+      "final_antenna_violations": 0,
+      "power_breakdown_mw": {
+        "sequential": {
+          "internal_mw": 2.15,
+          "switching_mw": 0.524,
+          "leakage_mw": 8.7e-05,
+          "total_mw": 2.67
+        },
+        "combinational": {
+          "internal_mw": 8.41,
+          "switching_mw": 6.32,
+          "leakage_mw": 0.00117,
+          "total_mw": 14.7
+        },
+        "clock": {
+          "internal_mw": 0.127,
+          "switching_mw": 0.613,
+          "leakage_mw": 3e-06,
+          "total_mw": 0.74
+        },
+        "total": {
+          "internal_mw": 10.7,
+          "switching_mw": 7.46,
+          "leakage_mw": 0.00126,
+          "total_mw": 18.1
+        }
+      },
+      "pdnsim_ir_drop": {
+        "VDD": {
+          "supply_voltage_v": 0.77,
+          "worstcase_voltage_v": 0.766,
+          "avg_ir_drop_mv": 0.166,
+          "worstcase_ir_drop_mv": 3.71,
+          "pct_drop": 0.48
+        },
+        "VSS": {
+          "supply_voltage_v": 0.0,
+          "worstcase_voltage_v": 0.00462,
+          "avg_ir_drop_mv": 0.164,
+          "worstcase_ir_drop_mv": 4.62,
+          "pct_drop": 0.6
+        }
+      },
+      "physical_layout_stats": {
+        "def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/taalas_3b6b_wired_mac_array_asap7/results/taalas_3b6b_wired_mac_array_asap7_route-tcl.def",
+        "def_file_exists": true,
+        "spef_file_exists": true,
+        "drc_report_exists": true,
+        "drc_violations_in_rpt": 0,
+        "def_size_bytes": 14870375,
+        "spef_size_bytes": 23096534,
+        "metal_wirelength_um": {
+          "M2": 21906.67,
+          "M3": 37993.32,
+          "M4": 11780.19,
+          "M5": 1979.04,
+          "M6": 24.86
+        },
+        "via_counts": {
+          "VIA12": 50253,
+          "VIA23": 84395,
+          "VIA34": 10396,
+          "VIA45": 1274,
+          "VIA56": 8
+        },
+        "clock_buffer_instances": 2056,
+        "tap_and_decap_instances": 794,
+        "filler_instances": 0,
+        "total_physical_components": 15932,
+        "routed_nets_count": 15395,
+        "io_pins_count": 391,
+        "total_routed_wirelength_um": 73684.09,
+        "total_vias": 146326,
+        "top_def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/taalas_3b6b_wired_mac_array_asap7_route.def"
+      },
+      "pnr_runtime_sec": 22.35
+    },
+    {
+      "design": "baseline_fp16_int8_mac_array",
+      "full_macro_description": "Conventional Booth INT8xINT8 + FP16 Scale MAC Array + Active Weight Registers (32-MAC Slice -> 32x Scaled 1024-MAC Array)",
+      "platform": "asap7",
+      "chparam": "-chparam VEC_LEN 8 -chparam OUT_CHANNELS 4",
+      "scale_to_full_macro": 32.0,
+      "target_clock_period": 800.0,
+      "time_unit": "ps",
+      "io_pins_count": 485,
+      "die_dimensions_um": "99.36 x 99.36",
+      "die_area_um2": 9872.41,
+      "core_area_um2": 9032.6,
+      "yosys_mapped_cells": 23235,
+      "yosys_cell_area_um2": 2997.41,
+      "openroad_design_area_um2": 3274.0,
+      "tsmc_n6_scaled_design_area_um2": 2815.64,
+      "full_macro_routed_design_area_um2": 104768.0,
+      "full_macro_routed_wirelength_um": 3294559.68,
+      "core_utilization_pct": 36.0,
+      "hpwl_original_um": 83301.7,
+      "hpwl_legalized_um": 88059.6,
+      "global_route_wirelength_um": 142762.0,
+      "detailed_route_wirelength_um": 102954.99,
+      "post_route_critical_path": 911.082,
+      "post_route_fmax_mhz": 1097.6,
+      "wns_setup": -111.082,
+      "wns_hold": 6.801,
+      "tns_setup": -1034.94,
+      "clock_skew": 22.778,
+      "routing_congestion_usage_pct": 14.93,
+      "routing_congestion_overflow": 0,
+      "routing_congestion_by_layer": {
+        "M1": {
+          "resource": 0,
+          "demand": 0,
+          "usage_pct": 0.0,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M2": {
+          "resource": 234195,
+          "demand": 78862,
+          "usage_pct": 33.67,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M3": {
+          "resource": 342864,
+          "demand": 96070,
+          "usage_pct": 28.02,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M4": {
+          "resource": 253516,
+          "demand": 12082,
+          "usage_pct": 4.77,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M5": {
+          "resource": 239650,
+          "demand": 2968,
+          "usage_pct": 1.24,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M6": {
+          "resource": 202032,
+          "demand": 0,
+          "usage_pct": 0.0,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        }
+      },
+      "final_drc_violations": 0,
+      "final_antenna_violations": 0,
+      "power_breakdown_mw": {
+        "sequential": {
+          "internal_mw": 3.75,
+          "switching_mw": 1.58,
+          "leakage_mw": 9e-05,
+          "total_mw": 5.33
+        },
+        "combinational": {
+          "internal_mw": 58.7,
+          "switching_mw": 42.6,
+          "leakage_mw": 0.00289,
+          "total_mw": 101.0
+        },
+        "clock": {
+          "internal_mw": 0.13,
+          "switching_mw": 0.67,
+          "leakage_mw": 3e-06,
+          "total_mw": 0.8
+        },
+        "total": {
+          "internal_mw": 62.6,
+          "switching_mw": 44.8,
+          "leakage_mw": 0.00299,
+          "total_mw": 107.0
+        }
+      },
+      "pdnsim_ir_drop": {
+        "VDD": {
+          "supply_voltage_v": 0.77,
+          "worstcase_voltage_v": 0.755,
+          "avg_ir_drop_mv": 0.582,
+          "worstcase_ir_drop_mv": 15.2,
+          "pct_drop": 1.97
+        },
+        "VSS": {
+          "supply_voltage_v": 0.0,
+          "worstcase_voltage_v": 0.0134,
+          "avg_ir_drop_mv": 0.576,
+          "worstcase_ir_drop_mv": 13.4,
+          "pct_drop": 1.74
+        }
+      },
+      "physical_layout_stats": {
+        "def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/baseline_fp16_int8_mac_array_asap7/results/baseline_fp16_int8_mac_array_asap7_route-tcl.def",
+        "def_file_exists": true,
+        "spef_file_exists": true,
+        "drc_report_exists": true,
+        "drc_violations_in_rpt": 0,
+        "def_size_bytes": 23928707,
+        "spef_size_bytes": 34700070,
+        "metal_wirelength_um": {
+          "M2": 40832.9,
+          "M3": 52909.92,
+          "M4": 7994.74,
+          "M5": 1217.42
+        },
+        "via_counts": {
+          "VIA12": 85299,
+          "VIA23": 135478,
+          "VIA34": 8828,
+          "VIA45": 812
+        },
+        "clock_buffer_instances": 5133,
+        "tap_and_decap_instances": 1235,
+        "filler_instances": 0,
+        "total_physical_components": 28782,
+        "routed_nets_count": 27931,
+        "io_pins_count": 487,
+        "total_routed_wirelength_um": 102954.99,
+        "total_vias": 230417,
+        "top_def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/baseline_fp16_int8_mac_array_asap7_route.def"
+      },
+      "pnr_runtime_sec": 334.14
+    },
+    {
+      "design": "taalas_sram_6t_banked_macro",
+      "full_macro_description": "16-Bank GF(2^4) Swizzled SECDED (72,64) 6T SRAM Controller + ECC Core",
+      "platform": "asap7",
+      "chparam": "-chparam NUM_BANKS 8 -chparam BANK_DEPTH 4 -chparam DATA_WIDTH 64 -chparam ECC_WIDTH 8 -chparam RAW_WIDTH 72",
+      "scale_to_full_macro": 2.0,
+      "target_clock_period": 800.0,
+      "time_unit": "ps",
+      "io_pins_count": 428,
+      "die_dimensions_um": "75.6 x 75.6",
+      "die_area_um2": 5715.36,
+      "core_area_um2": 5080.84,
+      "yosys_mapped_cells": 10967,
+      "yosys_cell_area_um2": 1709.46,
+      "openroad_design_area_um2": 1788.0,
+      "tsmc_n6_scaled_design_area_um2": 1537.68,
+      "full_macro_routed_design_area_um2": 3576.0,
+      "full_macro_routed_wirelength_um": 152211.5,
+      "core_utilization_pct": 35.0,
+      "hpwl_original_um": 58086.9,
+      "hpwl_legalized_um": 58241.6,
+      "global_route_wirelength_um": 98382.0,
+      "detailed_route_wirelength_um": 76105.75,
+      "post_route_critical_path": 1341.226,
+      "post_route_fmax_mhz": 745.59,
+      "wns_setup": -541.226,
+      "wns_hold": 7.141,
+      "tns_setup": -528043.75,
+      "clock_skew": 16.52,
+      "routing_congestion_usage_pct": 19.0,
+      "routing_congestion_overflow": 0,
+      "routing_congestion_by_layer": {
+        "M1": {
+          "resource": 0,
+          "demand": 0,
+          "usage_pct": 0.0,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M2": {
+          "resource": 133879,
+          "demand": 57385,
+          "usage_pct": 42.86,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M3": {
+          "resource": 198958,
+          "demand": 66008,
+          "usage_pct": 33.18,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M4": {
+          "resource": 146420,
+          "demand": 14087,
+          "usage_pct": 9.62,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M5": {
+          "resource": 138930,
+          "demand": 2139,
+          "usage_pct": 1.54,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M6": {
+          "resource": 116760,
+          "demand": 18,
+          "usage_pct": 0.02,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        }
+      },
+      "final_drc_violations": 0,
+      "final_antenna_violations": 0,
+      "power_breakdown_mw": {
+        "sequential": {
+          "internal_mw": 5.42,
+          "switching_mw": 0.391,
+          "leakage_mw": 0.000303,
+          "total_mw": 5.81
+        },
+        "combinational": {
+          "internal_mw": 3.63,
+          "switching_mw": 5.45,
+          "leakage_mw": 0.00116,
+          "total_mw": 9.09
+        },
+        "clock": {
+          "internal_mw": 0.339,
+          "switching_mw": 1.4,
+          "leakage_mw": 9e-06,
+          "total_mw": 1.74
+        },
+        "total": {
+          "internal_mw": 9.39,
+          "switching_mw": 7.24,
+          "leakage_mw": 0.00147,
+          "total_mw": 16.6
+        }
+      },
+      "pdnsim_ir_drop": {
+        "VDD": {
+          "supply_voltage_v": 0.77,
+          "worstcase_voltage_v": 0.761,
+          "avg_ir_drop_mv": 0.145,
+          "worstcase_ir_drop_mv": 8.96,
+          "pct_drop": 1.16
+        },
+        "VSS": {
+          "supply_voltage_v": 0.0,
+          "worstcase_voltage_v": 0.00879,
+          "avg_ir_drop_mv": 0.143,
+          "worstcase_ir_drop_mv": 8.79,
+          "pct_drop": 1.14
+        }
+      },
+      "physical_layout_stats": {
+        "def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/taalas_sram_6t_banked_macro_asap7/results/taalas_sram_6t_banked_macro_asap7_route-tcl.def",
+        "def_file_exists": true,
+        "spef_file_exists": true,
+        "drc_report_exists": true,
+        "drc_violations_in_rpt": 0,
+        "def_size_bytes": 13214038,
+        "spef_size_bytes": 21191450,
+        "metal_wirelength_um": {
+          "M2": 29821.79,
+          "M3": 36649.14,
+          "M4": 8766.6,
+          "M5": 858.58,
+          "M6": 9.65
+        },
+        "via_counts": {
+          "VIA12": 41249,
+          "VIA23": 78569,
+          "VIA34": 8779,
+          "VIA45": 754,
+          "VIA56": 6
+        },
+        "clock_buffer_instances": 1484,
+        "tap_and_decap_instances": 794,
+        "filler_instances": 0,
+        "total_physical_components": 13059,
+        "routed_nets_count": 12483,
+        "io_pins_count": 430,
+        "total_routed_wirelength_um": 76105.75,
+        "total_vias": 129357,
+        "top_def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/taalas_sram_6t_banked_macro_asap7_route.def"
+      },
+      "pnr_runtime_sec": 230.31
+    },
+    {
+      "design": "taalas_mxfp4_hc2_mac_lane",
+      "full_macro_description": "Taalas HC2 OCP MXFP4 E2M1 Multiplierless Compute Lane + Shared E8M0 Scale Unit",
+      "platform": "asap7",
+      "chparam": "-chparam BLOCK_SIZE 8 -chparam NUM_LANES 4",
+      "scale_to_full_macro": 8.0,
+      "target_clock_period": 800.0,
+      "time_unit": "ps",
+      "io_pins_count": 436,
+      "die_dimensions_um": "69.12 x 69.12",
+      "die_area_um2": 4777.57,
+      "core_area_um2": 4199.04,
+      "yosys_mapped_cells": 8079,
+      "yosys_cell_area_um2": 1050.68,
+      "openroad_design_area_um2": 1148.0,
+      "tsmc_n6_scaled_design_area_um2": 987.28,
+      "full_macro_routed_design_area_um2": 9184.0,
+      "full_macro_routed_wirelength_um": 340696.72,
+      "core_utilization_pct": 27.0,
+      "hpwl_original_um": 36657.5,
+      "hpwl_legalized_um": 36846.2,
+      "global_route_wirelength_um": 59317.0,
+      "detailed_route_wirelength_um": 42587.09,
+      "post_route_critical_path": 800.669,
+      "post_route_fmax_mhz": 1248.96,
+      "wns_setup": -0.669,
+      "wns_hold": 4.623,
+      "tns_setup": -0.669,
+      "clock_skew": 15.765,
+      "routing_congestion_usage_pct": 12.84,
+      "routing_congestion_overflow": 0,
+      "routing_congestion_by_layer": {
+        "M1": {
+          "resource": 0,
+          "demand": 0,
+          "usage_pct": 0.0,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M2": {
+          "resource": 113317,
+          "demand": 32089,
+          "usage_pct": 28.32,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M3": {
+          "resource": 166287,
+          "demand": 39821,
+          "usage_pct": 23.95,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M4": {
+          "resource": 122228,
+          "demand": 5745,
+          "usage_pct": 4.7,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M5": {
+          "resource": 116018,
+          "demand": 1353,
+          "usage_pct": 1.17,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M6": {
+          "resource": 97536,
+          "demand": 31,
+          "usage_pct": 0.03,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        }
+      },
+      "final_drc_violations": 0,
+      "final_antenna_violations": 0,
+      "power_breakdown_mw": {
+        "sequential": {
+          "internal_mw": 1.32,
+          "switching_mw": 0.5,
+          "leakage_mw": 4.8e-05,
+          "total_mw": 1.82
+        },
+        "combinational": {
+          "internal_mw": 6.58,
+          "switching_mw": 6.52,
+          "leakage_mw": 0.000727,
+          "total_mw": 13.1
+        },
+        "clock": {
+          "internal_mw": 0.0782,
+          "switching_mw": 0.399,
+          "leakage_mw": 2e-06,
+          "total_mw": 0.477
+        },
+        "total": {
+          "internal_mw": 7.98,
+          "switching_mw": 7.42,
+          "leakage_mw": 0.000777,
+          "total_mw": 15.4
+        }
+      },
+      "pdnsim_ir_drop": {
+        "VDD": {
+          "supply_voltage_v": 0.77,
+          "worstcase_voltage_v": 0.767,
+          "avg_ir_drop_mv": 0.172,
+          "worstcase_ir_drop_mv": 2.52,
+          "pct_drop": 0.33
+        },
+        "VSS": {
+          "supply_voltage_v": 0.0,
+          "worstcase_voltage_v": 0.00248,
+          "avg_ir_drop_mv": 0.171,
+          "worstcase_ir_drop_mv": 2.48,
+          "pct_drop": 0.32
+        }
+      },
+      "physical_layout_stats": {
+        "def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/taalas_mxfp4_hc2_mac_lane_asap7/results/taalas_mxfp4_hc2_mac_lane_asap7_route-tcl.def",
+        "def_file_exists": true,
+        "spef_file_exists": true,
+        "drc_report_exists": true,
+        "drc_violations_in_rpt": 0,
+        "def_size_bytes": 9589494,
+        "spef_size_bytes": 13942966,
+        "metal_wirelength_um": {
+          "M2": 16552.16,
+          "M3": 22212.85,
+          "M4": 3285.01,
+          "M5": 516.62,
+          "M6": 20.45
+        },
+        "via_counts": {
+          "VIA12": 32294,
+          "VIA23": 52919,
+          "VIA34": 4075,
+          "VIA45": 449,
+          "VIA56": 6
+        },
+        "clock_buffer_instances": 1758,
+        "tap_and_decap_instances": 722,
+        "filler_instances": 0,
+        "total_physical_components": 10508,
+        "routed_nets_count": 9987,
+        "io_pins_count": 438,
+        "total_routed_wirelength_um": 42587.09,
+        "total_vias": 89743,
+        "top_def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/taalas_mxfp4_hc2_mac_lane_asap7_route.def"
+      },
+      "pnr_runtime_sec": 155.52
+    },
+    {
+      "design": "taalas_token_pipe_noc_router",
+      "full_macro_description": "Credit-Based Wormhole Spatial Token-Pipe NoC Router (128-bit Flit, 2-Deep Skid Buffer + 8-Entry FIFO)",
+      "platform": "asap7",
+      "chparam": "-chparam FLIT_WIDTH 128 -chparam FIFO_DEPTH 8 -chparam MAX_CREDITS 8 -chparam TILE_ID 0",
+      "scale_to_full_macro": 1.0,
+      "target_clock_period": 800.0,
+      "time_unit": "ps",
+      "io_pins_count": 897,
+      "die_dimensions_um": "136.08 x 136.08",
+      "die_area_um2": 18517.77,
+      "core_area_um2": 17360.7,
+      "yosys_mapped_cells": 6366,
+      "yosys_cell_area_um2": 1062.81,
+      "openroad_design_area_um2": 1297.0,
+      "tsmc_n6_scaled_design_area_um2": 1115.42,
+      "full_macro_routed_design_area_um2": 1297.0,
+      "full_macro_routed_wirelength_um": 58643.53,
+      "core_utilization_pct": 7.0,
+      "hpwl_original_um": 50453.6,
+      "hpwl_legalized_um": 51022.7,
+      "global_route_wirelength_um": 76019.0,
+      "detailed_route_wirelength_um": 58643.53,
+      "post_route_critical_path": 803.858,
+      "post_route_fmax_mhz": 1244.0,
+      "wns_setup": -3.858,
+      "wns_hold": 10.387,
+      "tns_setup": -6.911,
+      "clock_skew": 34.733,
+      "routing_congestion_usage_pct": 4.64,
+      "routing_congestion_overflow": 0,
+      "routing_congestion_by_layer": {
+        "M1": {
+          "resource": 0,
+          "demand": 0,
+          "usage_pct": 0.0,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M2": {
+          "resource": 441251,
+          "demand": 36600,
+          "usage_pct": 8.29,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M3": {
+          "resource": 643216,
+          "demand": 56586,
+          "usage_pct": 8.8,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M4": {
+          "resource": 477692,
+          "demand": 15369,
+          "usage_pct": 3.22,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M5": {
+          "resource": 450174,
+          "demand": 2261,
+          "usage_pct": 0.5,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "M6": {
+          "resource": 379512,
+          "demand": 184,
+          "usage_pct": 0.05,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        }
+      },
+      "final_drc_violations": 0,
+      "final_antenna_violations": 0,
+      "power_breakdown_mw": {
+        "sequential": {
+          "internal_mw": 4.65,
+          "switching_mw": 1.34,
+          "leakage_mw": 0.000141,
+          "total_mw": 5.99
+        },
+        "combinational": {
+          "internal_mw": 6.03,
+          "switching_mw": 5.61,
+          "leakage_mw": 0.000577,
+          "total_mw": 11.6
+        },
+        "clock": {
+          "internal_mw": 0.207,
+          "switching_mw": 0.925,
+          "leakage_mw": 6e-06,
+          "total_mw": 1.13
+        },
+        "total": {
+          "internal_mw": 10.9,
+          "switching_mw": 7.87,
+          "leakage_mw": 0.000723,
+          "total_mw": 18.8
+        }
+      },
+      "pdnsim_ir_drop": {
+        "VDD": {
+          "supply_voltage_v": 0.77,
+          "worstcase_voltage_v": 0.769,
+          "avg_ir_drop_mv": 0.0372,
+          "worstcase_ir_drop_mv": 0.875,
+          "pct_drop": 0.11
+        },
+        "VSS": {
+          "supply_voltage_v": 0.0,
+          "worstcase_voltage_v": 0.00121,
+          "avg_ir_drop_mv": 0.0371,
+          "worstcase_ir_drop_mv": 1.21,
+          "pct_drop": 0.16
+        }
+      },
+      "physical_layout_stats": {
+        "def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/taalas_token_pipe_noc_router_asap7/results/taalas_token_pipe_noc_router_asap7_route-tcl.def",
+        "def_file_exists": true,
+        "spef_file_exists": true,
+        "drc_report_exists": true,
+        "drc_violations_in_rpt": 0,
+        "def_size_bytes": 13769044,
+        "spef_size_bytes": 23773789,
+        "metal_wirelength_um": {
+          "M2": 19079.95,
+          "M3": 30890.05,
+          "M4": 7764.49,
+          "M5": 811.26,
+          "M6": 97.78
+        },
+        "via_counts": {
+          "VIA12": 28156,
+          "VIA23": 49973,
+          "VIA34": 5427,
+          "VIA45": 775,
+          "VIA56": 16
+        },
+        "clock_buffer_instances": 2723,
+        "tap_and_decap_instances": 2201,
+        "filler_instances": 0,
+        "total_physical_components": 12037,
+        "routed_nets_count": 10221,
+        "io_pins_count": 899,
+        "total_routed_wirelength_um": 58643.53,
+        "total_vias": 84347,
+        "top_def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/taalas_token_pipe_noc_router_asap7_route.def"
+      },
+      "pnr_runtime_sec": 283.51
+    }
+  ],
+  "sky130hd_130nm_pnr_runs": [
+    {
+      "design": "taalas_3b6b_wired_mac_array",
+      "full_macro_description": "Taalas HC1 Multiplierless 3b/6b CSD Wired MAC Array (Sky130HD 130nm Cross-PDK Validation)",
+      "platform": "sky130hd",
+      "chparam": "-chparam VEC_LEN 8 -chparam OUT_CHANNELS 4 -chparam NUM_OUTLIERS 2",
+      "scale_to_full_macro": 32.0,
+      "target_clock_period": 12.0,
+      "time_unit": "ns",
+      "io_pins_count": 389,
+      "die_dimensions_um": "600 x 600",
+      "die_area_um2": 360000.0,
+      "core_area_um2": 313600.0,
+      "yosys_mapped_cells": 11916,
+      "yosys_cell_area_um2": 99688.11,
+      "openroad_design_area_um2": 106278.0,
+      "tsmc_n6_scaled_design_area_um2": 106278.0,
+      "full_macro_routed_design_area_um2": 3400896.0,
+      "full_macro_routed_wirelength_um": 18643018.88,
+      "core_utilization_pct": 34.0,
+      "hpwl_original_um": 443797.9,
+      "hpwl_legalized_um": 447098.6,
+      "global_route_wirelength_um": 872042.0,
+      "detailed_route_wirelength_um": 582594.34,
+      "post_route_critical_path": 6.315,
+      "post_route_fmax_mhz": 158.35,
+      "wns_setup": 5.685,
+      "wns_hold": -0.363,
+      "tns_setup": 0.0,
+      "clock_skew": 0.427,
+      "routing_congestion_usage_pct": 54.98,
+      "routing_congestion_overflow": 0,
+      "routing_congestion_by_layer": {
+        "li1": {
+          "resource": 0,
+          "demand": 0,
+          "usage_pct": 0.0,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "met1": {
+          "resource": 51527,
+          "demand": 28187,
+          "usage_pct": 54.7,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "met2": {
+          "resource": 45285,
+          "demand": 30751,
+          "usage_pct": 67.91,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "met3": {
+          "resource": 33569,
+          "demand": 15278,
+          "usage_pct": 45.51,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "met4": {
+          "resource": 18301,
+          "demand": 9171,
+          "usage_pct": 50.11,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "met5": {
+          "resource": 7310,
+          "demand": 2380,
+          "usage_pct": 32.56,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        }
+      },
+      "final_drc_violations": 0,
+      "final_antenna_violations": 0,
+      "power_breakdown_mw": {
+        "sequential": {
+          "internal_mw": 4.52,
+          "switching_mw": 1.02,
+          "leakage_mw": 1.3e-05,
+          "total_mw": 5.55
+        },
+        "combinational": {
+          "internal_mw": 9.95,
+          "switching_mw": 13.4,
+          "leakage_mw": 2.9e-05,
+          "total_mw": 23.3
+        },
+        "clock": {
+          "internal_mw": 0.456,
+          "switching_mw": 1.46,
+          "leakage_mw": 1e-06,
+          "total_mw": 1.92
+        },
+        "total": {
+          "internal_mw": 14.9,
+          "switching_mw": 15.9,
+          "leakage_mw": 4.2e-05,
+          "total_mw": 30.8
+        }
+      },
+      "pdnsim_ir_drop": {
+        "VDD": {
+          "supply_voltage_v": 1.8,
+          "worstcase_voltage_v": 1.8,
+          "avg_ir_drop_mv": 0.222,
+          "worstcase_ir_drop_mv": 0.857,
+          "pct_drop": 0.05
+        },
+        "VSS": {
+          "supply_voltage_v": 0.0,
+          "worstcase_voltage_v": 0.000881,
+          "avg_ir_drop_mv": 0.247,
+          "worstcase_ir_drop_mv": 0.881,
+          "pct_drop": 0.05
+        }
+      },
+      "physical_layout_stats": {
+        "def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/taalas_3b6b_wired_mac_array_sky130hd/results/taalas_3b6b_wired_mac_array_sky130hd_route-tcl.def",
+        "def_file_exists": true,
+        "spef_file_exists": true,
+        "drc_report_exists": true,
+        "drc_violations_in_rpt": 0,
+        "def_size_bytes": 13249964,
+        "spef_size_bytes": 16024705,
+        "metal_wirelength_um": {
+          "met1": 196357.77,
+          "met2": 222533.05,
+          "met3": 95707.84,
+          "met4": 55441.24,
+          "met5": 12554.44
+        },
+        "via_counts": {
+          "M1M2_PR": 51896,
+          "M3M4_PR": 2804,
+          "M2M3_PR": 5158,
+          "M4M5_PR": 303
+        },
+        "clock_buffer_instances": 200,
+        "tap_and_decap_instances": 4140,
+        "filler_instances": 0,
+        "total_physical_components": 16893,
+        "routed_nets_count": 12756,
+        "io_pins_count": 389,
+        "total_routed_wirelength_um": 582594.34,
+        "total_vias": 60161,
+        "top_def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/taalas_3b6b_wired_mac_array_sky130hd_route.def"
+      },
+      "pnr_runtime_sec": 214.39
+    },
+    {
+      "design": "baseline_fp16_int8_mac_array",
+      "full_macro_description": "Conventional Booth INT8xINT8 + FP16 Scale MAC Array (Sky130HD 130nm Cross-PDK Validation)",
+      "platform": "sky130hd",
+      "chparam": "-chparam VEC_LEN 8 -chparam OUT_CHANNELS 4",
+      "scale_to_full_macro": 32.0,
+      "target_clock_period": 12.0,
+      "time_unit": "ns",
+      "io_pins_count": 485,
+      "die_dimensions_um": "780 x 780",
+      "die_area_um2": 608400.0,
+      "core_area_um2": 547600.0,
+      "yosys_mapped_cells": 23763,
+      "yosys_cell_area_um2": 180692.05,
+      "openroad_design_area_um2": 193243.0,
+      "tsmc_n6_scaled_design_area_um2": 193243.0,
+      "full_macro_routed_design_area_um2": 6183776.0,
+      "full_macro_routed_wirelength_um": 26048974.72,
+      "core_utilization_pct": 35.0,
+      "hpwl_original_um": 652741.8,
+      "hpwl_legalized_um": 664813.4,
+      "global_route_wirelength_um": 1237521.0,
+      "detailed_route_wirelength_um": 814030.46,
+      "post_route_critical_path": 9.079,
+      "post_route_fmax_mhz": 110.14,
+      "wns_setup": 2.921,
+      "wns_hold": -0.304,
+      "tns_setup": 0.0,
+      "clock_skew": 0.522,
+      "routing_congestion_usage_pct": 43.74,
+      "routing_congestion_overflow": 0,
+      "routing_congestion_by_layer": {
+        "li1": {
+          "resource": 0,
+          "demand": 0,
+          "usage_pct": 0.0,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "met1": {
+          "resource": 89889,
+          "demand": 45148,
+          "usage_pct": 50.23,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "met2": {
+          "resource": 77250,
+          "demand": 46992,
+          "usage_pct": 60.83,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "met3": {
+          "resource": 57475,
+          "demand": 12339,
+          "usage_pct": 21.47,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "met4": {
+          "resource": 31334,
+          "demand": 12625,
+          "usage_pct": 40.29,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "met5": {
+          "resource": 12656,
+          "demand": 380,
+          "usage_pct": 3.0,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        }
+      },
+      "final_drc_violations": 0,
+      "final_antenna_violations": 0,
+      "power_breakdown_mw": {
+        "sequential": {
+          "internal_mw": 6.9,
+          "switching_mw": 3.32,
+          "leakage_mw": 1.3e-05,
+          "total_mw": 10.2
+        },
+        "combinational": {
+          "internal_mw": 59.8,
+          "switching_mw": 89.9,
+          "leakage_mw": 6.2e-05,
+          "total_mw": 150.0
+        },
+        "clock": {
+          "internal_mw": 0.827,
+          "switching_mw": 2.17,
+          "leakage_mw": 1e-06,
+          "total_mw": 3.0
+        },
+        "total": {
+          "internal_mw": 67.5,
+          "switching_mw": 95.4,
+          "leakage_mw": 7.6e-05,
+          "total_mw": 163.0
+        }
+      },
+      "pdnsim_ir_drop": {
+        "VDD": {
+          "supply_voltage_v": 1.8,
+          "worstcase_voltage_v": 1.8,
+          "avg_ir_drop_mv": 0.771,
+          "worstcase_ir_drop_mv": 3.45,
+          "pct_drop": 0.19
+        },
+        "VSS": {
+          "supply_voltage_v": 0.0,
+          "worstcase_voltage_v": 0.0037,
+          "avg_ir_drop_mv": 0.804,
+          "worstcase_ir_drop_mv": 3.7,
+          "pct_drop": 0.21
+        }
+      },
+      "physical_layout_stats": {
+        "def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/baseline_fp16_int8_mac_array_sky130hd/results/baseline_fp16_int8_mac_array_sky130hd_route-tcl.def",
+        "def_file_exists": true,
+        "spef_file_exists": true,
+        "drc_report_exists": true,
+        "drc_violations_in_rpt": 0,
+        "def_size_bytes": 22374319,
+        "spef_size_bytes": 25725474,
+        "metal_wirelength_um": {
+          "met1": 328683.9,
+          "met2": 325121.61,
+          "met3": 80007.67,
+          "met4": 77150.28,
+          "met5": 3067.0
+        },
+        "via_counts": {
+          "M1M2_PR": 88359,
+          "M2M3_PR": 4480,
+          "M3M4_PR": 2645,
+          "M4M5_PR": 226
+        },
+        "clock_buffer_instances": 292,
+        "tap_and_decap_instances": 7234,
+        "filler_instances": 0,
+        "total_physical_components": 32322,
+        "routed_nets_count": 25158,
+        "io_pins_count": 485,
+        "total_routed_wirelength_um": 814030.46,
+        "total_vias": 95710,
+        "top_def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/baseline_fp16_int8_mac_array_sky130hd_route.def"
+      },
+      "pnr_runtime_sec": 372.78
+    },
+    {
+      "design": "taalas_token_pipe_noc_router",
+      "full_macro_description": "Credit-Based Wormhole Spatial Token-Pipe NoC Router (Sky130HD 130nm Cross-PDK Validation)",
+      "platform": "sky130hd",
+      "chparam": "-chparam FLIT_WIDTH 128 -chparam FIFO_DEPTH 8 -chparam MAX_CREDITS 8 -chparam TILE_ID 0",
+      "scale_to_full_macro": 1.0,
+      "target_clock_period": 12.0,
+      "time_unit": "ns",
+      "io_pins_count": 897,
+      "die_dimensions_um": "1080 x 1080",
+      "die_area_um2": 1166400.0,
+      "core_area_um2": 1081600.0,
+      "yosys_mapped_cells": 5113,
+      "yosys_cell_area_um2": 64916.01,
+      "openroad_design_area_um2": 76441.0,
+      "tsmc_n6_scaled_design_area_um2": 76441.0,
+      "full_macro_routed_design_area_um2": 76441.0,
+      "full_macro_routed_wirelength_um": 349726.23,
+      "core_utilization_pct": 7.0,
+      "hpwl_original_um": 307150.4,
+      "hpwl_legalized_um": 308531.5,
+      "global_route_wirelength_um": 510696.0,
+      "detailed_route_wirelength_um": 349726.23,
+      "post_route_critical_path": 8.042,
+      "post_route_fmax_mhz": 124.35,
+      "wns_setup": 3.958,
+      "wns_hold": 0.069,
+      "tns_setup": 0.0,
+      "clock_skew": 0.372,
+      "routing_congestion_usage_pct": 10.39,
+      "routing_congestion_overflow": 0,
+      "routing_congestion_by_layer": {
+        "li1": {
+          "resource": 0,
+          "demand": 0,
+          "usage_pct": 0.0,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "met1": {
+          "resource": 175863,
+          "demand": 21359,
+          "usage_pct": 12.15,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "met2": {
+          "resource": 147608,
+          "demand": 23534,
+          "usage_pct": 15.94,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "met3": {
+          "resource": 109772,
+          "demand": 5623,
+          "usage_pct": 5.12,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "met4": {
+          "resource": 59156,
+          "demand": 3084,
+          "usage_pct": 5.21,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        },
+        "met5": {
+          "resource": 24180,
+          "demand": 61,
+          "usage_pct": 0.25,
+          "max_h_overflow": 0,
+          "max_v_overflow": 0,
+          "total_overflow": 0
+        }
+      },
+      "final_drc_violations": 0,
+      "final_antenna_violations": 0,
+      "power_breakdown_mw": {
+        "sequential": {
+          "internal_mw": 7.0,
+          "switching_mw": 1.77,
+          "leakage_mw": 1.7e-05,
+          "total_mw": 8.78
+        },
+        "combinational": {
+          "internal_mw": 5.93,
+          "switching_mw": 7.51,
+          "leakage_mw": 1.7e-05,
+          "total_mw": 13.4
+        },
+        "clock": {
+          "internal_mw": 1.17,
+          "switching_mw": 2.28,
+          "leakage_mw": 1e-06,
+          "total_mw": 3.46
+        },
+        "total": {
+          "internal_mw": 14.1,
+          "switching_mw": 11.6,
+          "leakage_mw": 3.6e-05,
+          "total_mw": 25.7
+        }
+      },
+      "pdnsim_ir_drop": {
+        "VDD": {
+          "supply_voltage_v": 1.8,
+          "worstcase_voltage_v": 1.8,
+          "avg_ir_drop_mv": 0.054,
+          "worstcase_ir_drop_mv": 0.196,
+          "pct_drop": 0.01
+        },
+        "VSS": {
+          "supply_voltage_v": 0.0,
+          "worstcase_voltage_v": 0.000157,
+          "avg_ir_drop_mv": 0.0508,
+          "worstcase_ir_drop_mv": 0.157,
+          "pct_drop": 0.01
+        }
+      },
+      "physical_layout_stats": {
+        "def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/taalas_token_pipe_noc_router_sky130hd/results/taalas_token_pipe_noc_router_sky130hd_route-tcl.def",
+        "def_file_exists": true,
+        "spef_file_exists": true,
+        "drc_report_exists": true,
+        "drc_violations_in_rpt": 0,
+        "def_size_bytes": 12521123,
+        "spef_size_bytes": 9356187,
+        "metal_wirelength_um": {
+          "met1": 145035.65,
+          "met2": 153588.26,
+          "met3": 30428.08,
+          "met4": 20171.0,
+          "met5": 503.24
+        },
+        "via_counts": {
+          "M1M2_PR": 25570,
+          "M2M3_PR": 1858,
+          "M3M4_PR": 703,
+          "M4M5_PR": 36
+        },
+        "clock_buffer_instances": 399,
+        "tap_and_decap_instances": 14362,
+        "filler_instances": 0,
+        "total_physical_components": 20549,
+        "routed_nets_count": 6425,
+        "io_pins_count": 897,
+        "total_routed_wirelength_um": 349726.23,
+        "total_vias": 28167,
+        "top_def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/taalas_token_pipe_noc_router_sky130hd_route.def"
+      },
+      "pnr_runtime_sec": 91.74
+    }
+  ],
+  "taalas_vs_baseline_post_pnr_comparison": {
+    "asap7_7nm_finfet": {
+      "taalas_routed_design_area_um2": 1816.0,
+      "baseline_routed_design_area_um2": 3274.0,
+      "routed_area_reduction_ratio": 1.803,
+      "routed_area_savings_pct": 44.53,
+      "taalas_routed_wirelength_um": 73684.09,
+      "baseline_routed_wirelength_um": 102954.99,
+      "wirelength_reduction_ratio": 1.397,
+      "wirelength_savings_pct": 28.43,
+      "taalas_post_route_power_mw": 18.1,
+      "baseline_post_route_power_mw": 107.0,
+      "post_route_power_reduction_ratio": 5.912,
+      "taalas_wns_ps": 139.818,
+      "baseline_wns_ps": -111.082,
+      "taalas_fmax_mhz": 1514.73,
+      "baseline_fmax_mhz": 1097.6,
+      "taalas_overflow": 0,
+      "baseline_overflow": 0,
+      "taalas_drc_violations": 0,
+      "baseline_drc_violations": 0
+    },
+    "sky130hd_130nm": {
+      "taalas_routed_design_area_um2": 106278.0,
+      "baseline_routed_design_area_um2": 193243.0,
+      "routed_area_reduction_ratio": 1.818,
+      "taalas_routed_wirelength_um": 582594.34,
+      "baseline_routed_wirelength_um": 814030.46,
+      "wirelength_reduction_ratio": 1.397
+    }
+  },
+  "full_reticle_815mm2_floorplan": {
+    "die_width_mm": 26.2,
+    "die_height_mm": 31.11,
+    "die_area_mm2": 815.08,
+    "nominal_reticle_area_mm2": 815.0,
+    "core_bbox_mm": [
+      0.9,
+      1.8,
+      24.4,
+      27.51
+    ],
+    "core_area_mm2": 671.244,
+    "peripheral_area_mm2": 143.836,
+    "grid_topology": "4x8 Serpentine Spatial Token-Pipe Daisy-Chain (32 Transformer Layer Tiles)",
+    "total_via_rom_area_mm2": 378.87,
+    "total_sram_6t_area_mm2": 196.75,
+    "total_compute_strip_area_mm2": 70.08,
+    "total_noc_router_area_mm2": 25.55,
+    "peripheral_macros": [
+      {
+        "name": "PCIe_Gen5_x16_PHY_DMA_CSR_Ring",
+        "category": "Host_IO_PCIe_Gen5_x16_and_PLL",
+        "x0_mm": 0.0,
+        "y0_mm": 0.0,
+        "w_mm": 26.2,
+        "h_mm": 1.8,
+        "area_mm2": 47.16,
+        "power_w": 14.8
+      },
+      {
+        "name": "C2C_SerDes_North_and_LM_Head_Embed_Macro",
+        "category": "C2C_Interconnect_and_LM_Head",
+        "x0_mm": 0.0,
+        "y0_mm": 29.31,
+        "w_mm": 26.2,
+        "h_mm": 1.8,
+        "area_mm2": 47.16,
+        "power_w": 16.4
+      },
+      {
+        "name": "West_PDN_RDL_Decap_Guard_Ring",
+        "category": "PDN_Decap_Guard_Ring",
+        "x0_mm": 0.0,
+        "y0_mm": 1.8,
+        "w_mm": 0.9,
+        "h_mm": 27.51,
+        "area_mm2": 24.759,
+        "power_w": 1.6
+      },
+      {
+        "name": "East_PDN_RDL_Decap_Guard_Ring",
+        "category": "PDN_Decap_Guard_Ring",
+        "x0_mm": 25.3,
+        "y0_mm": 1.8,
+        "w_mm": 0.9,
+        "h_mm": 27.51,
+        "area_mm2": 24.759,
+        "power_w": 1.6
+      }
+    ],
+    "layer_tiles": [
+      {
+        "layer_index": 0,
+        "tile_name": "Llama3_8B_Layer_00_Tile",
+        "grid_row": 0,
+        "grid_col": 0,
+        "serpentine_dir": "EAST",
+        "x0_mm": 0.9,
+        "y0_mm": 1.8,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 3.95,
+        "center_y_mm": 3.5194,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 0.9,
+            "y0_mm": 1.8,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 4.343,
+            "y0_mm": 1.8,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 6.131,
+            "y0_mm": 2.7188,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 6.131,
+            "y0_mm": 1.8,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 1,
+        "tile_name": "Llama3_8B_Layer_01_Tile",
+        "grid_row": 0,
+        "grid_col": 1,
+        "serpentine_dir": "EAST",
+        "x0_mm": 7.0,
+        "y0_mm": 1.8,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 10.05,
+        "center_y_mm": 3.5194,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 7.0,
+            "y0_mm": 1.8,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 10.443,
+            "y0_mm": 1.8,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 12.231,
+            "y0_mm": 2.7188,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 12.231,
+            "y0_mm": 1.8,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 2,
+        "tile_name": "Llama3_8B_Layer_02_Tile",
+        "grid_row": 0,
+        "grid_col": 2,
+        "serpentine_dir": "EAST",
+        "x0_mm": 13.1,
+        "y0_mm": 1.8,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 16.15,
+        "center_y_mm": 3.5194,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 13.1,
+            "y0_mm": 1.8,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 16.543,
+            "y0_mm": 1.8,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 18.331,
+            "y0_mm": 2.7188,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 18.331,
+            "y0_mm": 1.8,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 3,
+        "tile_name": "Llama3_8B_Layer_03_Tile",
+        "grid_row": 0,
+        "grid_col": 3,
+        "serpentine_dir": "EAST",
+        "x0_mm": 19.2,
+        "y0_mm": 1.8,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 22.25,
+        "center_y_mm": 3.5194,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 19.2,
+            "y0_mm": 1.8,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 22.643,
+            "y0_mm": 1.8,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 24.431,
+            "y0_mm": 2.7188,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 24.431,
+            "y0_mm": 1.8,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 4,
+        "tile_name": "Llama3_8B_Layer_04_Tile",
+        "grid_row": 1,
+        "grid_col": 3,
+        "serpentine_dir": "WEST",
+        "x0_mm": 19.2,
+        "y0_mm": 5.2388,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 22.25,
+        "center_y_mm": 6.9582,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 19.2,
+            "y0_mm": 5.2388,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 22.643,
+            "y0_mm": 5.2388,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 24.431,
+            "y0_mm": 6.1576,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 24.431,
+            "y0_mm": 5.2388,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 5,
+        "tile_name": "Llama3_8B_Layer_05_Tile",
+        "grid_row": 1,
+        "grid_col": 2,
+        "serpentine_dir": "WEST",
+        "x0_mm": 13.1,
+        "y0_mm": 5.2388,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 16.15,
+        "center_y_mm": 6.9582,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 13.1,
+            "y0_mm": 5.2388,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 16.543,
+            "y0_mm": 5.2388,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 18.331,
+            "y0_mm": 6.1576,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 18.331,
+            "y0_mm": 5.2388,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 6,
+        "tile_name": "Llama3_8B_Layer_06_Tile",
+        "grid_row": 1,
+        "grid_col": 1,
+        "serpentine_dir": "WEST",
+        "x0_mm": 7.0,
+        "y0_mm": 5.2388,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 10.05,
+        "center_y_mm": 6.9582,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 7.0,
+            "y0_mm": 5.2388,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 10.443,
+            "y0_mm": 5.2388,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 12.231,
+            "y0_mm": 6.1576,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 12.231,
+            "y0_mm": 5.2388,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 7,
+        "tile_name": "Llama3_8B_Layer_07_Tile",
+        "grid_row": 1,
+        "grid_col": 0,
+        "serpentine_dir": "WEST",
+        "x0_mm": 0.9,
+        "y0_mm": 5.2388,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 3.95,
+        "center_y_mm": 6.9582,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 0.9,
+            "y0_mm": 5.2388,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 4.343,
+            "y0_mm": 5.2388,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 6.131,
+            "y0_mm": 6.1576,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 6.131,
+            "y0_mm": 5.2388,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 8,
+        "tile_name": "Llama3_8B_Layer_08_Tile",
+        "grid_row": 2,
+        "grid_col": 0,
+        "serpentine_dir": "EAST",
+        "x0_mm": 0.9,
+        "y0_mm": 8.6775,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 3.95,
+        "center_y_mm": 10.3969,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 0.9,
+            "y0_mm": 8.6775,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 4.343,
+            "y0_mm": 8.6775,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 6.131,
+            "y0_mm": 9.5962,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 6.131,
+            "y0_mm": 8.6775,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 9,
+        "tile_name": "Llama3_8B_Layer_09_Tile",
+        "grid_row": 2,
+        "grid_col": 1,
+        "serpentine_dir": "EAST",
+        "x0_mm": 7.0,
+        "y0_mm": 8.6775,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 10.05,
+        "center_y_mm": 10.3969,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 7.0,
+            "y0_mm": 8.6775,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 10.443,
+            "y0_mm": 8.6775,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 12.231,
+            "y0_mm": 9.5962,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 12.231,
+            "y0_mm": 8.6775,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 10,
+        "tile_name": "Llama3_8B_Layer_10_Tile",
+        "grid_row": 2,
+        "grid_col": 2,
+        "serpentine_dir": "EAST",
+        "x0_mm": 13.1,
+        "y0_mm": 8.6775,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 16.15,
+        "center_y_mm": 10.3969,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 13.1,
+            "y0_mm": 8.6775,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 16.543,
+            "y0_mm": 8.6775,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 18.331,
+            "y0_mm": 9.5962,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 18.331,
+            "y0_mm": 8.6775,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 11,
+        "tile_name": "Llama3_8B_Layer_11_Tile",
+        "grid_row": 2,
+        "grid_col": 3,
+        "serpentine_dir": "EAST",
+        "x0_mm": 19.2,
+        "y0_mm": 8.6775,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 22.25,
+        "center_y_mm": 10.3969,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 19.2,
+            "y0_mm": 8.6775,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 22.643,
+            "y0_mm": 8.6775,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 24.431,
+            "y0_mm": 9.5962,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 24.431,
+            "y0_mm": 8.6775,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 12,
+        "tile_name": "Llama3_8B_Layer_12_Tile",
+        "grid_row": 3,
+        "grid_col": 3,
+        "serpentine_dir": "WEST",
+        "x0_mm": 19.2,
+        "y0_mm": 12.1163,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 22.25,
+        "center_y_mm": 13.8357,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 19.2,
+            "y0_mm": 12.1163,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 22.643,
+            "y0_mm": 12.1163,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 24.431,
+            "y0_mm": 13.0351,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 24.431,
+            "y0_mm": 12.1163,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 13,
+        "tile_name": "Llama3_8B_Layer_13_Tile",
+        "grid_row": 3,
+        "grid_col": 2,
+        "serpentine_dir": "WEST",
+        "x0_mm": 13.1,
+        "y0_mm": 12.1163,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 16.15,
+        "center_y_mm": 13.8357,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 13.1,
+            "y0_mm": 12.1163,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 16.543,
+            "y0_mm": 12.1163,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 18.331,
+            "y0_mm": 13.0351,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 18.331,
+            "y0_mm": 12.1163,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 14,
+        "tile_name": "Llama3_8B_Layer_14_Tile",
+        "grid_row": 3,
+        "grid_col": 1,
+        "serpentine_dir": "WEST",
+        "x0_mm": 7.0,
+        "y0_mm": 12.1163,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 10.05,
+        "center_y_mm": 13.8357,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 7.0,
+            "y0_mm": 12.1163,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 10.443,
+            "y0_mm": 12.1163,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 12.231,
+            "y0_mm": 13.0351,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 12.231,
+            "y0_mm": 12.1163,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 15,
+        "tile_name": "Llama3_8B_Layer_15_Tile",
+        "grid_row": 3,
+        "grid_col": 0,
+        "serpentine_dir": "WEST",
+        "x0_mm": 0.9,
+        "y0_mm": 12.1163,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 3.95,
+        "center_y_mm": 13.8357,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 0.9,
+            "y0_mm": 12.1163,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 4.343,
+            "y0_mm": 12.1163,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 6.131,
+            "y0_mm": 13.0351,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 6.131,
+            "y0_mm": 12.1163,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 16,
+        "tile_name": "Llama3_8B_Layer_16_Tile",
+        "grid_row": 4,
+        "grid_col": 0,
+        "serpentine_dir": "EAST",
+        "x0_mm": 0.9,
+        "y0_mm": 15.555,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 3.95,
+        "center_y_mm": 17.2744,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 0.9,
+            "y0_mm": 15.555,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 4.343,
+            "y0_mm": 15.555,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 6.131,
+            "y0_mm": 16.4737,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 6.131,
+            "y0_mm": 15.555,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 17,
+        "tile_name": "Llama3_8B_Layer_17_Tile",
+        "grid_row": 4,
+        "grid_col": 1,
+        "serpentine_dir": "EAST",
+        "x0_mm": 7.0,
+        "y0_mm": 15.555,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 10.05,
+        "center_y_mm": 17.2744,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 7.0,
+            "y0_mm": 15.555,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 10.443,
+            "y0_mm": 15.555,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 12.231,
+            "y0_mm": 16.4737,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 12.231,
+            "y0_mm": 15.555,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 18,
+        "tile_name": "Llama3_8B_Layer_18_Tile",
+        "grid_row": 4,
+        "grid_col": 2,
+        "serpentine_dir": "EAST",
+        "x0_mm": 13.1,
+        "y0_mm": 15.555,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 16.15,
+        "center_y_mm": 17.2744,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 13.1,
+            "y0_mm": 15.555,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 16.543,
+            "y0_mm": 15.555,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 18.331,
+            "y0_mm": 16.4737,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 18.331,
+            "y0_mm": 15.555,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 19,
+        "tile_name": "Llama3_8B_Layer_19_Tile",
+        "grid_row": 4,
+        "grid_col": 3,
+        "serpentine_dir": "EAST",
+        "x0_mm": 19.2,
+        "y0_mm": 15.555,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 22.25,
+        "center_y_mm": 17.2744,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 19.2,
+            "y0_mm": 15.555,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 22.643,
+            "y0_mm": 15.555,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 24.431,
+            "y0_mm": 16.4737,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 24.431,
+            "y0_mm": 15.555,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 20,
+        "tile_name": "Llama3_8B_Layer_20_Tile",
+        "grid_row": 5,
+        "grid_col": 3,
+        "serpentine_dir": "WEST",
+        "x0_mm": 19.2,
+        "y0_mm": 18.9938,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 22.25,
+        "center_y_mm": 20.7132,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 19.2,
+            "y0_mm": 18.9938,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 22.643,
+            "y0_mm": 18.9938,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 24.431,
+            "y0_mm": 19.9125,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 24.431,
+            "y0_mm": 18.9938,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 21,
+        "tile_name": "Llama3_8B_Layer_21_Tile",
+        "grid_row": 5,
+        "grid_col": 2,
+        "serpentine_dir": "WEST",
+        "x0_mm": 13.1,
+        "y0_mm": 18.9938,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 16.15,
+        "center_y_mm": 20.7132,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 13.1,
+            "y0_mm": 18.9938,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 16.543,
+            "y0_mm": 18.9938,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 18.331,
+            "y0_mm": 19.9125,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 18.331,
+            "y0_mm": 18.9938,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 22,
+        "tile_name": "Llama3_8B_Layer_22_Tile",
+        "grid_row": 5,
+        "grid_col": 1,
+        "serpentine_dir": "WEST",
+        "x0_mm": 7.0,
+        "y0_mm": 18.9938,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 10.05,
+        "center_y_mm": 20.7132,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 7.0,
+            "y0_mm": 18.9938,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 10.443,
+            "y0_mm": 18.9938,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 12.231,
+            "y0_mm": 19.9125,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 12.231,
+            "y0_mm": 18.9938,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 23,
+        "tile_name": "Llama3_8B_Layer_23_Tile",
+        "grid_row": 5,
+        "grid_col": 0,
+        "serpentine_dir": "WEST",
+        "x0_mm": 0.9,
+        "y0_mm": 18.9938,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 3.95,
+        "center_y_mm": 20.7132,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 0.9,
+            "y0_mm": 18.9938,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 4.343,
+            "y0_mm": 18.9938,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 6.131,
+            "y0_mm": 19.9125,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 6.131,
+            "y0_mm": 18.9938,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 24,
+        "tile_name": "Llama3_8B_Layer_24_Tile",
+        "grid_row": 6,
+        "grid_col": 0,
+        "serpentine_dir": "EAST",
+        "x0_mm": 0.9,
+        "y0_mm": 22.4325,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 3.95,
+        "center_y_mm": 24.1519,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 0.9,
+            "y0_mm": 22.4325,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 4.343,
+            "y0_mm": 22.4325,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 6.131,
+            "y0_mm": 23.3513,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 6.131,
+            "y0_mm": 22.4325,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 25,
+        "tile_name": "Llama3_8B_Layer_25_Tile",
+        "grid_row": 6,
+        "grid_col": 1,
+        "serpentine_dir": "EAST",
+        "x0_mm": 7.0,
+        "y0_mm": 22.4325,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 10.05,
+        "center_y_mm": 24.1519,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 7.0,
+            "y0_mm": 22.4325,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 10.443,
+            "y0_mm": 22.4325,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 12.231,
+            "y0_mm": 23.3513,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 12.231,
+            "y0_mm": 22.4325,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 26,
+        "tile_name": "Llama3_8B_Layer_26_Tile",
+        "grid_row": 6,
+        "grid_col": 2,
+        "serpentine_dir": "EAST",
+        "x0_mm": 13.1,
+        "y0_mm": 22.4325,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 16.15,
+        "center_y_mm": 24.1519,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 13.1,
+            "y0_mm": 22.4325,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 16.543,
+            "y0_mm": 22.4325,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 18.331,
+            "y0_mm": 23.3513,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 18.331,
+            "y0_mm": 22.4325,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 27,
+        "tile_name": "Llama3_8B_Layer_27_Tile",
+        "grid_row": 6,
+        "grid_col": 3,
+        "serpentine_dir": "EAST",
+        "x0_mm": 19.2,
+        "y0_mm": 22.4325,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 22.25,
+        "center_y_mm": 24.1519,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 19.2,
+            "y0_mm": 22.4325,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 22.643,
+            "y0_mm": 22.4325,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 24.431,
+            "y0_mm": 23.3513,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 24.431,
+            "y0_mm": 22.4325,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 28,
+        "tile_name": "Llama3_8B_Layer_28_Tile",
+        "grid_row": 7,
+        "grid_col": 3,
+        "serpentine_dir": "WEST",
+        "x0_mm": 19.2,
+        "y0_mm": 25.8713,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 22.25,
+        "center_y_mm": 27.5907,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 19.2,
+            "y0_mm": 25.8713,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 22.643,
+            "y0_mm": 25.8713,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 24.431,
+            "y0_mm": 26.7901,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 24.431,
+            "y0_mm": 25.8713,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 29,
+        "tile_name": "Llama3_8B_Layer_29_Tile",
+        "grid_row": 7,
+        "grid_col": 2,
+        "serpentine_dir": "WEST",
+        "x0_mm": 13.1,
+        "y0_mm": 25.8713,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 16.15,
+        "center_y_mm": 27.5907,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 13.1,
+            "y0_mm": 25.8713,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 16.543,
+            "y0_mm": 25.8713,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 18.331,
+            "y0_mm": 26.7901,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 18.331,
+            "y0_mm": 25.8713,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 30,
+        "tile_name": "Llama3_8B_Layer_30_Tile",
+        "grid_row": 7,
+        "grid_col": 1,
+        "serpentine_dir": "WEST",
+        "x0_mm": 7.0,
+        "y0_mm": 25.8713,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 10.05,
+        "center_y_mm": 27.5907,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 7.0,
+            "y0_mm": 25.8713,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 10.443,
+            "y0_mm": 25.8713,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 12.231,
+            "y0_mm": 26.7901,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 12.231,
+            "y0_mm": 25.8713,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      },
+      {
+        "layer_index": 31,
+        "tile_name": "Llama3_8B_Layer_31_Tile",
+        "grid_row": 7,
+        "grid_col": 0,
+        "serpentine_dir": "WEST",
+        "x0_mm": 0.9,
+        "y0_mm": 25.8713,
+        "w_mm": 6.1,
+        "h_mm": 3.43875,
+        "area_mm2": 20.9764,
+        "center_x_mm": 3.95,
+        "center_y_mm": 27.5907,
+        "tile_power_nominal_w": 5.8,
+        "sub_macros": {
+          "via2_rom_and_3b6b_mac_subarray": {
+            "x0_mm": 0.9,
+            "y0_mm": 25.8713,
+            "w_mm": 3.443,
+            "h_mm": 3.43875,
+            "area_mm2": 11.8396,
+            "stored_weights_mb": 226.56,
+            "power_w": 3.12
+          },
+          "sram_6t_kv_and_lora_macro": {
+            "x0_mm": 4.343,
+            "y0_mm": 25.8713,
+            "w_mm": 1.788,
+            "h_mm": 3.43875,
+            "area_mm2": 6.1485,
+            "capacity_mb": 6.0,
+            "power_w": 1.48
+          },
+          "flash_decode_rope_swiglu_rmsnorm_strip": {
+            "x0_mm": 6.131,
+            "y0_mm": 26.7901,
+            "w_mm": 0.869,
+            "h_mm": 2.52,
+            "area_mm2": 2.1899,
+            "power_w": 0.96
+          },
+          "wormhole_token_pipe_noc_router": {
+            "x0_mm": 6.131,
+            "y0_mm": 25.8713,
+            "w_mm": 0.869,
+            "h_mm": 0.91875,
+            "area_mm2": 0.7984,
+            "power_w": 0.24
+          }
+        }
+      }
+    ]
+  },
+  "full_reticle_thermal_and_pdn_ir_drop": {
+    "nominal_tdp_w": 218.8,
+    "turbo_tdp_w": 248.5,
+    "ambient_temp_c": 25.0,
+    "heatsink_base_temp_c": 56.73,
+    "min_die_temp_c": 60.26,
+    "avg_die_temp_c": 71.36,
+    "peak_hotspot_temp_c": 80.07,
+    "turbo_peak_hotspot_temp_c": 87.55,
+    "cooling_envelope": "Standard 250W PCIe Air-Cooled Vapor-Chamber Heatsink (< 85 C Tj_max Limit)",
+    "vdd_supply_v": 0.75,
+    "avg_vdd_ir_drop_mv": 12.885,
+    "peak_vdd_ir_drop_mv": 18.773,
+    "peak_vdd_ir_drop_pct": 2.503,
+    "min_effective_vdd_v": 0.7312
+  }
+}

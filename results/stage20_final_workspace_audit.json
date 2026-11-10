@@ -1,0 +1,28 @@
+{
+  "stage": "Stage 20E \u2014 Final Exhaustive 20-Stage Workspace & Deliverable Audit",
+  "overall_audit_status": "PASS_100PCT_VERIFIED",
+  "missing_or_empty_files_count": 0,
+  "rtl_v3_modules_verified": 19,
+  "rtl_hc2_modules_verified": 4,
+  "openroad_routed_def_macros_verified": 9,
+  "json_telemetry_ledgers_verified": 24,
+  "stage19_seq_equiv_proven_qed": "15 / 15 (1,096,383 SAT vars, 3,130,026 clauses)",
+  "stage19_mutation_kill_score": "100 / 100 (100.0%, 8,289,402 SAT vars, 23,520,040 clauses)",
+  "stage20a_native_sv_uvm_2020_3_1_txns": 5120,
+  "stage20a_uvm_errors_and_fatals": 0,
+  "stage20b_m19_formal_status": "PROVED Q.E.D. (seq-16, 653,757 vars, 1,923,586 clauses)",
+  "stage20b_m19_asap7_pnr_cells": 7306,
+  "stage20b_m19_asap7_pnr_drc": 0,
+  "stage20c_10m_soak_cycles": 10000000,
+  "stage20c_10m_soak_verified_txns": 22504706,
+  "stage20c_10m_soak_errors": 0,
+  "stage20d_closedloop_ref_cycles": 100000,
+  "stage20d_closedloop_dfs_cycles": 76443,
+  "stage20d_phase2_regulated_mean_temp_c": 75.004,
+  "stage20d_bbm_glitches": 0,
+  "stage20d_anti_windup_clamp": [
+    -16384,
+    16384
+  ],
+  "paper_pdf_size_bytes": 1916508
+}

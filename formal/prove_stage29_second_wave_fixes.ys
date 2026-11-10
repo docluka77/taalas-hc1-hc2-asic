@@ -1,0 +1,84 @@
+# =============================================================================
+# Stage 29A: Yosys Formal SAT Proof Script for Wave-2 Audit Fixes (007..013)
+# + Full Actual RTL Module Bounded Model Checking (M02, M04, M06, M10, M11, M12, M13, H2)
+# + Wave-1 Audit Fixes (001..006)
+# =============================================================================
+
+design -reset
+read_verilog -sv -formal formal/tb_stage29_formal_wrappers.sv
+prep -top formal_m02_outlier20b_and_zskip_check
+memory_map; async2sync; dffunmap; opt -full
+sat -verify -prove-asserts
+
+design -reset
+read_verilog -sv -formal formal/tb_stage29_formal_wrappers.sv
+prep -top formal_m04_wide_zp_and_rne_check
+memory_map; async2sync; dffunmap; opt -full
+sat -verify -prove-asserts
+
+design -reset
+read_verilog -sv -formal formal/tb_stage29_formal_wrappers.sv
+prep -top formal_m06_multihead_no_alias_check
+memory_map; async2sync; dffunmap; opt -full
+sat -verify -prove-asserts
+
+design -reset
+read_verilog -sv -formal formal/tb_stage29_formal_wrappers.sv
+prep -top formal_m10_wide_xnorm_no_signwrap_check
+memory_map; async2sync; dffunmap; opt -full
+sat -verify -prove-asserts
+
+design -reset
+read_verilog -sv -formal formal/tb_stage29_formal_wrappers.sv
+prep -top formal_m13_h2_protocol_and_window_ack_check
+memory_map; async2sync; dffunmap; opt -full
+sat -verify -prove-asserts
+
+# --- Direct Sequential SAT Proofs on Remediated RTL Modules ---
+design -reset
+read_verilog -sv -formal rtl_v3/taalas_3b6b_wired_mac_array.sv
+chparam -set VEC_LEN 2 -set OUT_CHANNELS 1 -set NUM_OUTLIERS 4 taalas_3b6b_wired_mac_array
+prep -top taalas_3b6b_wired_mac_array
+memory_map; async2sync; dffunmap; opt -full
+sat -verify -seq 3 -set-init-zero -prove-asserts
+
+design -reset
+read_verilog -sv -formal rtl_v3/taalas_group_dequant_scale_unit.sv
+chparam -set OUT_CHANNELS 1 -set ACC_WIDTH 8 -set SCALE_WIDTH 8 -set OUT_WIDTH 8 taalas_group_dequant_scale_unit
+prep -top taalas_group_dequant_scale_unit
+memory_map; async2sync; dffunmap; opt -full
+sat -verify -seq 3 -set-init-zero -prove-asserts
+
+design -reset
+read_verilog -sv -formal rtl_v3/taalas_rmsnorm_engine.sv
+chparam -set HIDDEN_DIM 2 -set VEC_W 1 -set DATA_W 8 taalas_rmsnorm_engine
+prep -top taalas_rmsnorm_engine
+memory_map; async2sync; dffunmap; opt -full
+sat -verify -seq 3 -set-init-zero -prove-asserts
+
+design -reset
+read_verilog -sv -formal rtl_v3/taalas_swiglu_ffn_pipe.sv
+chparam -set CHANNELS 1 -set DOWN_OUT_CH 1 -set DATA_W 8 taalas_swiglu_ffn_pipe
+prep -top taalas_swiglu_ffn_pipe
+memory_map; async2sync; dffunmap; opt -full
+sat -verify -seq 3 -set-init-zero -prove-asserts
+
+design -reset
+read_verilog -sv -formal rtl_v3/taalas_token_pipe_noc_router.sv
+chparam -set FLIT_WIDTH 64 -set FIFO_DEPTH 4 -set MAX_CREDITS 4 taalas_token_pipe_noc_router
+prep -top taalas_token_pipe_noc_router
+memory_map; async2sync; dffunmap; opt -full
+sat -verify -seq 4 -set-init-zero -prove-asserts
+
+design -reset
+read_verilog -sv -formal rtl_v3/taalas_pcie_csr_ctrl.sv
+prep -top taalas_pcie_csr_ctrl
+memory_map; async2sync; dffunmap; opt -full
+sat -verify -seq 4 -set-init-zero -prove-asserts
+
+design -reset
+read_verilog -sv -formal rtl_hc2/taalas_hc2_c2c_llr_serdes_ctrl.sv
+chparam -set REPLAY_DEPTH 4 -set MAX_CREDITS 4 taalas_hc2_c2c_llr_serdes_ctrl
+prep -top taalas_hc2_c2c_llr_serdes_ctrl
+memory_map; async2sync; dffunmap; opt -full
+sat -verify -seq 4 -set-init-zero -prove-asserts

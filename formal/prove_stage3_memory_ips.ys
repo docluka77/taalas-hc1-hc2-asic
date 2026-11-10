@@ -1,0 +1,43 @@
+# =============================================================================
+# Stage 3 Formal SAT Verification Script (Yosys)
+# Mathematically proves all inline SVA assertions across:
+#   1. taalas_via_mask_rom_macro (M1)
+#   2. taalas_sram_6t_banked_macro (M5: GF(2^4) bijection + (72,64) SECDED 100%)
+#   3. taalas_kv_cache_manager (M6: Ring bounds + GQA 4:1 broadcast equivalence)
+# =============================================================================
+
+# --- Proof 1: taalas_via_mask_rom_macro (M1) [6-Cycle Sequential BMC] ---
+design -reset
+read_verilog -sv -formal rtl/taalas_via_mask_rom_macro.sv
+chparam -set NUM_BANKS 2 -set ROWS 2 -set COLS 320 taalas_via_mask_rom_macro
+prep -top taalas_via_mask_rom_macro
+memory_map
+async2sync
+dffunmap
+opt -full
+sat -verify -seq 6 -set-init-zero -prove-asserts
+
+# --- Proof 2A: taalas_sram_6t_banked_macro (M5) [Universal 72b SECDED 1b/2b & GF(2^4) Proof] ---
+design -reset
+read_verilog -sv -formal rtl/taalas_sram_6t_banked_macro.sv
+chparam -set NUM_BANKS 2 -set BANK_DEPTH 2 taalas_sram_6t_banked_macro
+prep -top taalas_sram_6t_banked_macro
+memory_map
+async2sync
+dffunmap
+opt -full
+sat -verify -seq 2 -set-init-zero -prove-asserts
+
+# --- Proof 2B: taalas_sram_6t_banked_macro (M5) [6-Cycle Sequential RMW, Arbiter & Retention] ---
+sat -verify -seq 6 -set-init-zero -prove-asserts -set err_inj_mask_i 72'h00_0000_0000_0000_0181
+
+# --- Proof 3: taalas_kv_cache_manager (M6) [6-Cycle Sequential Ring & GQA 4:1 Broadcast] ---
+design -reset
+read_verilog -sv -formal rtl/taalas_kv_cache_manager.sv
+chparam -set MAX_USERS 2 -set MAX_SEQ_LEN 4 -set HEAD_DIM 2 taalas_kv_cache_manager
+prep -top taalas_kv_cache_manager
+memory_map
+async2sync
+dffunmap
+opt -full
+sat -verify -seq 6 -set-init-zero -prove-asserts

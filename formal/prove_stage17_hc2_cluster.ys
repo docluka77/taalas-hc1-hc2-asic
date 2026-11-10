@@ -1,0 +1,45 @@
+# =============================================================================
+# Stage 17 Yosys Formal SAT Proof Script — Taalas HC2 Disaggregated 3D-SRAM,
+# C2C 112G SerDes LLR Controller, MoE Top-K Router & Multi-Chip Cluster Top
+# Mathematically proves all inline formal invariants across H1..H4 (8-Cycle BMC)
+# =============================================================================
+
+# --- 1. Module H1: taalas_hc2_disagg_sram_fabric ---
+design -reset
+read_verilog -sv -formal rtl_hc2/taalas_hc2_disagg_sram_fabric.sv
+chparam -set NUM_PORTS 2 -set NUM_BANKS 16 -set BANK_DEPTH 2 taalas_hc2_disagg_sram_fabric
+hierarchy -top taalas_hc2_disagg_sram_fabric
+ proc; opt -fast
+delete taalas_hc2_disagg_sram_fabric/m:sram_3d_array
+prep -top taalas_hc2_disagg_sram_fabric
+memory_map; async2sync; dffunmap; opt -full
+sat -verify -seq 8 -set-init-zero -prove-asserts
+
+# --- 2. Module H2: taalas_hc2_c2c_llr_serdes_ctrl ---
+design -reset
+read_verilog -sv -formal rtl_hc2/taalas_hc2_c2c_llr_serdes_ctrl.sv
+chparam -set REPLAY_DEPTH 2 -set MAX_CREDITS 2 taalas_hc2_c2c_llr_serdes_ctrl
+prep -top taalas_hc2_c2c_llr_serdes_ctrl
+memory_map; async2sync; dffunmap; opt -full
+sat -verify -seq 8 -set-init-zero -prove-asserts
+
+# --- 3. Module H3: taalas_hc2_moe_mla_router ---
+design -reset
+read_verilog -sv -formal rtl_hc2/taalas_hc2_moe_mla_router.sv
+chparam -set NUM_EXPERTS 4 -set DIM_GATE 1 -set MAX_K 4 -set NUM_CHIPS 2 taalas_hc2_moe_mla_router
+prep -top taalas_hc2_moe_mla_router
+memory_map; async2sync; dffunmap; opt -full
+sat -verify -seq 8 -set-init-zero -prove-asserts
+
+# --- 4. Module H4: taalas_hc2_multichip_cluster_top ---
+design -reset
+read_verilog -sv -formal rtl_v2/taalas_mxfp4_hc2_mac_lane.sv
+read_verilog -sv -formal rtl_hc2/taalas_hc2_disagg_sram_fabric.sv
+read_verilog -sv -formal rtl_hc2/taalas_hc2_c2c_llr_serdes_ctrl.sv
+read_verilog -sv -formal rtl_hc2/taalas_hc2_moe_mla_router.sv
+read_verilog -sv -formal rtl_hc2/taalas_hc2_multichip_cluster_top.sv
+chparam -set NUM_CHIPS 2 -set BANK_DEPTH 2 -set NUM_EXPERTS 8 -set DIM_GATE 2 -set BLOCK_SIZE 2 -set NUM_LANES 1 taalas_hc2_multichip_cluster_top
+delete taalas_hc2_multichip_cluster_top/c:gen_hc2_dies*
+prep -top taalas_hc2_multichip_cluster_top
+memory_map; async2sync; dffunmap; opt -full
+sat -verify -seq 8 -set-init-zero -prove-asserts

@@ -1,0 +1,159 @@
+{
+  "design": "taalas_dvfs_pvt_controller",
+  "full_macro_description": "M19 All-Digital 32-Tile PVT RO Sensor, Anti-Windup PID Thermal Governor & Break-Before-Make DFS Clock-Mux Controller",
+  "platform": "asap7",
+  "chparam": "",
+  "scale_to_full_macro": 1.0,
+  "target_clock_period": 1000,
+  "time_unit": "ps",
+  "io_pins_count": 219,
+  "die_dimensions_um": "58.32 x 58.32",
+  "die_area_um2": 3401.22,
+  "core_area_um2": 2916.0,
+  "yosys_mapped_cells": 7306,
+  "yosys_cell_area_um2": 883.56,
+  "openroad_design_area_um2": 884.0,
+  "tsmc_n6_scaled_design_area_um2": 760.24,
+  "full_macro_routed_design_area_um2": 884.0,
+  "full_macro_routed_wirelength_um": 31049.65,
+  "core_utilization_pct": 30.0,
+  "hpwl_original_um": 24907.9,
+  "hpwl_legalized_um": 24910.1,
+  "global_route_wirelength_um": 43485.0,
+  "detailed_route_wirelength_um": 31049.65,
+  "post_route_critical_path": 1979.36,
+  "post_route_fmax_mhz": 505.21,
+  "wns_setup": -979.36,
+  "wns_hold": 5.738,
+  "tns_setup": -32625.672,
+  "clock_skew": 7.718,
+  "routing_congestion_usage_pct": 13.0,
+  "routing_congestion_overflow": 0,
+  "routing_congestion_by_layer": {
+    "M1": {
+      "resource": 0,
+      "demand": 0,
+      "usage_pct": 0.0,
+      "max_h_overflow": 0,
+      "max_v_overflow": 0,
+      "total_overflow": 0
+    },
+    "M2": {
+      "resource": 83119,
+      "demand": 23782,
+      "usage_pct": 28.61,
+      "max_h_overflow": 0,
+      "max_v_overflow": 0,
+      "total_overflow": 0
+    },
+    "M3": {
+      "resource": 118778,
+      "demand": 28743,
+      "usage_pct": 24.2,
+      "max_h_overflow": 0,
+      "max_v_overflow": 0,
+      "total_overflow": 0
+    },
+    "M4": {
+      "resource": 86928,
+      "demand": 3885,
+      "usage_pct": 4.47,
+      "max_h_overflow": 0,
+      "max_v_overflow": 0,
+      "total_overflow": 0
+    },
+    "M5": {
+      "resource": 82860,
+      "demand": 871,
+      "usage_pct": 1.05,
+      "max_h_overflow": 0,
+      "max_v_overflow": 0,
+      "total_overflow": 0
+    },
+    "M6": {
+      "resource": 69336,
+      "demand": 39,
+      "usage_pct": 0.06,
+      "max_h_overflow": 0,
+      "max_v_overflow": 0,
+      "total_overflow": 0
+    }
+  },
+  "final_drc_violations": 0,
+  "final_antenna_violations": 0,
+  "power_breakdown_mw": {
+    "sequential": {
+      "internal_mw": 0.335,
+      "switching_mw": 0.204,
+      "leakage_mw": 1e-05,
+      "total_mw": 0.54
+    },
+    "combinational": {
+      "internal_mw": 46.8,
+      "switching_mw": 41.9,
+      "leakage_mw": 0.000837,
+      "total_mw": 88.7
+    },
+    "clock": {
+      "internal_mw": 0.0562,
+      "switching_mw": 0.104,
+      "leakage_mw": 2e-06,
+      "total_mw": 0.16
+    },
+    "total": {
+      "internal_mw": 47.2,
+      "switching_mw": 42.2,
+      "leakage_mw": 0.000849,
+      "total_mw": 89.4
+    }
+  },
+  "pdnsim_ir_drop": {
+    "VDD": {
+      "supply_voltage_v": 0.77,
+      "worstcase_voltage_v": 0.752,
+      "avg_ir_drop_mv": 1.54,
+      "worstcase_ir_drop_mv": 17.7,
+      "pct_drop": 2.3
+    },
+    "VSS": {
+      "supply_voltage_v": 0.0,
+      "worstcase_voltage_v": 0.0178,
+      "avg_ir_drop_mv": 1.54,
+      "worstcase_ir_drop_mv": 17.8,
+      "pct_drop": 2.31
+    }
+  },
+  "physical_layout_stats": {
+    "def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/taalas_dvfs_pvt_controller_asap7/results/taalas_dvfs_pvt_controller_asap7_route-tcl.def",
+    "def_file_exists": true,
+    "spef_file_exists": true,
+    "drc_report_exists": true,
+    "drc_violations_in_rpt": 0,
+    "def_size_bytes": 7484356,
+    "spef_size_bytes": 10720123,
+    "metal_wirelength_um": {
+      "M2": 12466.04,
+      "M3": 15992.17,
+      "M4": 2285.74,
+      "M5": 285.11,
+      "M6": 20.59
+    },
+    "via_counts": {
+      "VIA12": 26343,
+      "VIA23": 42749,
+      "VIA34": 2877,
+      "VIA45": 303,
+      "VIA56": 2
+    },
+    "clock_buffer_instances": 674,
+    "tap_and_decap_instances": 602,
+    "filler_instances": 0,
+    "total_physical_components": 8133,
+    "routed_nets_count": 7593,
+    "io_pins_count": 221,
+    "total_routed_wirelength_um": 31049.65,
+    "total_vias": 72274,
+    "top_def_path": "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/pnr/taalas_dvfs_pvt_controller_asap7_route.def"
+  },
+  "pnr_runtime_sec": 140.8
+}

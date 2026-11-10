@@ -1,0 +1,2264 @@
+OpenROAD v2.0-26493-g61cf907834 
+Features included (+) or not (-): +GPU -GUI -Python
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ORD-0030] Using 16 thread(s).
+############################################################################
+##
+## Copyright (c) 2019, The Regents of the University of California
+## All rights reserved.
+##
+## BSD 3-Clause License
+##
+## Redistribution and use in source and binary forms, with or without
+## modification, are permitted provided that the following conditions are met:
+##
+## * Redistributions of source code must retain the above copyright notice, this
+##   list of conditions and the following disclaimer.
+##
+## * Redistributions in binary form must reproduce the above copyright notice,
+##   this list of conditions and the following disclaimer in the documentation
+##   and/or other materials provided with the distribution.
+##
+## * Neither the name of the copyright holder nor the names of its
+##   contributors may be used to endorse or promote products derived from
+##   this software without specific prior written permission.
+##
+## THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+## AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+## IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+## ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+## LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+## CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+## SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+## INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+## CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+## ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+## POSSIBILITY OF SUCH DAMAGE.
+##
+############################################################################
+# Assumes flow_helpers.tcl has been read.
+read_libraries
+[INFO ODB-0227] LEF file: sky130hd/sky130hd.tlef, created 13 layers, 25 vias
+[INFO ODB-0227] LEF file: sky130hd/sky130hd_std_cell.lef, created 437 library cells
+read_verilog $synth_verilog
+link_design $top_module
+read_sdc $sdc_file
+[WARNING STA-0441] set_input_delay relative to a clock defined on the same port/pin not allowed.
+set_thread_count 16
+# Temporarily disable sta's threading due to random failures
+sta::set_thread_count 1
+utl::metric "IFP::ord_version" [ord::openroad_git_describe]
+# Note that sta::network_instance_count is not valid after tapcells are added.
+utl::metric "IFP::instance_count" [sta::network_instance_count]
+initialize_floorplan -site $site \
+  -die_area $die_area \
+  -core_area $core_area
+[WARNING IFP-0028] Core area lower left (20.000, 20.000) snapped to (20.240, 21.760).
+[INFO IFP-0001] Added 271 rows of 1608 site unithd.
+source $tracks_file
+# remove buffers inserted by synthesis
+remove_buffers
+[INFO RSZ-0026] Removed 124 buffers.
+if { $pre_placed_macros_file != "" } {
+  source $pre_placed_macros_file
+}
+################################################################
+# Macro Placement
+if { [have_macros] } {
+  lassign $macro_place_halo halo_x halo_y
+  set report_dir [make_result_file ${design}_${platform}_rtlmp]
+  rtl_macro_placer -halo_width $halo_x -halo_height $halo_y \
+    -report_directory $report_dir
+}
+################################################################
+# Tapcell insertion
+eval tapcell $tapcell_args ;# tclint-disable command-args
+[INFO TAP-0005] Inserted 7234 tapcells.
+################################################################
+# Power distribution network insertion
+source $pdn_cfg
+[WARNING ORD-0046] -defer_connection has been deprecated.
+[WARNING ORD-0046] -defer_connection has been deprecated.
+[WARNING ORD-0046] -defer_connection has been deprecated.
+[WARNING ORD-0046] -defer_connection has been deprecated.
+[WARNING ORD-0046] -defer_connection has been deprecated.
+[WARNING ORD-0046] -defer_connection has been deprecated.
+[WARNING ORD-0046] -defer_connection has been deprecated.
+[WARNING ORD-0046] -defer_connection has been deprecated.
+[WARNING ORD-0046] -defer_connection has been deprecated.
+pdngen
+[INFO PDN-0001] Inserting grid: grid
+################################################################
+# Global placement
+foreach layer_adjustment $global_routing_layer_adjustments {
+  lassign $layer_adjustment layer adjustment
+  set_global_routing_layer_adjustment $layer $adjustment
+}
+set_routing_layers -signal $global_routing_layers \
+  -clock $global_routing_clock_layers
+set_macro_extension 2
+# Global placement skip IOs
+global_placement -density $global_place_density \
+  -pad_left $global_place_pad -pad_right $global_place_pad -skip_io
+[INFO GPL-0005] Execute conjugate gradient initial placement.
+[INFO GPL-0002] DBU: 1000
+[INFO GPL-0003] SiteSize: (  0.460  2.720 ) um
+[INFO GPL-0004] CoreBBox: ( 20.240 21.760 ) ( 759.920 758.880 ) um
+[INFO GPL-0032] Initializing region: Top-level
+[INFO GPL-0006] Number of instances:             30997
+[INFO GPL-0007] Movable instances:               23763
+[INFO GPL-0008] Fixed instances:                  7234
+[INFO GPL-0009] Dummy instances:                     0
+[INFO GPL-0010] Number of nets:                  24151
+[INFO GPL-0011] Number of pins:                  82257
+[INFO GPL-0012] Die BBox:  (  0.000  0.000 ) ( 780.000 780.000 ) um
+[INFO GPL-0013] Core BBox: ( 20.240 21.760 ) ( 759.920 758.880 ) um
+[INFO GPL-0016] Core area:                  545232.922 um^2
+[INFO GPL-0014] Region name: top-level.
+[INFO GPL-0015] Region area:                545232.922 um^2
+[INFO GPL-0017] Fixed instances area:         9051.181 um^2
+[INFO GPL-0018] Movable instances area:     418083.475 um^2
+[INFO GPL-0019] Utilization:                    77.974 %
+[INFO GPL-0020] Standard cells area:        418083.475 um^2
+[INFO GPL-0021] Large instances area:            0.000 um^2
+[INFO GPL-0033] Initializing Nesterov region: Top-level
+[WARNING GPL-0302] Target density 0.3000 is too low for the available free area.
+Automatically adjusting to uniform density 0.7800.
+[INFO GPL-0023] Placement target density:       0.7800
+[INFO GPL-0024] Movable insts average area:     17.594 um^2
+[INFO GPL-0025] Ideal bin area:                 22.556 um^2
+[INFO GPL-0026] Ideal bin count:                 24172
+[INFO GPL-0027] Total bin area:             545232.922 um^2
+[INFO GPL-0028] Bin count (X, Y):         128 ,    128
+[INFO GPL-0029] Bin size (W * H):       5.779 *  5.759 um
+[INFO GPL-0030] Number of bins:                  16384
+[INFO GPL-0007] Execute nesterov global placement.
+[INFO GPL-0031] HPWL: Half-Perimeter Wirelength
+Iteration | Overflow |     HPWL (um) |  HPWL(%) |   Penalty | Group
+---------------------------------------------------------------
+        0 |   0.9995 |  5.389317e+04 |   +0.00% |  1.93e-16 |      
+       10 |   0.9992 |  3.224776e+04 |  -40.16% |  3.14e-16 |      
+       20 |   0.9992 |  3.007875e+04 |   -6.73% |  5.11e-16 |      
+       30 |   0.9991 |  2.906722e+04 |   -3.36% |  8.33e-16 |      
+       40 |   0.9991 |  2.874067e+04 |   -1.12% |  1.36e-15 |      
+       50 |   0.9991 |  2.866109e+04 |   -0.28% |  2.21e-15 |      
+       60 |   0.9991 |  2.860388e+04 |   -0.20% |  3.60e-15 |      
+       70 |   0.9991 |  2.848138e+04 |   -0.43% |  5.86e-15 |      
+       80 |   0.9991 |  2.829215e+04 |   -0.66% |  9.55e-15 |      
+       90 |   0.9990 |  2.811161e+04 |   -0.64% |  1.56e-14 |      
+      100 |   0.9989 |  2.801741e+04 |   -0.34% |  2.53e-14 |      
+      110 |   0.9987 |  2.810513e+04 |   +0.31% |  4.13e-14 |      
+      120 |   0.9982 |  2.892948e+04 |   +2.93% |  6.72e-14 |      
+      130 |   0.9974 |  3.222390e+04 |  +11.39% |  1.09e-13 |      
+      140 |   0.9959 |  3.989003e+04 |  +23.79% |  1.78e-13 |      
+      150 |   0.9933 |  5.110956e+04 |  +28.13% |  2.90e-13 |      
+      160 |   0.9882 |  6.609543e+04 |  +29.32% |  4.71e-13 |      
+      170 |   0.9803 |  8.385653e+04 |  +26.87% |  7.66e-13 |      
+      180 |   0.9687 |  1.020899e+05 |  +21.74% |  1.25e-12 |      
+      190 |   0.9573 |  1.211470e+05 |  +18.67% |  2.03e-12 |      
+      200 |   0.9414 |  1.451209e+05 |  +19.79% |  3.29e-12 |      
+      210 |   0.9182 |  1.762186e+05 |  +21.43% |  5.34e-12 |      
+      220 |   0.8886 |  2.101547e+05 |  +19.26% |  8.67e-12 |      
+      230 |   0.8581 |  2.441271e+05 |  +16.17% |  1.41e-11 |      
+      240 |   0.8255 |  2.808110e+05 |  +15.03% |  2.28e-11 |      
+      250 |   0.7862 |  3.189584e+05 |  +13.58% |  3.70e-11 |      
+      260 |   0.7447 |  3.530621e+05 |  +10.69% |  6.01e-11 |      
+      270 |   0.7083 |  3.811989e+05 |   +7.97% |  9.76e-11 |      
+      280 |   0.6710 |  4.062671e+05 |   +6.58% |  1.59e-10 |      
+      290 |   0.6262 |  4.267446e+05 |   +5.04% |  2.58e-10 |      
+      300 |   0.5857 |  4.405001e+05 |   +3.22% |  4.19e-10 |      
+      310 |   0.5443 |  4.568526e+05 |   +3.71% |  6.81e-10 |      
+      320 |   0.5033 |  4.651584e+05 |   +1.82% |  1.11e-09 |      
+      330 |   0.4649 |  4.691148e+05 |   +0.85% |  1.80e-09 |      
+      340 |   0.4305 |  4.647134e+05 |   -0.94% |  2.94e-09 |      
+      350 |   0.3885 |  4.716773e+05 |   +1.50% |  4.78e-09 |      
+      360 |   0.3526 |  4.734247e+05 |   +0.37% |  7.79e-09 |      
+      370 |   0.3228 |  4.715752e+05 |   -0.39% |  1.18e-08 |      
+      380 |   0.2967 |  4.735227e+05 |   +0.41% |  1.74e-08 |      
+      390 |   0.2706 |  4.743407e+05 |   +0.17% |  2.57e-08 |      
+      400 |   0.2495 |  4.760798e+05 |   +0.37% |  3.78e-08 |      
+      410 |   0.2268 |  4.778117e+05 |   +0.36% |  5.57e-08 |      
+      420 |   0.2064 |  4.794470e+05 |   +0.34% |  8.20e-08 |      
+      430 |   0.1861 |  4.814992e+05 |   +0.43% |  1.21e-07 |      
+      440 |   0.1670 |  4.832845e+05 |   +0.37% |  1.78e-07 |      
+      450 |   0.1481 |  4.854440e+05 |   +0.45% |  2.62e-07 |      
+      460 |   0.1296 |  4.876249e+05 |   +0.45% |  3.86e-07 |      
+      470 |   0.1131 |  4.902534e+05 |   +0.54% |  5.68e-07 |      
+      479 |   0.0995 |  4.918093e+05 |          |  8.37e-07 |      
+---------------------------------------------------------------
+[INFO GPL-1001] Global placement finished at iteration 479
+[INFO GPL-1002] Placed Cell Area            418083.4752
+[INFO GPL-1003] Available Free Area         536181.7408
+[INFO GPL-1004] Minimum Feasible Density        0.7800 (cell_area / free_area)
+[INFO GPL-1006]   Suggested Target Densities:
+[INFO GPL-1007]     - For 90% usage of free space: 0.8664
+[INFO GPL-1008]     - For 80% usage of free space: 0.9747
+[INFO GPL-1014] Final placement area: 418083.48 (+0.00%)
+# IO Placement
+place_pins -hor_layers $io_placer_hor_layer -ver_layers $io_placer_ver_layer
+Found 0 macro blocks.
+Using 2 tracks default min distance between IO pins.
+[INFO PPL-0001] Number of available slots 2832
+[INFO PPL-0002] Number of I/O             485
+[INFO PPL-0003] Number of I/O w/sink      485
+[INFO PPL-0004] Number of I/O w/o sink    0
+[INFO PPL-0005] Slots per section         200
+[INFO PPL-0008] Successfully assigned pins to sections.
+[INFO PPL-0012] I/O nets HPWL: 81542.54 um.
+# Global placement with placed IOs and routability-driven
+global_placement -density $global_place_density \
+  -pad_left $global_place_pad -pad_right $global_place_pad
+[INFO GPL-0005] Execute conjugate gradient initial placement.
+[INFO GPL-0002] DBU: 1000
+[INFO GPL-0003] SiteSize: (  0.460  2.720 ) um
+[INFO GPL-0004] CoreBBox: ( 20.240 21.760 ) ( 759.920 758.880 ) um
+[INFO GPL-0032] Initializing region: Top-level
+[INFO GPL-0006] Number of instances:             30997
+[INFO GPL-0007] Movable instances:               23763
+[INFO GPL-0008] Fixed instances:                  7234
+[INFO GPL-0009] Dummy instances:                     0
+[INFO GPL-0010] Number of nets:                  24151
+[INFO GPL-0011] Number of pins:                  82742
+[INFO GPL-0012] Die BBox:  (  0.000  0.000 ) ( 780.000 780.000 ) um
+[INFO GPL-0013] Core BBox: ( 20.240 21.760 ) ( 759.920 758.880 ) um
+[INFO GPL-0016] Core area:                  545232.922 um^2
+[INFO GPL-0014] Region name: top-level.
+[INFO GPL-0015] Region area:                545232.922 um^2
+[INFO GPL-0017] Fixed instances area:         9051.181 um^2
+[INFO GPL-0018] Movable instances area:     418083.475 um^2
+[INFO GPL-0019] Utilization:                    77.974 %
+[INFO GPL-0020] Standard cells area:        418083.475 um^2
+[INFO GPL-0021] Large instances area:            0.000 um^2
+[InitialPlace]  Iter: 1 conjugate gradient residual: 0.00105217 HPWL: 696489956
+[InitialPlace]  Iter: 2 conjugate gradient residual: 0.00013263 HPWL: 422177887
+[InitialPlace]  Iter: 3 conjugate gradient residual: 0.00027531 HPWL: 420089847
+[InitialPlace]  Iter: 4 conjugate gradient residual: 0.00037417 HPWL: 417472408
+[InitialPlace]  Iter: 5 conjugate gradient residual: 0.00044380 HPWL: 413196007
+[InitialPlace]  Iter: 6 conjugate gradient residual: 0.00051136 HPWL: 409761504
+[InitialPlace]  Iter: 7 conjugate gradient residual: 0.00041025 HPWL: 406359082
+[InitialPlace]  Iter: 8 conjugate gradient residual: 0.00023940 HPWL: 403824298
+[InitialPlace]  Iter: 9 conjugate gradient residual: 0.00011589 HPWL: 401999873
+[InitialPlace]  Iter: 10 conjugate gradient residual: 0.00006638 HPWL: 400867242
+[InitialPlace]  Iter: 11 conjugate gradient residual: 0.00006264 HPWL: 399708805
+[InitialPlace]  Iter: 12 conjugate gradient residual: 0.00004516 HPWL: 399101840
+[InitialPlace]  Iter: 13 conjugate gradient residual: 0.00004585 HPWL: 398360957
+[InitialPlace]  Iter: 14 conjugate gradient residual: 0.00003314 HPWL: 397795498
+[InitialPlace]  Iter: 15 conjugate gradient residual: 0.00003302 HPWL: 397391855
+[InitialPlace]  Iter: 16 conjugate gradient residual: 0.00002181 HPWL: 397391832
+[InitialPlace]  Iter: 17 conjugate gradient residual: 0.00002296 HPWL: 397095625
+[InitialPlace]  Iter: 18 conjugate gradient residual: 0.00001629 HPWL: 397186543
+[InitialPlace]  Iter: 19 conjugate gradient residual: 0.00001322 HPWL: 396987955
+[InitialPlace]  Iter: 20 conjugate gradient residual: 0.00001269 HPWL: 397078408
+[INFO GPL-0033] Initializing Nesterov region: Top-level
+[WARNING GPL-0302] Target density 0.3000 is too low for the available free area.
+Automatically adjusting to uniform density 0.7800.
+[INFO GPL-0023] Placement target density:       0.7800
+[INFO GPL-0024] Movable insts average area:     17.594 um^2
+[INFO GPL-0025] Ideal bin area:                 22.556 um^2
+[INFO GPL-0026] Ideal bin count:                 24172
+[INFO GPL-0027] Total bin area:             545232.922 um^2
+[INFO GPL-0028] Bin count (X, Y):         128 ,    128
+[INFO GPL-0029] Bin size (W * H):       5.779 *  5.759 um
+[INFO GPL-0030] Number of bins:                  16384
+[INFO GPL-0007] Execute nesterov global placement.
+[INFO GPL-0031] HPWL: Half-Perimeter Wirelength
+Iteration | Overflow |     HPWL (um) |  HPWL(%) |   Penalty | Group
+---------------------------------------------------------------
+        0 |   0.9648 |  3.007826e+05 |   +0.00% |  3.87e-16 |      
+       10 |   0.9043 |  3.629737e+05 |  +20.68% |  6.24e-16 |      
+       20 |   0.8752 |  4.083161e+05 |  +12.49% |  1.01e-15 |      
+       30 |   0.8483 |  4.242465e+05 |   +3.90% |  1.64e-15 |      
+       40 |   0.8235 |  4.330178e+05 |   +2.07% |  2.67e-15 |      
+       50 |   0.8042 |  4.422318e+05 |   +2.13% |  4.35e-15 |      
+       60 |   0.7903 |  4.507126e+05 |   +1.92% |  7.08e-15 |      
+       70 |   0.7816 |  4.562047e+05 |   +1.22% |  1.15e-14 |      
+       80 |   0.7775 |  4.587285e+05 |   +0.55% |  1.88e-14 |      
+       90 |   0.7771 |  4.595734e+05 |   +0.18% |  3.06e-14 |      
+      100 |   0.7789 |  4.591800e+05 |   -0.09% |  4.98e-14 |      
+      110 |   0.7817 |  4.574030e+05 |   -0.39% |  8.11e-14 |      
+      120 |   0.7852 |  4.547643e+05 |   -0.58% |  1.32e-13 |      
+      130 |   0.7879 |  4.521007e+05 |   -0.59% |  2.15e-13 |      
+      140 |   0.7896 |  4.501361e+05 |   -0.43% |  3.51e-13 |      
+      150 |   0.7888 |  4.493607e+05 |   -0.17% |  5.71e-13 |      
+      160 |   0.7875 |  4.498990e+05 |   +0.12% |  9.30e-13 |      
+      170 |   0.7847 |  4.514460e+05 |   +0.34% |  1.52e-12 |      
+      180 |   0.7816 |  4.536410e+05 |   +0.49% |  2.47e-12 |      
+      190 |   0.7771 |  4.564154e+05 |   +0.61% |  4.02e-12 |      
+      200 |   0.7714 |  4.599056e+05 |   +0.76% |  6.54e-12 |      
+      210 |   0.7628 |  4.644209e+05 |   +0.98% |  1.07e-11 |      
+      220 |   0.7492 |  4.703400e+05 |   +1.27% |  1.73e-11 |      
+      230 |   0.7311 |  4.778469e+05 |   +1.60% |  2.82e-11 |      
+      240 |   0.7072 |  4.869311e+05 |   +1.90% |  4.59e-11 |      
+      250 |   0.6771 |  4.968288e+05 |   +2.03% |  7.47e-11 |      
+      260 |   0.6453 |  5.055372e+05 |   +1.75% |  1.22e-10 |      
+      270 |   0.6100 |  5.103753e+05 |   +0.96% |  1.98e-10 |      
+      280 |   0.5746 |  5.102821e+05 |   -0.02% |  3.22e-10 |      
+      290 |   0.5403 |  5.066362e+05 |   -0.71% |  5.25e-10 |      
+      300 |   0.5020 |  5.054306e+05 |   -0.24% |  8.56e-10 |      
+      310 |   0.4666 |  5.054542e+05 |   +0.00% |  1.39e-09 |      
+      320 |   0.4335 |  5.042859e+05 |   -0.23% |  2.27e-09 |      
+      330 |   0.4003 |  5.043281e+05 |   +0.01% |  3.70e-09 |      
+      340 |   0.3677 |  5.086896e+05 |   +0.86% |  6.02e-09 |      
+      350 |   0.3329 |  5.118589e+05 |   +0.62% |  9.42e-09 |      
+      360 |   0.3087 |  5.118240e+05 |   -0.01% |  1.39e-08 |      
+      370 |   0.2839 |  5.141558e+05 |   +0.46% |  2.04e-08 |      
+      380 |   0.2600 |  5.163347e+05 |   +0.42% |  3.01e-08 |      
+      390 |   0.2377 |  5.182218e+05 |   +0.37% |  4.43e-08 |      
+      400 |   0.2164 |  5.200814e+05 |   +0.36% |  6.53e-08 |      
+      410 |   0.1952 |  5.218690e+05 |   +0.34% |  9.62e-08 |      
+      420 |   0.1750 |  5.239402e+05 |   +0.40% |  1.42e-07 |      
+      430 |   0.1569 |  5.260317e+05 |   +0.40% |  2.09e-07 |      
+      440 |   0.1386 |  5.283787e+05 |   +0.45% |  3.07e-07 |      
+      450 |   0.1215 |  5.306169e+05 |   +0.42% |  4.52e-07 |      
+      460 |   0.1054 |  5.330398e+05 |   +0.46% |  6.66e-07 |      
+      464 |   0.0991 |  5.338051e+05 |          |  8.09e-07 |      
+---------------------------------------------------------------
+[INFO GPL-1001] Global placement finished at iteration 464
+[INFO GPL-1002] Placed Cell Area            418083.4752
+[INFO GPL-1003] Available Free Area         536181.7408
+[INFO GPL-1004] Minimum Feasible Density        0.7800 (cell_area / free_area)
+[INFO GPL-1006]   Suggested Target Densities:
+[INFO GPL-1007]     - For 90% usage of free space: 0.8664
+[INFO GPL-1008]     - For 80% usage of free space: 0.9747
+[INFO GPL-1014] Final placement area: 418083.48 (+0.00%)
+# checkpoint
+set global_place_db [make_result_file ${design}_${platform}_global_place.db]
+write_db $global_place_db
+################################################################
+# Repair max slew/cap/fanout violations and normalize slews
+source $layer_rc_file
+set_wire_rc -signal -layer $wire_rc_layer
+set_wire_rc -clock -layer $wire_rc_layer_clk
+set_dont_use $dont_use
+estimate_parasitics -placement
+repair_design -slew_margin $slew_margin -cap_margin $cap_margin
+Iteration |   Area    | Resized | Buffers | Nets repaired | Remaining
+---------------------------------------------------------------------
+        0 |     +0.0% |       0 |       0 |             0 |     24151
+    final |     +0.3% |      20 |      18 |            23 |         0
+---------------------------------------------------------------------
+[INFO RSZ-0034] Found 21 slew violations.
+[INFO RSZ-0036] Found 3 capacitance violations.
+[INFO RSZ-0039] Resized 20 instances.
+[INFO RSZ-0038] Inserted 18 buffers in 23 nets.
+repair_tie_fanout -separation $tie_separation $tielo_port
+repair_tie_fanout -separation $tie_separation $tiehi_port
+set_placement_padding -global -left $detail_place_pad -right $detail_place_pad
+detailed_placement
+Placement Analysis
+---------------------------------
+total displacement      64640.7 u
+average displacement        2.1 u
+max displacement           25.3 u
+original HPWL          539334.5 u
+legalized HPWL         608181.9 u
+delta HPWL                   13 %
+
+# post resize timing report (ideal clocks)
+report_worst_slack -min -digits 3
+worst slack min 0.305
+report_worst_slack -max -digits 3
+worst slack max 3.679
+report_tns -digits 3
+tns max 0.000
+# Check slew repair
+report_check_types -max_slew -max_capacitance -max_fanout -violators
+utl::metric "RSZ::repair_design_buffer_count" [rsz::repair_design_buffer_count]
+utl::metric "RSZ::max_slew_slack" [expr [sta::max_slew_check_slack_limit] * 100]
+utl::metric "RSZ::max_fanout_slack" [expr [sta::max_fanout_check_slack_limit] * 100]
+utl::metric "RSZ::max_capacitance_slack" [expr [sta::max_capacitance_check_slack_limit] * 100]
+################################################################
+# Clock Tree Synthesis
+# Clone clock tree inverters next to register loads
+# so cts does not try to buffer the inverted clocks.
+repair_clock_inverters
+clock_tree_synthesis -root_buf $cts_buffer -buf_list $cts_buffer \
+  -sink_clustering_enable \
+  -sink_clustering_max_diameter $cts_cluster_diameter
+[INFO CTS-0050] Root buffer is sky130_fd_sc_hd__clkbuf_4.
+[INFO CTS-0051] Sink buffer is sky130_fd_sc_hd__clkbuf_4.
+[INFO CTS-0052] The following clock buffers will be used for CTS:
+                    sky130_fd_sc_hd__clkbuf_4
+[INFO CTS-0049] Characterization buffer is sky130_fd_sc_hd__clkbuf_4.
+[INFO CTS-0007] Net "clk" found for clock "core_clock".
+[INFO CTS-0010]  Clock net "clk" has 1075 sinks.
+[INFO CTS-0008] TritonCTS found 1 clock nets.
+[INFO CTS-0097] Characterization used 1 buffer(s) types.
+[INFO CTS-0201] 0 blockages from hard placement blockages and placed macros will be used.
+[INFO CTS-0027] Generating H-Tree topology for net clk.
+[INFO CTS-0028]  Total number of sinks: 1075.
+[INFO CTS-0029]  Register sinks will be clustered in groups of up to 20 and with maximum cluster diameter of 100.0 um.
+[INFO CTS-0030]  Number of static layers: 0.
+[INFO CTS-0020]  Wire segment unit: 13600  dbu (13 um).
+[INFO CTS-0204] A clustering solution was found from clustering size of 30 and clustering diameter of 100.
+[INFO CTS-0205] Better solution may be possible if either -sink_clustering_size, -sink_clustering_max_diameter, or both options are omitted to enable automatic clustering.
+[INFO CTS-0019]  Total number of sinks after clustering: 106.
+[INFO CTS-0024]  Normalized sink region: [(2.012, 2.00294), (55.0842, 55.4348)].
+[INFO CTS-0025]     Width:  53.0722.
+[INFO CTS-0026]     Height: 53.4319.
+ Level 1
+    Direction: Vertical
+    Sinks per sub-region: 53
+    Sub-region size: 53.0722 X 26.7159
+[INFO CTS-0034]     Segment length (rounded): 14.
+ Level 2
+    Direction: Horizontal
+    Sinks per sub-region: 27
+    Sub-region size: 26.5361 X 26.7159
+[INFO CTS-0034]     Segment length (rounded): 14.
+ Level 3
+    Direction: Vertical
+    Sinks per sub-region: 14
+    Sub-region size: 26.5361 X 13.3580
+[INFO CTS-0034]     Segment length (rounded): 6.
+[INFO CTS-0032]  Stop criterion found. Max number of sinks is 15.
+[INFO CTS-0035]  Number of sinks covered: 106.
+[INFO CTS-0018]     Created 114 clock buffers.
+[INFO CTS-0012]     Minimum number of buffers in the clock path: 3.
+[INFO CTS-0013]     Maximum number of buffers in the clock path: 4.
+[INFO CTS-0015]     Created 114 clock nets.
+[INFO CTS-0016]     Fanout distribution for the current clock = 2:4, 3:7, 4:3, 5:9, 6:13, 7:7, 8:3, 9:6, 10:9, 11:6, 12:6, 13:7, 14:6, 15:4, 16:2, 17:4, 18:1, 19:1, 20:1, 22:2, 24:3, 29:1, 30:4..
+[INFO CTS-0017]     Max level of the clock tree: 3.
+[INFO CTS-0098] Clock net "clk"
+[INFO CTS-0099]  Sinks 1171
+[INFO CTS-0100]  Leaf buffers 101
+[INFO CTS-0101]  Average sink wire length 1332.59 um
+[INFO CTS-0102]  Path depth 3 - 4
+[INFO CTS-0207]  Leaf load cells 96
+# CTS leaves a long wire from the pad to the clock tree root.
+repair_clock_nets
+[INFO RSZ-0058] Using max wire length 2506um.
+# place clock buffers
+detailed_placement
+Placement Analysis
+---------------------------------
+total displacement       2004.1 u
+average displacement        0.1 u
+max displacement           11.8 u
+original HPWL          622148.7 u
+legalized HPWL         623496.1 u
+delta HPWL                    0 %
+
+# checkpoint
+set cts_db [make_result_file ${design}_${platform}_cts.db]
+write_db $cts_db
+################################################################
+# Setup/hold timing repair
+set_propagated_clock [all_clocks]
+# Global routing is fast enough for the flow regressions.
+# It is NOT FAST ENOUGH FOR PRODUCTION USE.
+set repair_timing_use_grt_parasitics 0
+if { $repair_timing_use_grt_parasitics } {
+  # Global route for parasitics - no guide file requied
+  global_route -congestion_iterations 100
+  estimate_parasitics -global_routing
+} else {
+  estimate_parasitics -placement
+}
+repair_timing -hold -skip_gate_cloning
+[INFO RSZ-0046] Found 1564 endpoints with hold violations.
+Iteration | Resized | Buffers | Cloned Gates |   Area   |   WNS   |   TNS   | Endpoint
+--------------------------------------------------------------------------------------
+        0 |       0 |       0 |            0 |    +0.0% |  -1.246 | -762.428 | _46670_/RESET_B
+    final |      35 |     875 |            0 |    +5.0% |   0.000 |   0.000 | _46270_/D
+--------------------------------------------------------------------------------------
+[INFO RSZ-0032] Inserted 875 hold buffers.
+# Post timing repair.
+report_worst_slack -min -digits 3
+worst slack min 0.000
+report_worst_slack -max -digits 3
+worst slack max 3.449
+report_tns -digits 3
+tns max 0.000
+report_check_types -max_slew -max_capacitance -max_fanout -violators -digits 3
+max slew
+
+Pin                                     Limit     Slew    Slack
+---------------------------------------------------------------
+_23080_/Y                               1.484    1.536   -0.051 (VIOLATED)
+_23163_/A                               1.500    1.536   -0.036 (VIOLATED)
+_23188_/A                               1.500    1.536   -0.036 (VIOLATED)
+_23143_/A                               1.500    1.536   -0.036 (VIOLATED)
+_23141_/A                               1.500    1.536   -0.036 (VIOLATED)
+_23081_/B                               1.500    1.536   -0.036 (VIOLATED)
+_23264_/A1                              1.500    1.536   -0.036 (VIOLATED)
+_23269_/A                               1.500    1.536   -0.036 (VIOLATED)
+_23101_/B                               1.500    1.536   -0.036 (VIOLATED)
+_23238_/A                               1.500    1.536   -0.036 (VIOLATED)
+_23275_/A                               1.500    1.536   -0.036 (VIOLATED)
+_23288_/A1                              1.500    1.536   -0.036 (VIOLATED)
+_45382_/S                               1.500    1.504   -0.004 (VIOLATED)
+_45542_/S                               1.500    1.504   -0.004 (VIOLATED)
+_45385_/A2                              1.500    1.504   -0.004 (VIOLATED)
+_45384_/A                               1.500    1.504   -0.004 (VIOLATED)
+_45543_/S                               1.500    1.504   -0.004 (VIOLATED)
+_45378_/A2                              1.500    1.504   -0.004 (VIOLATED)
+_45377_/A                               1.500    1.504   -0.004 (VIOLATED)
+_45383_/S                               1.500    1.504   -0.004 (VIOLATED)
+_45531_/S                               1.500    1.504   -0.004 (VIOLATED)
+_45529_/S                               1.500    1.503   -0.003 (VIOLATED)
+_45375_/A                               1.500    1.503   -0.003 (VIOLATED)
+_45376_/A2                              1.500    1.503   -0.003 (VIOLATED)
+_45530_/S                               1.500    1.503   -0.003 (VIOLATED)
+_45457_/A2                              1.500    1.503   -0.003 (VIOLATED)
+_45456_/A                               1.500    1.503   -0.003 (VIOLATED)
+_45459_/S                               1.500    1.503   -0.003 (VIOLATED)
+_45449_/S                               1.500    1.502   -0.002 (VIOLATED)
+_45450_/S                               1.500    1.502   -0.002 (VIOLATED)
+_45443_/S                               1.500    1.502   -0.002 (VIOLATED)
+_45444_/A                               1.500    1.502   -0.002 (VIOLATED)
+_45618_/S                               1.500    1.501   -0.001 (VIOLATED)
+_45461_/S                               1.500    1.501   -0.001 (VIOLATED)
+_45616_/S                               1.500    1.501   -0.001 (VIOLATED)
+_45451_/S                               1.500    1.501   -0.001 (VIOLATED)
+_45519_/S                               1.500    1.501   -0.001 (VIOLATED)
+_45452_/S                               1.500    1.501   -0.001 (VIOLATED)
+_45619_/S                               1.500    1.500   -0.000 (VIOLATED)
+_45620_/S                               1.500    1.500   -0.000 (VIOLATED)
+_45617_/S                               1.500    1.500   -0.000 (VIOLATED)
+_45458_/S                               1.500    1.500   -0.000 (VIOLATED)
+_45622_/A                               1.500    1.500   -0.000 (VIOLATED)
+
+max capacitance
+
+Pin                                     Limit      Cap    Slack
+---------------------------------------------------------------
+_23080_/Y                               0.050    0.053   -0.003 (VIOLATED)
+
+utl::metric "RSZ::worst_slack_min" [sta::worst_slack -min]
+utl::metric "RSZ::worst_slack_max" [sta::worst_slack -max]
+utl::metric "RSZ::tns_max" [sta::total_negative_slack -max]
+utl::metric "RSZ::hold_buffer_count" [rsz::hold_buffer_count]
+################################################################
+# Detailed Placement
+detailed_placement
+Placement Analysis
+---------------------------------
+total displacement      12741.2 u
+average displacement        0.4 u
+max displacement           38.0 u
+original HPWL          652741.8 u
+legalized HPWL         664813.4 u
+delta HPWL                    2 %
+
+# Capture utilization before fillers make it 100%
+utl::metric "DPL::utilization" [format %.1f [expr [rsz::utilization] * 100]]
+utl::metric "DPL::design_area" [sta::format_area [rsz::design_area] 0]
+# checkpoint
+set dpl_db [make_result_file ${design}_${platform}_dpl.db]
+write_db $dpl_db
+set verilog_file [make_result_file ${design}_${platform}.v]
+write_verilog $verilog_file
+################################################################
+# Global routing
+pin_access
+[INFO DRT-0149] Reading tech and libs.
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer mcon
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer mcon
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via2
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via2
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via3
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via3
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via4
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via4
+
+Units:                1000
+Number of layers:     13
+Number of macros:     437
+Number of vias:       29
+Number of viarulegen: 25
+
+[INFO DRT-0150] Reading design.
+[WARNING DRT-0120] Large net net18 has 142 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net17 has 139 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net16 has 154 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net15 has 145 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net14 has 126 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net13 has 138 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net12 has 139 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net364 has 241 pins which may impact routing performance. Consider optimization.
+
+Design:                   baseline_fp16_int8_mac_array
+Die area:                 ( 0 0 ) ( 780000 780000 )
+Number of track patterns: 12
+Number of DEF vias:       0
+Number of components:     32100
+Number of terminals:      485
+Number of snets:          2
+Number of nets:           25158
+
+[INFO DRT-0167] List of default vias:
+  Layer via
+    default via: M1M2_PR
+  Layer via2
+    default via: M2M3_PR
+  Layer via3
+    default via: M3M4_PR
+  Layer via4
+    default via: M4M5_PR
+[INFO DRT-0162] Library cell analysis.
+[INFO DRT-0163] Instance analysis.
+[INFO DRT-0164] Number of unique instances = 219.
+[INFO DRT-0168] Init region query.
+[INFO DRT-0024]   Complete FR_MASTERSLICE.
+[INFO DRT-0024]   Complete Fr_VIA.
+[INFO DRT-0024]   Complete li1.
+[INFO DRT-0024]   Complete mcon.
+[INFO DRT-0024]   Complete met1.
+[INFO DRT-0024]   Complete via.
+[INFO DRT-0024]   Complete met2.
+[INFO DRT-0024]   Complete via2.
+[INFO DRT-0024]   Complete met3.
+[INFO DRT-0024]   Complete via3.
+[INFO DRT-0024]   Complete met4.
+[INFO DRT-0024]   Complete via4.
+[INFO DRT-0024]   Complete met5.
+[INFO DRT-0033] FR_MASTERSLICE shape region query size = 0.
+[INFO DRT-0033] FR_VIA shape region query size = 0.
+[INFO DRT-0033] li1 shape region query size = 613528.
+[INFO DRT-0033] mcon shape region query size = 9595.
+[INFO DRT-0033] met1 shape region query size = 91555.
+[INFO DRT-0033] via shape region query size = 36720.
+[INFO DRT-0033] met2 shape region query size = 22282.
+[INFO DRT-0033] via2 shape region query size = 29376.
+[INFO DRT-0033] met3 shape region query size = 22267.
+[INFO DRT-0033] via3 shape region query size = 29376.
+[INFO DRT-0033] met4 shape region query size = 8856.
+[INFO DRT-0033] via4 shape region query size = 1458.
+[INFO DRT-0033] met5 shape region query size = 1512.
+[INFO DRT-0165] Start pin access.
+[INFO DRT-0076]   Complete 1000 pins.
+[INFO DRT-0078]   Complete 1341 pins.
+[INFO DRT-0079]   Complete 100 unique inst patterns.
+[INFO DRT-0079]   Complete 200 unique inst patterns.
+[INFO DRT-0081]   Complete 219 unique inst patterns.
+[INFO DRT-0082]   Complete 10000 groups.
+[INFO DRT-0082]   Complete 20000 groups.
+[INFO DRT-0084]   Complete 24866 groups.
+#scanned instances     = 32100
+#unique  instances     = 219
+#stdCellGenAp          = 6612
+#stdCellValidPlanarAp  = 54
+#stdCellValidViaAp     = 5305
+#stdCellPinNoAp        = 0
+#stdCellPinCnt         = 84367
+#instTermValidViaApCnt = 0
+#macroGenAp            = 0
+#macroValidPlanarAp    = 0
+#macroValidViaAp       = 0
+#macroNoAp             = 0
+[INFO DRT-0166] Complete pin access.
+[INFO DRT-0267] cpu time = 00:00:24, elapsed time = 00:00:02, memory = 381.82 (MB), peak = 393.04 (MB)
+set route_guide [make_result_file ${design}_${platform}.route_guide]
+global_route -guide_file $route_guide \
+  -congestion_iterations 100 -verbose
+[INFO GRT-0020] Min routing layer: met1
+[INFO GRT-0021] Max routing layer: met5
+[INFO GRT-0022] Global adjustment: 0%
+[INFO GRT-0023] Grid origin: (0, 0)
+[INFO GRT-0088] Layer li1     Track-Pitch = 0.4600  line-2-Via Pitch: 0.3400
+[INFO GRT-0088] Layer met1    Track-Pitch = 0.3400  line-2-Via Pitch: 0.3400
+[INFO GRT-0088] Layer met2    Track-Pitch = 0.4600  line-2-Via Pitch: 0.3500
+[INFO GRT-0088] Layer met3    Track-Pitch = 0.6800  line-2-Via Pitch: 0.6150
+[INFO GRT-0088] Layer met4    Track-Pitch = 0.9200  line-2-Via Pitch: 1.0400
+[INFO GRT-0088] Layer met5    Track-Pitch = 3.4000  line-2-Via Pitch: 3.1100
+[INFO GRT-0003] Macros: 0
+[INFO GRT-0004] Blockages: 22689
+[INFO GRT-0019] Found 115 clock nets.
+[INFO GRT-0001] Minimum degree: 2
+[INFO GRT-0002] Maximum degree: 241
+
+[INFO GRT-0053] Routing resources analysis:
+          Routing      Original      Derated      Resource
+Layer     Direction    Resources     Resources    Reduction (%)
+---------------------------------------------------------------
+li1        Vertical            0             0          0.00%
+met1       Horizontal     255493         89889          64.82%
+met2       Vertical       191535         77250          59.67%
+met3       Horizontal     127690         57475          54.99%
+met4       Vertical        76727         31334          59.16%
+met5       Horizontal      25538         12656          50.44%
+---------------------------------------------------------------
+
+[INFO GRT-0101] Running extra iterations to remove overflow.
+[INFO GRT-0197] Via related to pin nodes: 150446
+[INFO GRT-0198] Via related Steiner nodes: 3197
+[INFO GRT-0199] Via filling finished.
+[INFO GRT-0111] Final number of vias: 192264
+[INFO GRT-0112] Final usage 3D: 694276
+
+[INFO GRT-0096] Final congestion report:
+Layer         Resource        Demand        Usage (%)    Max H / Max V / Total Overflow
+---------------------------------------------------------------------------------------
+li1                  0             0            0.00%             0 /  0 /  0
+met1             89889         45148           50.23%             0 /  0 /  0
+met2             77250         46992           60.83%             0 /  0 /  0
+met3             57475         12339           21.47%             0 /  0 /  0
+met4             31334         12625           40.29%             0 /  0 /  0
+met5             12656           380            3.00%             0 /  0 /  0
+---------------------------------------------------------------------------------------
+Total           268604        117484           43.74%             0 /  0 /  0
+
+[INFO GRT-0018] Total wirelength: 1237521 um
+[INFO GRT-0014] Routed nets: 25158
+set verilog_file [make_result_file ${design}_${platform}.v]
+write_verilog -remove_cells $filler_cells $verilog_file
+################################################################
+# Repair antennas post-GRT
+utl::set_metrics_stage "grt__{}"
+repair_antennas -iterations 5
+[INFO GRT-0006] Repairing antennas, iteration 1.
+[INFO GRT-0012] Found 251 antenna violations.
+[INFO GRT-0302] Inserted 217 jumpers for 179 nets.
+[INFO GRT-0012] Found 85 antenna violations.
+[WARNING GRT-0243] Unable to repair antennas on net with diodes.
+[INFO GRT-0015] Inserted 183 diodes.
+[INFO GRT-0009] rerouting 764 nets.
+[INFO GRT-0001] Minimum degree: 2
+[INFO GRT-0002] Maximum degree: 241
+[INFO GRT-0001] Minimum degree: 2
+[INFO GRT-0002] Maximum degree: 241
+[INFO GRT-0006] Repairing antennas, iteration 2.
+[INFO GRT-0012] Found 22 antenna violations.
+[INFO GRT-0302] Inserted 16 jumpers for 12 nets.
+[INFO GRT-0012] Found 10 antenna violations.
+[INFO GRT-0015] Inserted 36 diodes.
+[INFO GRT-0009] rerouting 121 nets.
+[INFO GRT-0001] Minimum degree: 2
+[INFO GRT-0002] Maximum degree: 139
+[INFO GRT-0001] Minimum degree: 2
+[INFO GRT-0002] Maximum degree: 139
+[INFO GRT-0006] Repairing antennas, iteration 3.
+[INFO GRT-0012] Found 5 antenna violations.
+[INFO GRT-0302] Inserted 3 jumpers for 3 nets.
+[INFO GRT-0012] Found 2 antenna violations.
+[INFO GRT-0015] Inserted 3 diodes.
+[INFO GRT-0009] rerouting 6 nets.
+[INFO GRT-0001] Minimum degree: 3
+[INFO GRT-0002] Maximum degree: 72
+[INFO GRT-0006] Repairing antennas, iteration 4.
+[INFO GRT-0012] Found 0 antenna violations.
+check_antennas
+[INFO ANT-0002] Found 0 net violations.
+[INFO ANT-0001] Found 0 pin violations.
+utl::clear_metrics_stage
+utl::metric "GRT::ANT::errors" [ant::antenna_violation_count]
+################################################################
+# Detailed routing
+# Run pin access again after inserting diodes and moving cells
+pin_access
+[INFO DRT-0149] Reading tech and libs.
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer mcon
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer mcon
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via2
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via2
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via3
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via3
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via4
+[WARNING DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via4
+
+Units:                1000
+Number of layers:     13
+Number of macros:     437
+Number of vias:       29
+Number of viarulegen: 25
+
+[INFO DRT-0150] Reading design.
+[WARNING DRT-0120] Large net net18 has 142 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net17 has 139 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net16 has 154 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net15 has 145 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net14 has 126 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net13 has 138 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net12 has 139 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net364 has 241 pins which may impact routing performance. Consider optimization.
+
+Design:                   baseline_fp16_int8_mac_array
+Die area:                 ( 0 0 ) ( 780000 780000 )
+Number of track patterns: 12
+Number of DEF vias:       0
+Number of components:     32322
+Number of terminals:      485
+Number of snets:          2
+Number of nets:           25158
+
+[INFO DRT-0167] List of default vias:
+  Layer via
+    default via: M1M2_PR
+  Layer via2
+    default via: M2M3_PR
+  Layer via3
+    default via: M3M4_PR
+  Layer via4
+    default via: M4M5_PR
+[INFO DRT-0162] Library cell analysis.
+[INFO DRT-0163] Instance analysis.
+[INFO DRT-0164] Number of unique instances = 222.
+[INFO DRT-0168] Init region query.
+[INFO DRT-0024]   Complete FR_MASTERSLICE.
+[INFO DRT-0024]   Complete Fr_VIA.
+[INFO DRT-0024]   Complete li1.
+[INFO DRT-0024]   Complete mcon.
+[INFO DRT-0024]   Complete met1.
+[INFO DRT-0024]   Complete via.
+[INFO DRT-0024]   Complete met2.
+[INFO DRT-0024]   Complete via2.
+[INFO DRT-0024]   Complete met3.
+[INFO DRT-0024]   Complete via3.
+[INFO DRT-0024]   Complete met4.
+[INFO DRT-0024]   Complete via4.
+[INFO DRT-0024]   Complete met5.
+[INFO DRT-0033] FR_MASTERSLICE shape region query size = 0.
+[INFO DRT-0033] FR_VIA shape region query size = 0.
+[INFO DRT-0033] li1 shape region query size = 614194.
+[INFO DRT-0033] mcon shape region query size = 9595.
+[INFO DRT-0033] met1 shape region query size = 91999.
+[INFO DRT-0033] via shape region query size = 36720.
+[INFO DRT-0033] met2 shape region query size = 22282.
+[INFO DRT-0033] via2 shape region query size = 29376.
+[INFO DRT-0033] met3 shape region query size = 22267.
+[INFO DRT-0033] via3 shape region query size = 29376.
+[INFO DRT-0033] met4 shape region query size = 8856.
+[INFO DRT-0033] via4 shape region query size = 1458.
+[INFO DRT-0033] met5 shape region query size = 1512.
+[INFO DRT-0165] Start pin access.
+[INFO DRT-0076]   Complete 1000 pins.
+[INFO DRT-0078]   Complete 1351 pins.
+[INFO DRT-0079]   Complete 100 unique inst patterns.
+[INFO DRT-0079]   Complete 200 unique inst patterns.
+[INFO DRT-0081]   Complete 222 unique inst patterns.
+[INFO DRT-0082]   Complete 10000 groups.
+[INFO DRT-0082]   Complete 20000 groups.
+[INFO DRT-0084]   Complete 25088 groups.
+#scanned instances     = 32322
+#unique  instances     = 222
+#stdCellGenAp          = 6639
+#stdCellValidPlanarAp  = 54
+#stdCellValidViaAp     = 5332
+#stdCellPinNoAp        = 0
+#stdCellPinCnt         = 84367
+#instTermValidViaApCnt = 0
+#macroGenAp            = 0
+#macroValidPlanarAp    = 0
+#macroValidViaAp       = 0
+#macroNoAp             = 0
+[INFO DRT-0166] Complete pin access.
+[INFO DRT-0267] cpu time = 00:00:23, elapsed time = 00:00:02, memory = 739.93 (MB), peak = 739.93 (MB)
+detailed_route -output_drc [make_result_file "${design}_${platform}_route_drc.rpt"] \
+  -output_maze [make_result_file "${design}_${platform}_maze.log"] \
+  -no_pin_access \
+  -verbose 0
+[WARNING DRT-0120] Large net net18 has 142 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net17 has 139 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net16 has 154 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net15 has 145 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net14 has 126 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net13 has 138 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net12 has 139 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net364 has 241 pins which may impact routing performance. Consider optimization.
+[INFO DRT-0156] guideIn read 100000 guides.
+[INFO DRT-0156] guideIn read 200000 guides.
+[INFO DRT-0178] Init guide query.
+[INFO DRT-0036] FR_MASTERSLICE guide region query size = 0.
+[INFO DRT-0036] FR_VIA guide region query size = 0.
+[INFO DRT-0036] li1 guide region query size = 68765.
+[INFO DRT-0036] mcon guide region query size = 0.
+[INFO DRT-0036] met1 guide region query size = 60589.
+[INFO DRT-0036] via guide region query size = 0.
+[INFO DRT-0036] met2 guide region query size = 31331.
+[INFO DRT-0036] via2 guide region query size = 0.
+[INFO DRT-0036] met3 guide region query size = 4074.
+[INFO DRT-0036] via3 guide region query size = 0.
+[INFO DRT-0036] met4 guide region query size = 1846.
+[INFO DRT-0036] via4 guide region query size = 0.
+[INFO DRT-0036] met5 guide region query size = 154.
+[INFO DRT-0179] Init gr pin query.
+write_guides [make_result_file "${design}_${platform}_output_guide.mod"]
+set drv_count [detailed_route_num_drvs]
+utl::metric "DRT::drv" $drv_count
+set routed_db [make_result_file ${design}_${platform}_route.db]
+write_db $routed_db
+set routed_def [make_result_file ${design}_${platform}_route.def]
+write_def $routed_def
+################################################################
+# Repair antennas post-DRT
+set repair_antennas_iters 0
+utl::set_metrics_stage "drt__repair_antennas__pre_repair__{}"
+while { [check_antennas] && $repair_antennas_iters < 5 } {
+  utl::set_metrics_stage "drt__repair_antennas__iter_${repair_antennas_iters}__{}"
+  repair_antennas
+  detailed_route -output_drc [make_result_file "${design}_${platform}_ant_fix_drc.rpt"] \
+    -output_maze [make_result_file "${design}_${platform}_ant_fix_maze.log"] \
+    -verbose 0
+  incr repair_antennas_iters
+}
+[INFO ANT-0002] Found 41 net violations.
+[INFO ANT-0001] Found 44 pin violations.
+[INFO GRT-0020] Min routing layer: met1
+[INFO GRT-0021] Max routing layer: met5
+[INFO GRT-0022] Global adjustment: 0%
+[INFO GRT-0023] Grid origin: (0, 0)
+[INFO GRT-0088] Layer li1     Track-Pitch = 0.4600  line-2-Via Pitch: 0.3400
+[INFO GRT-0088] Layer met1    Track-Pitch = 0.3400  line-2-Via Pitch: 0.3400
+[INFO GRT-0088] Layer met2    Track-Pitch = 0.4600  line-2-Via Pitch: 0.3500
+[INFO GRT-0088] Layer met3    Track-Pitch = 0.6800  line-2-Via Pitch: 0.6150
+[INFO GRT-0088] Layer met4    Track-Pitch = 0.9200  line-2-Via Pitch: 1.0400
+[INFO GRT-0088] Layer met5    Track-Pitch = 3.4000  line-2-Via Pitch: 3.1100
+[INFO GRT-0003] Macros: 0
+[INFO GRT-0004] Blockages: 22689
+[INFO GRT-0019] Found 115 clock nets.
+[INFO GRT-0001] Minimum degree: 2147483647
+[INFO GRT-0002] Maximum degree: 1
+[INFO GRT-0006] Repairing antennas, iteration 1.
+[INFO GRT-0012] Found 41 antenna violations.
+[INFO GRT-0015] Inserted 94 diodes.
+[INFO GRT-0009] rerouting 41 nets.
+[INFO GRT-0001] Minimum degree: 3
+[INFO GRT-0002] Maximum degree: 36
+[WARNING DRT-0120] Large net net18 has 142 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net17 has 139 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net16 has 154 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net15 has 145 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net14 has 126 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net13 has 138 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net12 has 139 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net364 has 241 pins which may impact routing performance. Consider optimization.
+[INFO DRT-0156] guideIn read 100000 guides.
+[INFO DRT-0156] guideIn read 200000 guides.
+[INFO DRT-0178] Init guide query.
+[INFO DRT-0036] FR_MASTERSLICE guide region query size = 0.
+[INFO DRT-0036] FR_VIA guide region query size = 0.
+[INFO DRT-0036] li1 guide region query size = 68836.
+[INFO DRT-0036] mcon guide region query size = 0.
+[INFO DRT-0036] met1 guide region query size = 60641.
+[INFO DRT-0036] via guide region query size = 0.
+[INFO DRT-0036] met2 guide region query size = 31309.
+[INFO DRT-0036] via2 guide region query size = 0.
+[INFO DRT-0036] met3 guide region query size = 3964.
+[INFO DRT-0036] via3 guide region query size = 0.
+[INFO DRT-0036] met4 guide region query size = 1737.
+[INFO DRT-0036] via4 guide region query size = 0.
+[INFO DRT-0036] met5 guide region query size = 118.
+[INFO DRT-0179] Init gr pin query.
+[INFO ANT-0002] Found 4 net violations.
+[INFO ANT-0001] Found 7 pin violations.
+[INFO GRT-0020] Min routing layer: met1
+[INFO GRT-0021] Max routing layer: met5
+[INFO GRT-0022] Global adjustment: 0%
+[INFO GRT-0023] Grid origin: (0, 0)
+[INFO GRT-0088] Layer li1     Track-Pitch = 0.4600  line-2-Via Pitch: 0.3400
+[INFO GRT-0088] Layer met1    Track-Pitch = 0.3400  line-2-Via Pitch: 0.3400
+[INFO GRT-0088] Layer met2    Track-Pitch = 0.4600  line-2-Via Pitch: 0.3500
+[INFO GRT-0088] Layer met3    Track-Pitch = 0.6800  line-2-Via Pitch: 0.6150
+[INFO GRT-0088] Layer met4    Track-Pitch = 0.9200  line-2-Via Pitch: 1.0400
+[INFO GRT-0088] Layer met5    Track-Pitch = 3.4000  line-2-Via Pitch: 3.1100
+[INFO GRT-0003] Macros: 0
+[INFO GRT-0004] Blockages: 22689
+[INFO GRT-0019] Found 115 clock nets.
+[INFO GRT-0001] Minimum degree: 2147483647
+[INFO GRT-0002] Maximum degree: 1
+[INFO GRT-0006] Repairing antennas, iteration 1.
+[INFO GRT-0012] Found 4 antenna violations.
+[INFO GRT-0015] Inserted 17 diodes.
+[INFO GRT-0009] rerouting 4 nets.
+[INFO GRT-0001] Minimum degree: 14
+[INFO GRT-0002] Maximum degree: 22
+[WARNING DRT-0120] Large net net18 has 142 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net17 has 139 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net16 has 154 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net15 has 145 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net14 has 126 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net13 has 138 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net12 has 139 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net364 has 241 pins which may impact routing performance. Consider optimization.
+[INFO DRT-0156] guideIn read 100000 guides.
+[INFO DRT-0156] guideIn read 200000 guides.
+[INFO DRT-0178] Init guide query.
+[INFO DRT-0036] FR_MASTERSLICE guide region query size = 0.
+[INFO DRT-0036] FR_VIA guide region query size = 0.
+[INFO DRT-0036] li1 guide region query size = 68850.
+[INFO DRT-0036] mcon guide region query size = 0.
+[INFO DRT-0036] met1 guide region query size = 60653.
+[INFO DRT-0036] via guide region query size = 0.
+[INFO DRT-0036] met2 guide region query size = 31317.
+[INFO DRT-0036] via2 guide region query size = 0.
+[INFO DRT-0036] met3 guide region query size = 3963.
+[INFO DRT-0036] via3 guide region query size = 0.
+[INFO DRT-0036] met4 guide region query size = 1736.
+[INFO DRT-0036] via4 guide region query size = 0.
+[INFO DRT-0036] met5 guide region query size = 118.
+[INFO DRT-0179] Init gr pin query.
+[INFO ANT-0002] Found 1 net violations.
+[INFO ANT-0001] Found 1 pin violations.
+[INFO GRT-0020] Min routing layer: met1
+[INFO GRT-0021] Max routing layer: met5
+[INFO GRT-0022] Global adjustment: 0%
+[INFO GRT-0023] Grid origin: (0, 0)
+[INFO GRT-0088] Layer li1     Track-Pitch = 0.4600  line-2-Via Pitch: 0.3400
+[INFO GRT-0088] Layer met1    Track-Pitch = 0.3400  line-2-Via Pitch: 0.3400
+[INFO GRT-0088] Layer met2    Track-Pitch = 0.4600  line-2-Via Pitch: 0.3500
+[INFO GRT-0088] Layer met3    Track-Pitch = 0.6800  line-2-Via Pitch: 0.6150
+[INFO GRT-0088] Layer met4    Track-Pitch = 0.9200  line-2-Via Pitch: 1.0400
+[INFO GRT-0088] Layer met5    Track-Pitch = 3.4000  line-2-Via Pitch: 3.1100
+[INFO GRT-0003] Macros: 0
+[INFO GRT-0004] Blockages: 22689
+[INFO GRT-0019] Found 115 clock nets.
+[INFO GRT-0001] Minimum degree: 2147483647
+[INFO GRT-0002] Maximum degree: 1
+[INFO GRT-0006] Repairing antennas, iteration 1.
+[INFO GRT-0012] Found 1 antenna violations.
+[INFO GRT-0015] Inserted 1 diodes.
+[INFO GRT-0009] rerouting 1 nets.
+[INFO GRT-0001] Minimum degree: 18
+[INFO GRT-0002] Maximum degree: 18
+[WARNING DRT-0120] Large net net18 has 142 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net17 has 139 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net16 has 154 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net15 has 145 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net14 has 126 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net13 has 138 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net12 has 139 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net net364 has 241 pins which may impact routing performance. Consider optimization.
+[INFO DRT-0156] guideIn read 100000 guides.
+[INFO DRT-0156] guideIn read 200000 guides.
+[INFO DRT-0178] Init guide query.
+[INFO DRT-0036] FR_MASTERSLICE guide region query size = 0.
+[INFO DRT-0036] FR_VIA guide region query size = 0.
+[INFO DRT-0036] li1 guide region query size = 68851.
+[INFO DRT-0036] mcon guide region query size = 0.
+[INFO DRT-0036] met1 guide region query size = 60654.
+[INFO DRT-0036] via guide region query size = 0.
+[INFO DRT-0036] met2 guide region query size = 31318.
+[INFO DRT-0036] via2 guide region query size = 0.
+[INFO DRT-0036] met3 guide region query size = 3963.
+[INFO DRT-0036] via3 guide region query size = 0.
+[INFO DRT-0036] met4 guide region query size = 1736.
+[INFO DRT-0036] via4 guide region query size = 0.
+[INFO DRT-0036] met5 guide region query size = 118.
+[INFO DRT-0179] Init gr pin query.
+[INFO ANT-0002] Found 0 net violations.
+[INFO ANT-0001] Found 0 pin violations.
+utl::set_metrics_stage "drt__{}"
+check_antennas
+[INFO ANT-0002] Found 0 net violations.
+[INFO ANT-0001] Found 0 pin violations.
+utl::clear_metrics_stage
+utl::metric "DRT::ANT::errors" [ant::antenna_violation_count]
+if { ![design_is_routed] } {
+  error "Design has unrouted nets."
+}
+set repair_antennas_db [make_result_file ${design}_${platform}_repaired_route.odb]
+write_db $repair_antennas_db
+################################################################
+# Filler placement
+filler_placement $filler_cells
+[INFO DPL-0001] Placed 62429 filler instances.
+check_placement -verbose
+# checkpoint
+set fill_db [make_result_file ${design}_${platform}_fill.db]
+write_db $fill_db
+################################################################
+# Extraction
+if { $rcx_rules_file != "" } {
+  define_process_corner -ext_model_index 0 X
+  extract_parasitics -ext_model_file $rcx_rules_file
+  set spef_file [make_result_file ${design}_${platform}.spef]
+  write_spef $spef_file
+  read_spef $spef_file
+} else {
+  # Use global routing based parasitics inlieu of rc extraction
+  estimate_parasitics -global_routing
+}
+[INFO RCX-0431] Defined process_corner X with ext_model_index 0
+[INFO RCX-0029] Defined extraction corner X
+[INFO RCX-0435] Reading extraction model file sky130hd/sky130hd.rcx_rules ...
+[INFO RCX-0436] RC segment generation baseline_fp16_int8_mac_array (max_merge_res 50.0) ...
+[INFO RCX-0040] Final 99529 rc segments
+[INFO RCX-0439] Coupling Cap extraction baseline_fp16_int8_mac_array ...
+[INFO RCX-0440] Coupling threshhold is 0.1000 fF, coupling capacitance less than 0.1000 fF will be grounded.
+[INFO RCX-0442] 54% of 179513 wires extracted
+[INFO RCX-0442] 100% of 179513 wires extracted
+[INFO RCX-0045] Extract 25158 nets, 124687 rsegs, 124687 caps, 196054 ccs
+[INFO RCX-0443] 25158 nets finished
+################################################################
+# Final Report
+report_checks -path_delay min_max -format full_clock_expanded \
+  -fields {input_pin slew capacitance} -digits 3
+Startpoint: rst_n (input port clocked by core_clock)
+Endpoint: _46670_ (removal check against rising-edge clock core_clock)
+Path Group: asynchronous
+Path Type: min
+
+     Cap     Slew    Delay     Time   Description
+---------------------------------------------------------------------------
+                     0.000    0.000   clock core_clock (rise edge)
+                     0.000    0.000   clock network delay (propagated)
+                     0.600    0.600 ^ input external delay
+   0.004    0.000    0.000    0.600 ^ rst_n (in)
+            0.000    0.000    0.600 ^ hold20/A (sky130_fd_sc_hd__dlygate4sd3_1)
+   0.003    0.051    0.518    1.118 ^ hold20/X (sky130_fd_sc_hd__dlygate4sd3_1)
+            0.051    0.000    1.118 ^ hold19/A (sky130_fd_sc_hd__dlygate4sd3_1)
+   0.100    0.961    1.185    2.302 ^ hold19/X (sky130_fd_sc_hd__dlygate4sd3_1)
+            0.961    0.002    2.305 ^ _46670_/RESET_B (sky130_fd_sc_hd__dfrtp_1)
+                              2.305   data arrival time
+
+                     0.000    0.000   clock core_clock (rise edge)
+                     0.000    0.000   clock source latency
+   0.099    0.000    0.000    0.000 ^ clk (in)
+            0.011    0.005    0.005 ^ clkbuf_0_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.154    0.455    0.411    0.417 ^ clkbuf_0_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.455    0.005    0.421 ^ clkbuf_2_1_0_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.038    0.129    0.312    0.734 ^ clkbuf_2_1_0_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.129    0.001    0.735 ^ clkbuf_3_2__f_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.178    0.524    0.495    1.231 ^ clkbuf_3_2__f_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.525    0.020    1.251 ^ clkbuf_leaf_77_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.066    0.203    0.383    1.634 ^ clkbuf_leaf_77_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.203    0.002    1.635 ^ _46670_/CLK (sky130_fd_sc_hd__dfrtp_1)
+                     0.000    1.635   clock reconvergence pessimism
+                     0.610    2.245   library removal time
+                              2.245   data required time
+---------------------------------------------------------------------------
+                              2.245   data required time
+                             -2.305   data arrival time
+---------------------------------------------------------------------------
+                              0.059   slack (MET)
+
+
+Startpoint: weight_load_en_i (input port clocked by core_clock)
+Endpoint: _45696_ (rising edge-triggered flip-flop clocked by core_clock)
+Path Group: core_clock
+Path Type: min
+
+     Cap     Slew    Delay     Time   Description
+---------------------------------------------------------------------------
+                     0.000    0.000   clock core_clock (rise edge)
+                     0.000    0.000   clock network delay (propagated)
+                     0.600    0.600 v input external delay
+   0.553    0.000    0.000    0.600 v weight_load_en_i (in)
+            0.095    0.048    0.648 v hold364/A (sky130_fd_sc_hd__buf_16)
+   1.487    0.288    0.310    0.958 v hold364/X (sky130_fd_sc_hd__buf_16)
+            0.313    0.050    1.007 v _45397_/A2 (sky130_fd_sc_hd__o21ai_0)
+   0.002    0.065    0.239    1.247 ^ _45397_/Y (sky130_fd_sc_hd__o21ai_0)
+            0.065    0.000    1.247 ^ _45696_/D (sky130_fd_sc_hd__dfrtp_1)
+                              1.247   data arrival time
+
+                     0.000    0.000   clock core_clock (rise edge)
+                     0.000    0.000   clock source latency
+   0.099    0.000    0.000    0.000 ^ clk (in)
+            0.011    0.005    0.005 ^ clkbuf_0_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.154    0.455    0.411    0.417 ^ clkbuf_0_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.455    0.006    0.422 ^ clkbuf_2_2_0_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.032    0.111    0.299    0.721 ^ clkbuf_2_2_0_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.111    0.001    0.722 ^ clkbuf_3_5__f_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.183    0.537    0.494    1.217 ^ clkbuf_3_5__f_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.539    0.025    1.242 ^ clkbuf_leaf_31_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.040    0.135    0.335    1.576 ^ clkbuf_leaf_31_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.135    0.001    1.577 ^ _45696_/CLK (sky130_fd_sc_hd__dfrtp_1)
+                     0.000    1.577   clock reconvergence pessimism
+                    -0.027    1.551   library hold time
+                              1.551   data required time
+---------------------------------------------------------------------------
+                              1.551   data required time
+                             -1.247   data arrival time
+---------------------------------------------------------------------------
+                             -0.304   slack (VIOLATED)
+
+
+Startpoint: rst_n (input port clocked by core_clock)
+Endpoint: _46428_ (recovery check against rising-edge clock core_clock)
+Path Group: asynchronous
+Path Type: max
+
+     Cap     Slew    Delay     Time   Description
+---------------------------------------------------------------------------
+                     0.000    0.000   clock core_clock (rise edge)
+                     0.000    0.000   clock network delay (propagated)
+                     0.600    0.600 ^ input external delay
+   0.004    0.000    0.000    0.600 ^ rst_n (in)
+            0.000    0.000    0.600 ^ hold20/A (sky130_fd_sc_hd__dlygate4sd3_1)
+   0.003    0.051    0.518    1.118 ^ hold20/X (sky130_fd_sc_hd__dlygate4sd3_1)
+            0.051    0.000    1.118 ^ hold19/A (sky130_fd_sc_hd__dlygate4sd3_1)
+   0.100    0.961    1.185    2.302 ^ hold19/X (sky130_fd_sc_hd__dlygate4sd3_1)
+            0.961    0.002    2.305 ^ load_slew15/A (sky130_fd_sc_hd__buf_16)
+   0.770    0.699    0.438    2.742 ^ load_slew15/X (sky130_fd_sc_hd__buf_16)
+            0.870    0.248    2.991 ^ load_slew13/A (sky130_fd_sc_hd__buf_16)
+   0.741    0.690    0.413    3.403 ^ load_slew13/X (sky130_fd_sc_hd__buf_16)
+            0.875    0.268    3.671 ^ load_slew12/A (sky130_fd_sc_hd__buf_16)
+   0.741    0.707    0.463    4.134 ^ load_slew12/X (sky130_fd_sc_hd__buf_16)
+            0.858    0.240    4.374 ^ load_slew10/A (sky130_fd_sc_hd__buf_16)
+   0.369    0.382    0.389    4.764 ^ load_slew10/X (sky130_fd_sc_hd__buf_16)
+            0.419    0.092    4.856 ^ _46428_/RESET_B (sky130_fd_sc_hd__dfrtp_1)
+                              4.856   data arrival time
+
+                    12.000   12.000   clock core_clock (rise edge)
+                     0.000   12.000   clock source latency
+   0.099    0.000    0.000   12.000 ^ clk (in)
+            0.011    0.005   12.005 ^ clkbuf_0_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.154    0.455    0.411   12.417 ^ clkbuf_0_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.455    0.006   12.422 ^ clkbuf_2_2_0_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.032    0.111    0.299   12.721 ^ clkbuf_2_2_0_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.111    0.001   12.722 ^ clkbuf_3_5__f_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.183    0.537    0.494   13.217 ^ clkbuf_3_5__f_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.537    0.003   13.220 ^ _46428_/CLK (sky130_fd_sc_hd__dfrtp_1)
+                     0.000   13.220   clock reconvergence pessimism
+                     0.285   13.504   library recovery time
+                             13.504   data required time
+---------------------------------------------------------------------------
+                             13.504   data required time
+                             -4.856   data arrival time
+---------------------------------------------------------------------------
+                              8.649   slack (MET)
+
+
+Startpoint: _46512_ (rising edge-triggered flip-flop clocked by core_clock)
+Endpoint: _46694_ (rising edge-triggered flip-flop clocked by core_clock)
+Path Group: core_clock
+Path Type: max
+
+     Cap     Slew    Delay     Time   Description
+---------------------------------------------------------------------------
+                     0.000    0.000   clock core_clock (rise edge)
+                     0.000    0.000   clock source latency
+   0.099    0.000    0.000    0.000 ^ clk (in)
+            0.011    0.005    0.005 ^ clkbuf_0_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.154    0.455    0.411    0.417 ^ clkbuf_0_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.455    0.005    0.421 ^ clkbuf_2_3_0_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.033    0.114    0.301    0.722 ^ clkbuf_2_3_0_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.114    0.001    0.723 ^ clkbuf_3_7__f_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.194    0.571    0.512    1.235 ^ clkbuf_3_7__f_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.576    0.044    1.279 ^ clkbuf_leaf_50_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.085    0.258    0.432    1.711 ^ clkbuf_leaf_50_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.258    0.003    1.714 ^ _46512_/CLK (sky130_fd_sc_hd__dfrtp_1)
+   0.193    1.655    1.486    3.200 ^ _46512_/Q (sky130_fd_sc_hd__dfrtp_1)
+            1.655    0.021    3.222 ^ _26350_/A (sky130_fd_sc_hd__lpflow_inputiso0n_1)
+   0.007    0.104    0.301    3.522 ^ _26350_/X (sky130_fd_sc_hd__lpflow_inputiso0n_1)
+            0.104    0.000    3.523 ^ _26353_/A (sky130_fd_sc_hd__xor3_1)
+   0.011    0.110    0.468    3.991 v _26353_/X (sky130_fd_sc_hd__xor3_1)
+            0.110    0.001    3.992 v _26530_/B (sky130_fd_sc_hd__maj3_1)
+   0.016    0.132    0.429    4.421 v _26530_/X (sky130_fd_sc_hd__maj3_1)
+            0.132    0.001    4.422 v _26531_/B (sky130_fd_sc_hd__xnor2_1)
+   0.009    0.227    0.248    4.669 ^ _26531_/Y (sky130_fd_sc_hd__xnor2_1)
+            0.227    0.000    4.669 ^ _26532_/B (sky130_fd_sc_hd__xor2_1)
+   0.022    0.455    0.420    5.089 ^ _26532_/X (sky130_fd_sc_hd__xor2_1)
+            0.455    0.001    5.090 ^ _26536_/B (sky130_fd_sc_hd__xor3_1)
+   0.008    0.098    0.442    5.532 v _26536_/X (sky130_fd_sc_hd__xor3_1)
+            0.098    0.000    5.533 v _26566_/A (sky130_fd_sc_hd__maj3_1)
+   0.006    0.079    0.380    5.913 v _26566_/X (sky130_fd_sc_hd__maj3_1)
+            0.079    0.000    5.913 v _26567_/C (sky130_fd_sc_hd__nor3_1)
+   0.025    0.731    0.575    6.488 ^ _26567_/Y (sky130_fd_sc_hd__nor3_1)
+            0.731    0.001    6.489 ^ _26682_/A1 (sky130_fd_sc_hd__o21ai_0)
+   0.003    0.131    0.196    6.685 v _26682_/Y (sky130_fd_sc_hd__o21ai_0)
+            0.131    0.000    6.685 v _26683_/B1 (sky130_fd_sc_hd__a22o_1)
+   0.005    0.049    0.216    6.901 v _26683_/X (sky130_fd_sc_hd__a22o_1)
+            0.049    0.000    6.901 v _26688_/A3 (sky130_fd_sc_hd__a31oi_1)
+   0.030    0.701    0.555    7.456 ^ _26688_/Y (sky130_fd_sc_hd__a31oi_1)
+            0.701    0.002    7.458 ^ _26836_/A1 (sky130_fd_sc_hd__o21a_1)
+   0.011    0.117    0.277    7.735 ^ _26836_/X (sky130_fd_sc_hd__o21a_1)
+            0.117    0.000    7.736 ^ _27296_/A2 (sky130_fd_sc_hd__o311ai_1)
+   0.004    0.100    0.118    7.854 v _27296_/Y (sky130_fd_sc_hd__o311ai_1)
+            0.100    0.000    7.854 v _27298_/B (sky130_fd_sc_hd__nand3b_1)
+   0.022    0.245    0.234    8.089 ^ _27298_/Y (sky130_fd_sc_hd__nand3b_1)
+            0.245    0.001    8.090 ^ _27462_/A2 (sky130_fd_sc_hd__a21boi_0)
+   0.005    0.128    0.152    8.242 v _27462_/Y (sky130_fd_sc_hd__a21boi_0)
+            0.128    0.000    8.242 v _27463_/A2 (sky130_fd_sc_hd__o21ai_0)
+   0.008    0.272    0.279    8.521 ^ _27463_/Y (sky130_fd_sc_hd__o21ai_0)
+            0.272    0.000    8.521 ^ _27625_/A2 (sky130_fd_sc_hd__a21oi_1)
+   0.004    0.071    0.117    8.638 v _27625_/Y (sky130_fd_sc_hd__a21oi_1)
+            0.071    0.000    8.639 v _27626_/A2 (sky130_fd_sc_hd__o21ai_1)
+   0.014    0.300    0.273    8.912 ^ _27626_/Y (sky130_fd_sc_hd__o21ai_1)
+            0.300    0.001    8.913 ^ _27627_/B (sky130_fd_sc_hd__nand2_1)
+   0.012    0.115    0.162    9.075 v _27627_/Y (sky130_fd_sc_hd__nand2_1)
+            0.115    0.001    9.076 v _27706_/A1 (sky130_fd_sc_hd__o21a_1)
+   0.009    0.061    0.235    9.310 v _27706_/X (sky130_fd_sc_hd__o21a_1)
+            0.061    0.000    9.311 v _27777_/A (sky130_fd_sc_hd__maj3_1)
+   0.009    0.098    0.390    9.701 v _27777_/X (sky130_fd_sc_hd__maj3_1)
+            0.098    0.000    9.701 v _27843_/A1 (sky130_fd_sc_hd__a21o_1)
+   0.005    0.042    0.182    9.883 v _27843_/X (sky130_fd_sc_hd__a21o_1)
+            0.042    0.000    9.883 v _27900_/A (sky130_fd_sc_hd__xnor2_1)
+   0.037    0.795    0.645   10.528 ^ _27900_/Y (sky130_fd_sc_hd__xnor2_1)
+            0.795    0.002   10.530 ^ _46694_/D (sky130_fd_sc_hd__dfrtp_1)
+                             10.530   data arrival time
+
+                    12.000   12.000   clock core_clock (rise edge)
+                     0.000   12.000   clock source latency
+   0.099    0.000    0.000   12.000 ^ clk (in)
+            0.011    0.005   12.005 ^ clkbuf_0_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.154    0.455    0.411   12.417 ^ clkbuf_0_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.455    0.005   12.421 ^ clkbuf_2_3_0_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.033    0.114    0.301   12.722 ^ clkbuf_2_3_0_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.114    0.001   12.723 ^ clkbuf_3_6__f_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.163    0.481    0.466   13.189 ^ clkbuf_3_6__f_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.481    0.006   13.195 ^ clkbuf_leaf_60_clk/A (sky130_fd_sc_hd__clkbuf_4)
+   0.080    0.242    0.401   13.596 ^ clkbuf_leaf_60_clk/X (sky130_fd_sc_hd__clkbuf_4)
+            0.243    0.006   13.601 ^ _46694_/CLK (sky130_fd_sc_hd__dfrtp_1)
+                     0.000   13.601   clock reconvergence pessimism
+                    -0.151   13.451   library setup time
+                             13.451   data required time
+---------------------------------------------------------------------------
+                             13.451   data required time
+                            -10.530   data arrival time
+---------------------------------------------------------------------------
+                              2.921   slack (MET)
+
+
+report_worst_slack -min -digits 3
+worst slack min -0.304
+report_worst_slack -max -digits 3
+worst slack max 2.921
+report_tns -digits 3
+tns max 0.000
+report_check_types -max_slew -max_capacitance -max_fanout -violators -digits 3
+max slew
+
+Pin                                     Limit     Slew    Slack
+---------------------------------------------------------------
+_45450_/S                               1.500    3.196   -1.696 (VIOLATED)
+_45449_/S                               1.500    3.196   -1.696 (VIOLATED)
+_45459_/S                               1.500    3.195   -1.695 (VIOLATED)
+_45456_/A                               1.500    3.195   -1.695 (VIOLATED)
+_45375_/A                               1.500    3.195   -1.695 (VIOLATED)
+_45457_/A2                              1.500    3.195   -1.695 (VIOLATED)
+_45530_/S                               1.500    3.194   -1.694 (VIOLATED)
+_45376_/A2                              1.500    3.194   -1.694 (VIOLATED)
+_45529_/S                               1.500    3.194   -1.694 (VIOLATED)
+_45531_/S                               1.500    3.193   -1.693 (VIOLATED)
+_45383_/S                               1.500    3.191   -1.691 (VIOLATED)
+_45543_/S                               1.500    3.191   -1.691 (VIOLATED)
+_45377_/A                               1.500    3.190   -1.690 (VIOLATED)
+_45384_/A                               1.500    3.190   -1.690 (VIOLATED)
+_45378_/A2                              1.500    3.190   -1.690 (VIOLATED)
+_45385_/A2                              1.500    3.188   -1.688 (VIOLATED)
+_45382_/S                               1.500    3.187   -1.687 (VIOLATED)
+_45542_/S                               1.500    3.186   -1.686 (VIOLATED)
+_45381_/S                               1.500    3.184   -1.684 (VIOLATED)
+_45537_/A2                              1.500    3.184   -1.684 (VIOLATED)
+_45379_/S                               1.500    3.183   -1.683 (VIOLATED)
+_45545_/A2                              1.500    3.183   -1.683 (VIOLATED)
+_45380_/S                               1.500    3.182   -1.682 (VIOLATED)
+_45544_/A                               1.500    3.180   -1.680 (VIOLATED)
+_45541_/S                               1.500    3.177   -1.677 (VIOLATED)
+_45536_/A                               1.500    3.177   -1.677 (VIOLATED)
+_45539_/S                               1.500    3.173   -1.673 (VIOLATED)
+_45540_/S                               1.500    3.169   -1.669 (VIOLATED)
+_45538_/S                               1.500    3.166   -1.666 (VIOLATED)
+_45409_/S                               1.500    3.157   -1.657 (VIOLATED)
+_45410_/S                               1.500    3.157   -1.657 (VIOLATED)
+_45406_/A                               1.500    3.154   -1.654 (VIOLATED)
+_45407_/A2                              1.500    3.152   -1.652 (VIOLATED)
+_45569_/S                               1.500    3.148   -1.648 (VIOLATED)
+_45413_/S                               1.500    3.148   -1.648 (VIOLATED)
+_45493_/S                               1.500    3.148   -1.648 (VIOLATED)
+_45495_/A2                              1.500    3.148   -1.648 (VIOLATED)
+_45494_/A                               1.500    3.148   -1.648 (VIOLATED)
+_45492_/S                               1.500    3.148   -1.648 (VIOLATED)
+_45487_/A2                              1.500    3.147   -1.647 (VIOLATED)
+_45412_/S                               1.500    3.147   -1.647 (VIOLATED)
+_45415_/A2                              1.500    3.147   -1.647 (VIOLATED)
+_45486_/A                               1.500    3.147   -1.647 (VIOLATED)
+_45414_/A                               1.500    3.147   -1.647 (VIOLATED)
+_45571_/S                               1.500    3.147   -1.647 (VIOLATED)
+_45572_/S                               1.500    3.144   -1.644 (VIOLATED)
+_45408_/S                               1.500    3.143   -1.643 (VIOLATED)
+_45573_/A                               1.500    3.141   -1.641 (VIOLATED)
+_45411_/S                               1.500    3.141   -1.641 (VIOLATED)
+_45574_/A2                              1.500    3.099   -1.599 (VIOLATED)
+_45566_/S                               1.500    3.083   -1.583 (VIOLATED)
+_45323_/A2                              1.500    3.032   -1.532 (VIOLATED)
+_45491_/S                               1.500    3.012   -1.512 (VIOLATED)
+_45327_/S                               1.500    3.012   -1.512 (VIOLATED)
+_45328_/S                               1.500    3.011   -1.511 (VIOLATED)
+_45326_/S                               1.500    3.011   -1.511 (VIOLATED)
+_45330_/A2                              1.500    3.011   -1.511 (VIOLATED)
+_45329_/A                               1.500    3.011   -1.511 (VIOLATED)
+_45324_/S                               1.500    3.011   -1.511 (VIOLATED)
+_45325_/S                               1.500    3.011   -1.511 (VIOLATED)
+_45322_/A                               1.500    3.004   -1.504 (VIOLATED)
+_45570_/S                               1.500    2.997   -1.497 (VIOLATED)
+_45568_/S                               1.500    2.981   -1.481 (VIOLATED)
+_45490_/S                               1.500    2.969   -1.469 (VIOLATED)
+_45567_/S                               1.500    2.964   -1.464 (VIOLATED)
+_45489_/S                               1.500    2.954   -1.454 (VIOLATED)
+_45321_/A2                              1.500    2.953   -1.453 (VIOLATED)
+_45320_/A                               1.500    2.946   -1.446 (VIOLATED)
+_45488_/S                               1.500    2.946   -1.446 (VIOLATED)
+_45513_/S                               1.500    2.936   -1.436 (VIOLATED)
+_45426_/A                               1.500    2.902   -1.402 (VIOLATED)
+_45427_/A2                              1.500    2.881   -1.381 (VIOLATED)
+_45507_/A2                              1.500    2.881   -1.381 (VIOLATED)
+_45352_/A2                              1.500    2.844   -1.344 (VIOLATED)
+_45345_/A2                              1.500    2.804   -1.304 (VIOLATED)
+_45343_/A2                              1.500    2.782   -1.282 (VIOLATED)
+_45586_/A2                              1.500    2.770   -1.270 (VIOLATED)
+_45469_/S                               1.500    2.747   -1.247 (VIOLATED)
+_45468_/S                               1.500    2.747   -1.247 (VIOLATED)
+_45467_/A2                              1.500    2.746   -1.246 (VIOLATED)
+_45470_/S                               1.500    2.746   -1.246 (VIOLATED)
+_45581_/S                               1.500    2.744   -1.244 (VIOLATED)
+_45578_/S                               1.500    2.744   -1.244 (VIOLATED)
+_45576_/A2                              1.500    2.743   -1.243 (VIOLATED)
+_45584_/A2                              1.500    2.743   -1.243 (VIOLATED)
+_45332_/A2                              1.500    2.739   -1.239 (VIOLATED)
+_45497_/A2                              1.500    2.731   -1.231 (VIOLATED)
+_45417_/A2                              1.500    2.725   -1.225 (VIOLATED)
+_45418_/S                               1.500    2.705   -1.205 (VIOLATED)
+_45419_/S                               1.500    2.695   -1.195 (VIOLATED)
+_45425_/A2                              1.500    2.673   -1.173 (VIOLATED)
+_45501_/S                               1.500    2.654   -1.154 (VIOLATED)
+_45422_/S                               1.500    2.640   -1.140 (VIOLATED)
+_45364_/A                               1.500    2.637   -1.137 (VIOLATED)
+_45421_/S                               1.500    2.637   -1.137 (VIOLATED)
+_45500_/S                               1.500    2.637   -1.137 (VIOLATED)
+_45499_/S                               1.500    2.637   -1.137 (VIOLATED)
+_45420_/S                               1.500    2.636   -1.136 (VIOLATED)
+_45466_/A                               1.500    2.636   -1.136 (VIOLATED)
+_45423_/S                               1.500    2.629   -1.129 (VIOLATED)
+_45498_/S                               1.500    2.629   -1.129 (VIOLATED)
+_45505_/A2                              1.500    2.618   -1.118 (VIOLATED)
+_45336_/S                               1.500    2.618   -1.118 (VIOLATED)
+_45335_/S                               1.500    2.606   -1.106 (VIOLATED)
+_45337_/S                               1.500    2.604   -1.104 (VIOLATED)
+_45502_/S                               1.500    2.601   -1.101 (VIOLATED)
+_45338_/S                               1.500    2.588   -1.088 (VIOLATED)
+_45503_/S                               1.500    2.587   -1.087 (VIOLATED)
+_45339_/S                               1.500    2.577   -1.077 (VIOLATED)
+_45334_/A2                              1.500    2.566   -1.066 (VIOLATED)
+_45577_/S                               1.500    2.566   -1.066 (VIOLATED)
+_45341_/A2                              1.500    2.546   -1.046 (VIOLATED)
+_45583_/A                               1.500    2.517   -1.017 (VIOLATED)
+_45575_/A                               1.500    2.516   -1.016 (VIOLATED)
+_45580_/S                               1.500    2.506   -1.006 (VIOLATED)
+_45579_/S                               1.500    2.488   -0.988 (VIOLATED)
+_45582_/S                               1.500    2.443   -0.943 (VIOLATED)
+_45478_/S                               1.500    2.429   -0.929 (VIOLATED)
+_45479_/S                               1.500    2.391   -0.891 (VIOLATED)
+_45477_/A2                              1.500    2.389   -0.889 (VIOLATED)
+_45476_/A                               1.500    2.389   -0.889 (VIOLATED)
+_45400_/S                               1.500    2.389   -0.889 (VIOLATED)
+_45480_/S                               1.500    2.370   -0.870 (VIOLATED)
+_45481_/S                               1.500    2.349   -0.849 (VIOLATED)
+_45483_/S                               1.500    2.335   -0.835 (VIOLATED)
+_45484_/A                               1.500    2.329   -0.829 (VIOLATED)
+_45313_/S                               1.500    2.316   -0.816 (VIOLATED)
+_45482_/S                               1.500    2.316   -0.816 (VIOLATED)
+_45485_/A2                              1.500    2.312   -0.812 (VIOLATED)
+_45316_/S                               1.500    2.296   -0.796 (VIOLATED)
+_45317_/S                               1.500    2.214   -0.714 (VIOLATED)
+_45314_/S                               1.500    2.204   -0.704 (VIOLATED)
+_45315_/S                               1.500    2.187   -0.687 (VIOLATED)
+_45319_/A2                              1.500    2.171   -0.671 (VIOLATED)
+_45318_/A                               1.500    2.166   -0.666 (VIOLATED)
+_45312_/A2                              1.500    2.112   -0.612 (VIOLATED)
+_45311_/A                               1.500    2.112   -0.612 (VIOLATED)
+_45309_/A                               1.500    2.075   -0.575 (VIOLATED)
+_45310_/A2                              1.500    2.051   -0.551 (VIOLATED)
+_45402_/S                               1.500    2.028   -0.528 (VIOLATED)
+_26196_/X                               1.495    2.022   -0.527 (VIOLATED)
+_45956_/D                               1.500    2.022   -0.522 (VIOLATED)
+_45403_/S                               1.500    2.009   -0.509 (VIOLATED)
+_45401_/S                               1.500    1.987   -0.487 (VIOLATED)
+_44689_/Y                               1.489    1.962   -0.473 (VIOLATED)
+_45405_/A2                              1.500    1.966   -0.466 (VIOLATED)
+_46436_/D                               1.500    1.963   -0.463 (VIOLATED)
+_44781_/Y                               1.489    1.938   -0.449 (VIOLATED)
+_45404_/A                               1.500    1.947   -0.447 (VIOLATED)
+ANTENNA_33/DIODE                        1.500    1.938   -0.438 (VIOLATED)
+ANTENNA_34/DIODE                        1.500    1.938   -0.438 (VIOLATED)
+ANTENNA_35/DIODE                        1.500    1.938   -0.438 (VIOLATED)
+ANTENNA_30/DIODE                        1.500    1.938   -0.438 (VIOLATED)
+ANTENNA_29/DIODE                        1.500    1.938   -0.438 (VIOLATED)
+_46439_/D                               1.500    1.938   -0.438 (VIOLATED)
+ANTENNA_31/DIODE                        1.500    1.938   -0.438 (VIOLATED)
+ANTENNA_32/DIODE                        1.500    1.938   -0.438 (VIOLATED)
+_40567_/Y                               1.493    1.924   -0.431 (VIOLATED)
+_45563_/S                               1.500    1.927   -0.427 (VIOLATED)
+ANTENNA_223/DIODE                       1.500    1.925   -0.425 (VIOLATED)
+_46299_/D                               1.500    1.925   -0.425 (VIOLATED)
+ANTENNA_224/DIODE                       1.500    1.925   -0.425 (VIOLATED)
+ANTENNA_225/DIODE                       1.500    1.925   -0.425 (VIOLATED)
+ANTENNA_233/DIODE                       1.500    1.925   -0.425 (VIOLATED)
+ANTENNA_231/DIODE                       1.500    1.925   -0.425 (VIOLATED)
+ANTENNA_228/DIODE                       1.500    1.925   -0.425 (VIOLATED)
+ANTENNA_229/DIODE                       1.500    1.925   -0.425 (VIOLATED)
+ANTENNA_226/DIODE                       1.500    1.925   -0.425 (VIOLATED)
+ANTENNA_232/DIODE                       1.500    1.925   -0.425 (VIOLATED)
+ANTENNA_227/DIODE                       1.500    1.925   -0.425 (VIOLATED)
+ANTENNA_230/DIODE                       1.500    1.925   -0.425 (VIOLATED)
+_45562_/S                               1.500    1.903   -0.403 (VIOLATED)
+_45565_/A2                              1.500    1.903   -0.403 (VIOLATED)
+_45564_/A                               1.500    1.903   -0.403 (VIOLATED)
+_40821_/Y                               1.489    1.871   -0.382 (VIOLATED)
+_45398_/S                               1.500    1.871   -0.371 (VIOLATED)
+ANTENNA_55/DIODE                        1.500    1.871   -0.371 (VIOLATED)
+ANTENNA_58/DIODE                        1.500    1.871   -0.371 (VIOLATED)
+ANTENNA_56/DIODE                        1.500    1.871   -0.371 (VIOLATED)
+ANTENNA_57/DIODE                        1.500    1.871   -0.371 (VIOLATED)
+ANTENNA_51/DIODE                        1.500    1.871   -0.371 (VIOLATED)
+ANTENNA_53/DIODE                        1.500    1.871   -0.371 (VIOLATED)
+ANTENNA_49/DIODE                        1.500    1.871   -0.371 (VIOLATED)
+ANTENNA_48/DIODE                        1.500    1.871   -0.371 (VIOLATED)
+_46307_/D                               1.500    1.871   -0.371 (VIOLATED)
+ANTENNA_50/DIODE                        1.500    1.871   -0.371 (VIOLATED)
+ANTENNA_52/DIODE                        1.500    1.871   -0.371 (VIOLATED)
+ANTENNA_54/DIODE                        1.500    1.871   -0.371 (VIOLATED)
+_36674_/Y                               1.489    1.842   -0.353 (VIOLATED)
+_45396_/A                               1.500    1.843   -0.343 (VIOLATED)
+_36709_/A                               1.500    1.843   -0.343 (VIOLATED)
+_36710_/A                               1.500    1.843   -0.343 (VIOLATED)
+_36679_/A                               1.500    1.843   -0.343 (VIOLATED)
+_45558_/S                               1.500    1.820   -0.320 (VIOLATED)
+_45399_/S                               1.500    1.797   -0.297 (VIOLATED)
+_40557_/X                               1.495    1.787   -0.292 (VIOLATED)
+ANTENNA_192/DIODE                       1.500    1.787   -0.287 (VIOLATED)
+ANTENNA_190/DIODE                       1.500    1.787   -0.287 (VIOLATED)
+ANTENNA_188/DIODE                       1.500    1.787   -0.287 (VIOLATED)
+ANTENNA_19/DIODE                        1.500    1.787   -0.287 (VIOLATED)
+ANTENNA_21/DIODE                        1.500    1.787   -0.287 (VIOLATED)
+ANTENNA_186/DIODE                       1.500    1.787   -0.287 (VIOLATED)
+ANTENNA_17/DIODE                        1.500    1.787   -0.287 (VIOLATED)
+_46298_/D                               1.500    1.787   -0.287 (VIOLATED)
+ANTENNA_18/DIODE                        1.500    1.787   -0.287 (VIOLATED)
+ANTENNA_187/DIODE                       1.500    1.787   -0.287 (VIOLATED)
+ANTENNA_191/DIODE                       1.500    1.787   -0.287 (VIOLATED)
+ANTENNA_189/DIODE                       1.500    1.787   -0.287 (VIOLATED)
+ANTENNA_20/DIODE                        1.500    1.787   -0.287 (VIOLATED)
+_45561_/S                               1.500    1.767   -0.267 (VIOLATED)
+_45556_/A                               1.500    1.749   -0.249 (VIOLATED)
+ANTENNA_9/DIODE                         1.500    1.728   -0.228 (VIOLATED)
+ANTENNA_8/DIODE                         1.500    1.728   -0.228 (VIOLATED)
+ANTENNA_10/DIODE                        1.500    1.728   -0.228 (VIOLATED)
+ANTENNA_11/DIODE                        1.500    1.728   -0.228 (VIOLATED)
+ANTENNA_6/DIODE                         1.500    1.728   -0.228 (VIOLATED)
+ANTENNA_4/DIODE                         1.500    1.728   -0.228 (VIOLATED)
+ANTENNA_2/DIODE                         1.500    1.728   -0.228 (VIOLATED)
+ANTENNA_1/DIODE                         1.500    1.728   -0.228 (VIOLATED)
+_46427_/D                               1.500    1.728   -0.228 (VIOLATED)
+ANTENNA_3/DIODE                         1.500    1.728   -0.228 (VIOLATED)
+ANTENNA_5/DIODE                         1.500    1.728   -0.228 (VIOLATED)
+ANTENNA_7/DIODE                         1.500    1.728   -0.228 (VIOLATED)
+_44396_/Y                               1.505    1.727   -0.222 (VIOLATED)
+_40702_/Y                               1.489    1.697   -0.207 (VIOLATED)
+_45559_/S                               1.500    1.701   -0.201 (VIOLATED)
+ANTENNA_59/DIODE                        1.500    1.697   -0.197 (VIOLATED)
+_46304_/D                               1.500    1.697   -0.197 (VIOLATED)
+_45275_/Y                               1.489    1.680   -0.191 (VIOLATED)
+_45560_/S                               1.500    1.688   -0.188 (VIOLATED)
+_46301_/D                               1.500    1.681   -0.181 (VIOLATED)
+_46280_/D                               1.500    1.676   -0.176 (VIOLATED)
+_40146_/X                               1.499    1.674   -0.175 (VIOLATED)
+_39288_/Y                               1.494    1.669   -0.175 (VIOLATED)
+_28213_/B                               1.500    1.672   -0.172 (VIOLATED)
+_28187_/B                               1.500    1.672   -0.172 (VIOLATED)
+_28124_/B                               1.500    1.672   -0.172 (VIOLATED)
+_28134_/B                               1.500    1.672   -0.172 (VIOLATED)
+_28123_/A2                              1.500    1.672   -0.172 (VIOLATED)
+_28131_/B                               1.500    1.672   -0.172 (VIOLATED)
+_28120_/B                               1.500    1.672   -0.172 (VIOLATED)
+_28122_/B2                              1.500    1.672   -0.172 (VIOLATED)
+_28136_/B                               1.500    1.672   -0.172 (VIOLATED)
+_28306_/A                               1.500    1.671   -0.171 (VIOLATED)
+_28153_/A                               1.500    1.671   -0.171 (VIOLATED)
+_28492_/A                               1.500    1.671   -0.171 (VIOLATED)
+_28339_/A                               1.500    1.671   -0.171 (VIOLATED)
+_28415_/A                               1.500    1.671   -0.171 (VIOLATED)
+_28457_/A                               1.500    1.671   -0.171 (VIOLATED)
+_28538_/A                               1.500    1.671   -0.171 (VIOLATED)
+_28659_/A                               1.500    1.671   -0.171 (VIOLATED)
+_28740_/A                               1.500    1.670   -0.170 (VIOLATED)
+_28811_/A                               1.500    1.670   -0.170 (VIOLATED)
+_28876_/A                               1.500    1.670   -0.170 (VIOLATED)
+_28963_/A                               1.500    1.670   -0.170 (VIOLATED)
+_29592_/C                               1.500    1.669   -0.169 (VIOLATED)
+_29491_/C                               1.500    1.669   -0.169 (VIOLATED)
+_29593_/B                               1.500    1.669   -0.169 (VIOLATED)
+_29026_/A                               1.500    1.669   -0.169 (VIOLATED)
+_29661_/B                               1.500    1.669   -0.169 (VIOLATED)
+_29490_/B                               1.500    1.669   -0.169 (VIOLATED)
+_29457_/B1                              1.500    1.669   -0.169 (VIOLATED)
+_29459_/B                               1.500    1.669   -0.169 (VIOLATED)
+_29456_/A                               1.500    1.669   -0.169 (VIOLATED)
+ANTENNA_283/DIODE                       1.500    1.669   -0.169 (VIOLATED)
+ANTENNA_276/DIODE                       1.500    1.669   -0.169 (VIOLATED)
+ANTENNA_278/DIODE                       1.500    1.669   -0.169 (VIOLATED)
+ANTENNA_280/DIODE                       1.500    1.669   -0.169 (VIOLATED)
+ANTENNA_277/DIODE                       1.500    1.669   -0.169 (VIOLATED)
+ANTENNA_328/DIODE                       1.500    1.669   -0.169 (VIOLATED)
+ANTENNA_282/DIODE                       1.500    1.669   -0.169 (VIOLATED)
+ANTENNA_281/DIODE                       1.500    1.669   -0.169 (VIOLATED)
+ANTENNA_285/DIODE                       1.500    1.669   -0.169 (VIOLATED)
+ANTENNA_279/DIODE                       1.500    1.669   -0.169 (VIOLATED)
+ANTENNA_284/DIODE                       1.500    1.669   -0.169 (VIOLATED)
+_29377_/A                               1.500    1.669   -0.169 (VIOLATED)
+_46264_/D                               1.500    1.669   -0.169 (VIOLATED)
+ANTENNA_275/DIODE                       1.500    1.669   -0.169 (VIOLATED)
+_29139_/A                               1.500    1.669   -0.169 (VIOLATED)
+_29297_/A                               1.500    1.669   -0.169 (VIOLATED)
+_29228_/A                               1.500    1.669   -0.169 (VIOLATED)
+_46494_/Q                               1.501    1.669   -0.168 (VIOLATED)
+_45473_/S                               1.500    1.663   -0.163 (VIOLATED)
+_27312_/A                               1.500    1.659   -0.159 (VIOLATED)
+_27553_/B1                              1.500    1.659   -0.159 (VIOLATED)
+_27558_/A1                              1.500    1.659   -0.159 (VIOLATED)
+_27393_/A                               1.500    1.659   -0.159 (VIOLATED)
+_27559_/B1                              1.500    1.659   -0.159 (VIOLATED)
+_27669_/A                               1.500    1.659   -0.159 (VIOLATED)
+_27467_/A                               1.500    1.659   -0.159 (VIOLATED)
+_27664_/B1                              1.500    1.659   -0.159 (VIOLATED)
+_27671_/A1                              1.500    1.659   -0.159 (VIOLATED)
+_27668_/A1                              1.500    1.659   -0.159 (VIOLATED)
+_27678_/A                               1.500    1.659   -0.159 (VIOLATED)
+_27713_/B1                              1.500    1.658   -0.158 (VIOLATED)
+_27717_/A1                              1.500    1.658   -0.158 (VIOLATED)
+_27716_/A                               1.500    1.658   -0.158 (VIOLATED)
+_27813_/A                               1.500    1.658   -0.158 (VIOLATED)
+_27816_/A1                              1.500    1.658   -0.158 (VIOLATED)
+_27951_/A                               1.500    1.658   -0.158 (VIOLATED)
+_27889_/A1                              1.500    1.658   -0.158 (VIOLATED)
+_27888_/A1                              1.500    1.658   -0.158 (VIOLATED)
+_28000_/B1                              1.500    1.657   -0.157 (VIOLATED)
+_28078_/A1                              1.500    1.657   -0.157 (VIOLATED)
+_28050_/B1                              1.500    1.657   -0.157 (VIOLATED)
+_26293_/Y                               1.489    1.646   -0.157 (VIOLATED)
+_27219_/A                               1.500    1.657   -0.157 (VIOLATED)
+_27163_/A                               1.500    1.657   -0.157 (VIOLATED)
+_27096_/A                               1.500    1.657   -0.157 (VIOLATED)
+_27005_/A                               1.500    1.657   -0.157 (VIOLATED)
+_26927_/A                               1.500    1.657   -0.157 (VIOLATED)
+_26841_/A                               1.500    1.657   -0.157 (VIOLATED)
+_26773_/A                               1.500    1.656   -0.156 (VIOLATED)
+_26705_/A                               1.500    1.656   -0.156 (VIOLATED)
+_26644_/A                               1.500    1.656   -0.156 (VIOLATED)
+_26582_/A                               1.500    1.656   -0.156 (VIOLATED)
+_26523_/A                               1.500    1.656   -0.156 (VIOLATED)
+_26324_/A                               1.500    1.655   -0.155 (VIOLATED)
+_26320_/B                               1.500    1.655   -0.155 (VIOLATED)
+_26315_/A                               1.500    1.655   -0.155 (VIOLATED)
+_26350_/A                               1.500    1.655   -0.155 (VIOLATED)
+_26337_/B                               1.500    1.655   -0.155 (VIOLATED)
+_26334_/SLEEP_B                         1.500    1.655   -0.155 (VIOLATED)
+_46512_/Q                               1.501    1.655   -0.154 (VIOLATED)
+_28530_/A1                              1.500    1.648   -0.148 (VIOLATED)
+_28531_/A1                              1.500    1.648   -0.148 (VIOLATED)
+_28440_/A                               1.500    1.648   -0.148 (VIOLATED)
+_28438_/A                               1.500    1.648   -0.148 (VIOLATED)
+_28378_/A1                              1.500    1.648   -0.148 (VIOLATED)
+_28322_/A                               1.500    1.648   -0.148 (VIOLATED)
+_28165_/A                               1.500    1.648   -0.148 (VIOLATED)
+_28164_/B                               1.500    1.648   -0.148 (VIOLATED)
+_28179_/B                               1.500    1.648   -0.148 (VIOLATED)
+_28233_/A2                              1.500    1.648   -0.148 (VIOLATED)
+_28177_/B                               1.500    1.648   -0.148 (VIOLATED)
+_28237_/A                               1.500    1.648   -0.148 (VIOLATED)
+_28249_/B                               1.500    1.648   -0.148 (VIOLATED)
+_28252_/B                               1.500    1.648   -0.148 (VIOLATED)
+_28210_/A                               1.500    1.648   -0.148 (VIOLATED)
+_28229_/B1                              1.500    1.648   -0.148 (VIOLATED)
+_28230_/A2                              1.500    1.648   -0.148 (VIOLATED)
+_28255_/B                               1.500    1.648   -0.148 (VIOLATED)
+_28594_/A1                              1.500    1.648   -0.148 (VIOLATED)
+_28595_/A1                              1.500    1.648   -0.148 (VIOLATED)
+_28677_/B1                              1.500    1.648   -0.148 (VIOLATED)
+_28796_/A                               1.500    1.647   -0.147 (VIOLATED)
+_28850_/A                               1.500    1.647   -0.147 (VIOLATED)
+_28855_/B2                              1.500    1.647   -0.147 (VIOLATED)
+_28958_/A1                              1.500    1.647   -0.147 (VIOLATED)
+_29008_/B1                              1.500    1.647   -0.147 (VIOLATED)
+_28915_/A                               1.500    1.647   -0.147 (VIOLATED)
+_29092_/A1                              1.500    1.647   -0.147 (VIOLATED)
+_29419_/A                               1.500    1.647   -0.147 (VIOLATED)
+_29399_/A1                              1.500    1.647   -0.147 (VIOLATED)
+_29400_/A2                              1.500    1.647   -0.147 (VIOLATED)
+_29254_/A                               1.500    1.647   -0.147 (VIOLATED)
+_29166_/A                               1.500    1.647   -0.147 (VIOLATED)
+_29080_/A                               1.500    1.647   -0.147 (VIOLATED)
+_29334_/A                               1.500    1.647   -0.147 (VIOLATED)
+ANTENNA_91/DIODE                        1.500    1.646   -0.146 (VIOLATED)
+ANTENNA_87/DIODE                        1.500    1.646   -0.146 (VIOLATED)
+ANTENNA_89/DIODE                        1.500    1.646   -0.146 (VIOLATED)
+ANTENNA_85/DIODE                        1.500    1.646   -0.146 (VIOLATED)
+ANTENNA_83/DIODE                        1.500    1.646   -0.146 (VIOLATED)
+_45959_/D                               1.500    1.646   -0.146 (VIOLATED)
+ANTENNA_82/DIODE                        1.500    1.646   -0.146 (VIOLATED)
+ANTENNA_84/DIODE                        1.500    1.646   -0.146 (VIOLATED)
+ANTENNA_86/DIODE                        1.500    1.646   -0.146 (VIOLATED)
+ANTENNA_88/DIODE                        1.500    1.646   -0.146 (VIOLATED)
+ANTENNA_90/DIODE                        1.500    1.646   -0.146 (VIOLATED)
+ANTENNA_92/DIODE                        1.500    1.646   -0.146 (VIOLATED)
+_46490_/Q                               1.501    1.647   -0.146 (VIOLATED)
+_45471_/S                               1.500    1.644   -0.144 (VIOLATED)
+_42625_/Y                               1.489    1.631   -0.142 (VIOLATED)
+_42649_/B                               1.500    1.631   -0.131 (VIOLATED)
+_42650_/B                               1.500    1.631   -0.131 (VIOLATED)
+_42630_/A                               1.500    1.631   -0.131 (VIOLATED)
+_28416_/A                               1.500    1.628   -0.128 (VIOLATED)
+_28340_/A                               1.500    1.628   -0.128 (VIOLATED)
+_28152_/A                               1.500    1.628   -0.128 (VIOLATED)
+_28308_/A                               1.500    1.628   -0.128 (VIOLATED)
+_28494_/A                               1.500    1.628   -0.128 (VIOLATED)
+_28138_/B                               1.500    1.628   -0.128 (VIOLATED)
+_28121_/B                               1.500    1.628   -0.128 (VIOLATED)
+_28130_/A                               1.500    1.628   -0.128 (VIOLATED)
+_28124_/A                               1.500    1.628   -0.128 (VIOLATED)
+_28458_/A                               1.500    1.628   -0.128 (VIOLATED)
+_28539_/A                               1.500    1.628   -0.128 (VIOLATED)
+_28660_/A                               1.500    1.628   -0.128 (VIOLATED)
+_28741_/A                               1.500    1.628   -0.128 (VIOLATED)
+_28812_/A                               1.500    1.628   -0.128 (VIOLATED)
+_29852_/B1                              1.500    1.628   -0.128 (VIOLATED)
+_29809_/B1                              1.500    1.628   -0.128 (VIOLATED)
+_29737_/B1                              1.500    1.628   -0.128 (VIOLATED)
+_29718_/B1                              1.500    1.628   -0.128 (VIOLATED)
+_29663_/B2                              1.500    1.628   -0.128 (VIOLATED)
+_28877_/A                               1.500    1.628   -0.128 (VIOLATED)
+_29595_/A1                              1.500    1.628   -0.128 (VIOLATED)
+_29592_/A                               1.500    1.628   -0.128 (VIOLATED)
+_29491_/A                               1.500    1.628   -0.128 (VIOLATED)
+_29492_/A1                              1.500    1.628   -0.128 (VIOLATED)
+_28964_/A                               1.500    1.628   -0.128 (VIOLATED)
+_29463_/A                               1.500    1.628   -0.128 (VIOLATED)
+_29489_/B2                              1.500    1.628   -0.128 (VIOLATED)
+_29460_/B1                              1.500    1.628   -0.128 (VIOLATED)
+_29378_/A                               1.500    1.628   -0.128 (VIOLATED)
+_29027_/A                               1.500    1.628   -0.128 (VIOLATED)
+_29298_/A                               1.500    1.627   -0.127 (VIOLATED)
+_29140_/A                               1.500    1.627   -0.127 (VIOLATED)
+_29229_/A                               1.500    1.627   -0.127 (VIOLATED)
+_45474_/A                               1.500    1.627   -0.127 (VIOLATED)
+_46496_/Q                               1.501    1.627   -0.126 (VIOLATED)
+_27585_/A                               1.500    1.624   -0.124 (VIOLATED)
+_27501_/A                               1.500    1.623   -0.123 (VIOLATED)
+_27428_/A                               1.500    1.623   -0.123 (VIOLATED)
+_27345_/A                               1.500    1.623   -0.123 (VIOLATED)
+_27354_/A                               1.500    1.623   -0.123 (VIOLATED)
+_27353_/B2                              1.500    1.623   -0.123 (VIOLATED)
+_27249_/A                               1.500    1.623   -0.123 (VIOLATED)
+_27151_/A                               1.500    1.623   -0.123 (VIOLATED)
+_27082_/A                               1.500    1.623   -0.123 (VIOLATED)
+_27032_/A                               1.500    1.623   -0.123 (VIOLATED)
+_27648_/A                               1.500    1.623   -0.123 (VIOLATED)
+_27743_/A                               1.500    1.623   -0.123 (VIOLATED)
+_26953_/A                               1.500    1.623   -0.123 (VIOLATED)
+_27796_/A                               1.500    1.623   -0.123 (VIOLATED)
+_27995_/A                               1.500    1.623   -0.123 (VIOLATED)
+_27865_/B                               1.500    1.623   -0.123 (VIOLATED)
+_27988_/A2                              1.500    1.623   -0.123 (VIOLATED)
+_27934_/A2                              1.500    1.623   -0.123 (VIOLATED)
+_26857_/A                               1.500    1.622   -0.122 (VIOLATED)
+_27932_/A1                              1.500    1.622   -0.122 (VIOLATED)
+_26796_/A                               1.500    1.622   -0.122 (VIOLATED)
+_26723_/A                               1.500    1.622   -0.122 (VIOLATED)
+_26656_/A                               1.500    1.622   -0.122 (VIOLATED)
+_26510_/A                               1.500    1.622   -0.122 (VIOLATED)
+_26511_/B                               1.500    1.622   -0.122 (VIOLATED)
+_26314_/SLEEP_B                         1.500    1.622   -0.122 (VIOLATED)
+_26514_/A1                              1.500    1.622   -0.122 (VIOLATED)
+_26513_/A                               1.500    1.622   -0.122 (VIOLATED)
+_26571_/A                               1.500    1.622   -0.122 (VIOLATED)
+_26360_/A                               1.500    1.622   -0.122 (VIOLATED)
+_26573_/A1                              1.500    1.622   -0.122 (VIOLATED)
+_26574_/B                               1.500    1.622   -0.122 (VIOLATED)
+_46513_/Q                               1.501    1.621   -0.120 (VIOLATED)
+_26267_/Y                               1.489    1.605   -0.116 (VIOLATED)
+_45303_/S                               1.500    1.609   -0.109 (VIOLATED)
+ANTENNA_208/DIODE                       1.500    1.605   -0.105 (VIOLATED)
+ANTENNA_206/DIODE                       1.500    1.605   -0.105 (VIOLATED)
+ANTENNA_204/DIODE                       1.500    1.605   -0.105 (VIOLATED)
+ANTENNA_202/DIODE                       1.500    1.605   -0.105 (VIOLATED)
+ANTENNA_200/DIODE                       1.500    1.605   -0.105 (VIOLATED)
+ANTENNA_199/DIODE                       1.500    1.605   -0.105 (VIOLATED)
+_45958_/D                               1.500    1.605   -0.105 (VIOLATED)
+ANTENNA_220/DIODE                       1.500    1.605   -0.105 (VIOLATED)
+ANTENNA_201/DIODE                       1.500    1.605   -0.105 (VIOLATED)
+ANTENNA_203/DIODE                       1.500    1.605   -0.105 (VIOLATED)
+ANTENNA_205/DIODE                       1.500    1.605   -0.105 (VIOLATED)
+ANTENNA_207/DIODE                       1.500    1.605   -0.105 (VIOLATED)
+_43373_/Y                               1.484    1.588   -0.104 (VIOLATED)
+_43453_/A                               1.500    1.588   -0.088 (VIOLATED)
+_43538_/A1                              1.500    1.588   -0.088 (VIOLATED)
+_43535_/B1                              1.500    1.588   -0.088 (VIOLATED)
+_43515_/A                               1.500    1.588   -0.088 (VIOLATED)
+_43527_/A1                              1.500    1.588   -0.088 (VIOLATED)
+_43473_/A                               1.500    1.588   -0.088 (VIOLATED)
+_43519_/A                               1.500    1.588   -0.088 (VIOLATED)
+_43522_/A                               1.500    1.588   -0.088 (VIOLATED)
+_43500_/B1                              1.500    1.588   -0.088 (VIOLATED)
+_43412_/A                               1.500    1.588   -0.088 (VIOLATED)
+_43410_/A                               1.500    1.588   -0.088 (VIOLATED)
+_43374_/B                               1.500    1.588   -0.088 (VIOLATED)
+_31017_/B                               1.500    1.584   -0.084 (VIOLATED)
+_30908_/A                               1.500    1.584   -0.084 (VIOLATED)
+_31029_/A                               1.500    1.584   -0.084 (VIOLATED)
+_31102_/A1                              1.500    1.584   -0.084 (VIOLATED)
+_31028_/A                               1.500    1.584   -0.084 (VIOLATED)
+_30841_/A                               1.500    1.583   -0.083 (VIOLATED)
+_30768_/A                               1.500    1.583   -0.083 (VIOLATED)
+_30680_/A                               1.500    1.583   -0.083 (VIOLATED)
+_29965_/C                               1.500    1.583   -0.083 (VIOLATED)
+_29959_/B                               1.500    1.583   -0.083 (VIOLATED)
+_29952_/C                               1.500    1.583   -0.083 (VIOLATED)
+_29951_/A2                              1.500    1.583   -0.083 (VIOLATED)
+_29961_/A_N                             1.500    1.583   -0.083 (VIOLATED)
+_29962_/C                               1.500    1.583   -0.083 (VIOLATED)
+_29875_/B                               1.500    1.583   -0.083 (VIOLATED)
+_29954_/B                               1.500    1.583   -0.083 (VIOLATED)
+_30616_/A                               1.500    1.583   -0.083 (VIOLATED)
+_30576_/A                               1.500    1.583   -0.083 (VIOLATED)
+_29885_/B                               1.500    1.583   -0.083 (VIOLATED)
+_29907_/B                               1.500    1.583   -0.083 (VIOLATED)
+_29933_/A2                              1.500    1.583   -0.083 (VIOLATED)
+_30494_/A                               1.500    1.583   -0.083 (VIOLATED)
+_29934_/C                               1.500    1.583   -0.083 (VIOLATED)
+_29918_/B                               1.500    1.583   -0.083 (VIOLATED)
+_30589_/A                               1.500    1.583   -0.083 (VIOLATED)
+_30399_/A                               1.500    1.583   -0.083 (VIOLATED)
+_30018_/A                               1.500    1.583   -0.083 (VIOLATED)
+_30158_/A                               1.500    1.583   -0.083 (VIOLATED)
+_30298_/A1                              1.500    1.583   -0.083 (VIOLATED)
+_30052_/A                               1.500    1.583   -0.083 (VIOLATED)
+_30299_/A                               1.500    1.583   -0.083 (VIOLATED)
+_30119_/A                               1.500    1.583   -0.083 (VIOLATED)
+_30315_/A                               1.500    1.583   -0.083 (VIOLATED)
+_30234_/A                               1.500    1.583   -0.083 (VIOLATED)
+_30170_/A                               1.500    1.583   -0.083 (VIOLATED)
+_45304_/S                               1.500    1.582   -0.082 (VIOLATED)
+_39660_/Y                               1.489    1.571   -0.082 (VIOLATED)
+_46476_/Q                               1.501    1.582   -0.081 (VIOLATED)
+_23080_/Y                               1.484    1.564   -0.080 (VIOLATED)
+_31800_/A                               1.500    1.579   -0.079 (VIOLATED)
+_31736_/A                               1.500    1.579   -0.079 (VIOLATED)
+_31698_/B                               1.500    1.579   -0.079 (VIOLATED)
+_31695_/C                               1.500    1.579   -0.079 (VIOLATED)
+_31694_/A2                              1.500    1.579   -0.079 (VIOLATED)
+_31707_/A                               1.500    1.579   -0.079 (VIOLATED)
+_31675_/B                               1.500    1.579   -0.079 (VIOLATED)
+_31857_/A                               1.500    1.579   -0.079 (VIOLATED)
+_31905_/A                               1.500    1.579   -0.079 (VIOLATED)
+_31943_/A                               1.500    1.579   -0.079 (VIOLATED)
+_31942_/A1                              1.500    1.579   -0.079 (VIOLATED)
+_31623_/B                               1.500    1.579   -0.079 (VIOLATED)
+_31947_/A                               1.500    1.579   -0.079 (VIOLATED)
+_32011_/A                               1.500    1.579   -0.079 (VIOLATED)
+_32136_/A                               1.500    1.579   -0.079 (VIOLATED)
+_32177_/A                               1.500    1.579   -0.079 (VIOLATED)
+_39689_/Y                               1.489    1.568   -0.079 (VIOLATED)
+_32292_/A                               1.500    1.579   -0.079 (VIOLATED)
+_33033_/A                               1.500    1.579   -0.079 (VIOLATED)
+_33104_/A                               1.500    1.579   -0.079 (VIOLATED)
+_32328_/A                               1.500    1.579   -0.079 (VIOLATED)
+_32939_/A                               1.500    1.579   -0.079 (VIOLATED)
+_32425_/A1                              1.500    1.579   -0.079 (VIOLATED)
+_32426_/A                               1.500    1.579   -0.079 (VIOLATED)
+_32940_/B                               1.500    1.579   -0.079 (VIOLATED)
+_33032_/B                               1.500    1.579   -0.079 (VIOLATED)
+_32430_/A                               1.500    1.579   -0.079 (VIOLATED)
+_32522_/A                               1.500    1.579   -0.079 (VIOLATED)
+_32567_/A                               1.500    1.579   -0.079 (VIOLATED)
+_32641_/A                               1.500    1.579   -0.079 (VIOLATED)
+_32890_/B2                              1.500    1.579   -0.079 (VIOLATED)
+_32889_/B2                              1.500    1.579   -0.079 (VIOLATED)
+_32887_/A                               1.500    1.579   -0.079 (VIOLATED)
+_32886_/A_N                             1.500    1.579   -0.079 (VIOLATED)
+_32882_/A                               1.500    1.579   -0.079 (VIOLATED)
+_32814_/A                               1.500    1.579   -0.079 (VIOLATED)
+_32737_/A                               1.500    1.579   -0.079 (VIOLATED)
+_46463_/Q                               1.501    1.579   -0.078 (VIOLATED)
+_30022_/A                               1.500    1.578   -0.078 (VIOLATED)
+_29926_/B                               1.500    1.578   -0.078 (VIOLATED)
+_30042_/A                               1.500    1.577   -0.077 (VIOLATED)
+_30043_/A1                              1.500    1.577   -0.077 (VIOLATED)
+_30038_/A                               1.500    1.577   -0.077 (VIOLATED)
+_30039_/A                               1.500    1.577   -0.077 (VIOLATED)
+_30112_/A                               1.500    1.577   -0.077 (VIOLATED)
+_30107_/A1                              1.500    1.577   -0.077 (VIOLATED)
+_30108_/B                               1.500    1.577   -0.077 (VIOLATED)
+_30182_/A                               1.500    1.577   -0.077 (VIOLATED)
+_30329_/A                               1.500    1.577   -0.077 (VIOLATED)
+_30222_/A                               1.500    1.577   -0.077 (VIOLATED)
+_30387_/A                               1.500    1.577   -0.077 (VIOLATED)
+_30477_/A                               1.500    1.577   -0.077 (VIOLATED)
+_30560_/A                               1.500    1.577   -0.077 (VIOLATED)
+_30632_/A                               1.500    1.577   -0.077 (VIOLATED)
+_31286_/A                               1.500    1.577   -0.077 (VIOLATED)
+_31227_/A                               1.500    1.577   -0.077 (VIOLATED)
+_31352_/B                               1.500    1.577   -0.077 (VIOLATED)
+_31476_/A                               1.500    1.577   -0.077 (VIOLATED)
+_31414_/B                               1.500    1.577   -0.077 (VIOLATED)
+_31415_/A2                              1.500    1.577   -0.077 (VIOLATED)
+_31471_/A2                              1.500    1.577   -0.077 (VIOLATED)
+_30700_/A                               1.500    1.577   -0.077 (VIOLATED)
+_30794_/A                               1.500    1.577   -0.077 (VIOLATED)
+_30793_/B2                              1.500    1.577   -0.077 (VIOLATED)
+_30788_/A                               1.500    1.577   -0.077 (VIOLATED)
+_31143_/A                               1.500    1.577   -0.077 (VIOLATED)
+_31075_/A                               1.500    1.577   -0.077 (VIOLATED)
+_31001_/A                               1.500    1.577   -0.077 (VIOLATED)
+_30930_/A                               1.500    1.577   -0.077 (VIOLATED)
+_30939_/A                               1.500    1.577   -0.077 (VIOLATED)
+_30938_/B2                              1.500    1.577   -0.077 (VIOLATED)
+_30863_/A                               1.500    1.577   -0.077 (VIOLATED)
+_45388_/S                               1.500    1.576   -0.076 (VIOLATED)
+_46481_/Q                               1.501    1.576   -0.075 (VIOLATED)
+ANTENNA_252/DIODE                       1.500    1.571   -0.071 (VIOLATED)
+ANTENNA_249/DIODE                       1.500    1.571   -0.071 (VIOLATED)
+ANTENNA_250/DIODE                       1.500    1.571   -0.071 (VIOLATED)
+ANTENNA_247/DIODE                       1.500    1.571   -0.071 (VIOLATED)
+ANTENNA_248/DIODE                       1.500    1.571   -0.071 (VIOLATED)
+ANTENNA_251/DIODE                       1.500    1.571   -0.071 (VIOLATED)
+_46556_/D                               1.500    1.571   -0.071 (VIOLATED)
+ANTENNA_245/DIODE                       1.500    1.571   -0.071 (VIOLATED)
+ANTENNA_246/DIODE                       1.500    1.571   -0.071 (VIOLATED)
+_40354_/Y                               1.484    1.553   -0.069 (VIOLATED)
+ANTENNA_260/DIODE                       1.500    1.568   -0.068 (VIOLATED)
+ANTENNA_257/DIODE                       1.500    1.568   -0.068 (VIOLATED)
+ANTENNA_258/DIODE                       1.500    1.568   -0.068 (VIOLATED)
+ANTENNA_256/DIODE                       1.500    1.568   -0.068 (VIOLATED)
+ANTENNA_259/DIODE                       1.500    1.568   -0.068 (VIOLATED)
+ANTENNA_255/DIODE                       1.500    1.568   -0.068 (VIOLATED)
+ANTENNA_254/DIODE                       1.500    1.568   -0.068 (VIOLATED)
+_46557_/D                               1.500    1.568   -0.068 (VIOLATED)
+ANTENNA_253/DIODE                       1.500    1.568   -0.068 (VIOLATED)
+_28148_/A                               1.500    1.565   -0.065 (VIOLATED)
+_28118_/B                               1.500    1.565   -0.065 (VIOLATED)
+_28196_/SLEEP_B                         1.500    1.565   -0.065 (VIOLATED)
+_28294_/A                               1.500    1.565   -0.065 (VIOLATED)
+_28355_/A                               1.500    1.565   -0.065 (VIOLATED)
+_28295_/A                               1.500    1.565   -0.065 (VIOLATED)
+_28299_/A1                              1.500    1.565   -0.065 (VIOLATED)
+_28298_/A                               1.500    1.565   -0.065 (VIOLATED)
+_28428_/A                               1.500    1.565   -0.065 (VIOLATED)
+_28476_/A                               1.500    1.565   -0.065 (VIOLATED)
+_28560_/A                               1.500    1.564   -0.064 (VIOLATED)
+_28652_/A                               1.500    1.564   -0.064 (VIOLATED)
+_28730_/A                               1.500    1.564   -0.064 (VIOLATED)
+_28840_/A                               1.500    1.564   -0.064 (VIOLATED)
+_23188_/A                               1.500    1.564   -0.064 (VIOLATED)
+_23163_/A                               1.500    1.564   -0.064 (VIOLATED)
+_23143_/A                               1.500    1.564   -0.064 (VIOLATED)
+_23101_/B                               1.500    1.564   -0.064 (VIOLATED)
+_23141_/A                               1.500    1.564   -0.064 (VIOLATED)
+_23081_/B                               1.500    1.564   -0.064 (VIOLATED)
+_28898_/A                               1.500    1.564   -0.064 (VIOLATED)
+_23238_/A                               1.500    1.564   -0.064 (VIOLATED)
+_23269_/A                               1.500    1.564   -0.064 (VIOLATED)
+_23288_/A1                              1.500    1.564   -0.064 (VIOLATED)
+_23264_/A1                              1.500    1.564   -0.064 (VIOLATED)
+_23275_/A                               1.500    1.564   -0.064 (VIOLATED)
+_28992_/A                               1.500    1.564   -0.064 (VIOLATED)
+_29060_/A                               1.500    1.563   -0.063 (VIOLATED)
+_29131_/A                               1.500    1.563   -0.063 (VIOLATED)
+_29130_/B2                              1.500    1.563   -0.063 (VIOLATED)
+_29284_/A                               1.500    1.563   -0.063 (VIOLATED)
+_29125_/A                               1.500    1.563   -0.063 (VIOLATED)
+_29760_/A                               1.500    1.563   -0.063 (VIOLATED)
+_29706_/A2                              1.500    1.563   -0.063 (VIOLATED)
+_29705_/B                               1.500    1.563   -0.063 (VIOLATED)
+_29754_/A2                              1.500    1.563   -0.063 (VIOLATED)
+_29641_/B                               1.500    1.563   -0.063 (VIOLATED)
+_29213_/A                               1.500    1.563   -0.063 (VIOLATED)
+_29575_/A                               1.500    1.563   -0.063 (VIOLATED)
+_29517_/A                               1.500    1.563   -0.063 (VIOLATED)
+_29368_/B2                              1.500    1.563   -0.063 (VIOLATED)
+_29369_/A                               1.500    1.563   -0.063 (VIOLATED)
+_29439_/A                               1.500    1.563   -0.063 (VIOLATED)
+_29363_/A                               1.500    1.563   -0.063 (VIOLATED)
+_46497_/Q                               1.501    1.563   -0.062 (VIOLATED)
+_23934_/Y                               1.484    1.544   -0.060 (VIOLATED)
+_45300_/A                               1.500    1.558   -0.058 (VIOLATED)
+_31017_/C                               1.500    1.557   -0.057 (VIOLATED)
+_31029_/B                               1.500    1.557   -0.057 (VIOLATED)
+_31028_/B                               1.500    1.557   -0.057 (VIOLATED)
+_31102_/A2                              1.500    1.557   -0.057 (VIOLATED)
+_30908_/B                               1.500    1.557   -0.057 (VIOLATED)
+_30839_/A                               1.500    1.557   -0.057 (VIOLATED)
+_30766_/A                               1.500    1.557   -0.057 (VIOLATED)
+_30678_/A                               1.500    1.557   -0.057 (VIOLATED)
+_29965_/D                               1.500    1.556   -0.056 (VIOLATED)
+_29963_/C                               1.500    1.556   -0.056 (VIOLATED)
+_29958_/B                               1.500    1.556   -0.056 (VIOLATED)
+_29961_/B                               1.500    1.556   -0.056 (VIOLATED)
+_29952_/D                               1.500    1.556   -0.056 (VIOLATED)
+_29951_/B1                              1.500    1.556   -0.056 (VIOLATED)
+_29876_/B                               1.500    1.556   -0.056 (VIOLATED)
+_29954_/C                               1.500    1.556   -0.056 (VIOLATED)
+_30614_/A                               1.500    1.556   -0.056 (VIOLATED)
+_29884_/B                               1.500    1.556   -0.056 (VIOLATED)
+_30574_/A                               1.500    1.556   -0.056 (VIOLATED)
+_29906_/B                               1.500    1.556   -0.056 (VIOLATED)
+_30492_/A                               1.500    1.556   -0.056 (VIOLATED)
+_29933_/B1                              1.500    1.556   -0.056 (VIOLATED)
+_29934_/D                               1.500    1.556   -0.056 (VIOLATED)
+_30587_/A                               1.500    1.556   -0.056 (VIOLATED)
+_29917_/B                               1.500    1.556   -0.056 (VIOLATED)
+_30397_/A                               1.500    1.556   -0.056 (VIOLATED)
+_30017_/A                               1.500    1.556   -0.056 (VIOLATED)
+_30157_/A                               1.500    1.556   -0.056 (VIOLATED)
+_30313_/A                               1.500    1.556   -0.056 (VIOLATED)
+_30298_/B2                              1.500    1.556   -0.056 (VIOLATED)
+_30051_/A                               1.500    1.556   -0.056 (VIOLATED)
+_30299_/B                               1.500    1.556   -0.056 (VIOLATED)
+_30232_/A                               1.500    1.556   -0.056 (VIOLATED)
+_30117_/A                               1.500    1.556   -0.056 (VIOLATED)
+_30168_/A                               1.500    1.556   -0.056 (VIOLATED)
+_46475_/Q                               1.501    1.556   -0.055 (VIOLATED)
+_40523_/A                               1.500    1.553   -0.053 (VIOLATED)
+_40533_/A                               1.500    1.553   -0.053 (VIOLATED)
+_40545_/A1                              1.500    1.553   -0.053 (VIOLATED)
+_40542_/B1                              1.500    1.553   -0.053 (VIOLATED)
+_40460_/A                               1.500    1.553   -0.053 (VIOLATED)
+_40481_/A                               1.500    1.553   -0.053 (VIOLATED)
+_40507_/B1                              1.500    1.553   -0.053 (VIOLATED)
+_40355_/B                               1.500    1.553   -0.053 (VIOLATED)
+_40420_/A                               1.500    1.553   -0.053 (VIOLATED)
+_40419_/A                               1.500    1.553   -0.053 (VIOLATED)
+_40380_/B                               1.500    1.553   -0.053 (VIOLATED)
+_40782_/Y                               1.493    1.544   -0.052 (VIOLATED)
+_46306_/D                               1.500    1.549   -0.049 (VIOLATED)
+_38676_/Y                               1.484    1.532   -0.048 (VIOLATED)
+_45307_/A                               1.500    1.546   -0.046 (VIOLATED)
+_45308_/A2                              1.500    1.546   -0.046 (VIOLATED)
+_45616_/S                               1.500    1.546   -0.046 (VIOLATED)
+_45618_/S                               1.500    1.546   -0.046 (VIOLATED)
+_45451_/S                               1.500    1.546   -0.046 (VIOLATED)
+_45458_/S                               1.500    1.545   -0.045 (VIOLATED)
+_45617_/S                               1.500    1.545   -0.045 (VIOLATED)
+_45620_/S                               1.500    1.544   -0.044 (VIOLATED)
+_24009_/A                               1.500    1.544   -0.044 (VIOLATED)
+_23964_/B                               1.500    1.544   -0.044 (VIOLATED)
+_23935_/B                               1.500    1.544   -0.044 (VIOLATED)
+_24007_/A                               1.500    1.544   -0.044 (VIOLATED)
+_24133_/A1                              1.500    1.544   -0.044 (VIOLATED)
+_24105_/A1                              1.500    1.544   -0.044 (VIOLATED)
+_24028_/A                               1.500    1.544   -0.044 (VIOLATED)
+_24060_/A                               1.500    1.544   -0.044 (VIOLATED)
+_24126_/A1                              1.500    1.544   -0.044 (VIOLATED)
+_24099_/A                               1.500    1.544   -0.044 (VIOLATED)
+_24138_/A                               1.500    1.544   -0.044 (VIOLATED)
+_24151_/A1                              1.500    1.544   -0.044 (VIOLATED)
+_45622_/A                               1.500    1.544   -0.044 (VIOLATED)
+_45619_/S                               1.500    1.543   -0.043 (VIOLATED)
+_45443_/S                               1.500    1.543   -0.043 (VIOLATED)
+_45444_/A                               1.500    1.543   -0.043 (VIOLATED)
+_45452_/S                               1.500    1.543   -0.043 (VIOLATED)
+_34863_/Y                               1.484    1.527   -0.042 (VIOLATED)
+_45461_/S                               1.500    1.541   -0.041 (VIOLATED)
+_45519_/S                               1.500    1.540   -0.040 (VIOLATED)
+_45454_/A                               1.500    1.534   -0.034 (VIOLATED)
+_26120_/Y                               1.489    1.523   -0.034 (VIOLATED)
+_45623_/A2                              1.500    1.533   -0.033 (VIOLATED)
+_38828_/B1                              1.500    1.532   -0.032 (VIOLATED)
+_38740_/A                               1.500    1.532   -0.032 (VIOLATED)
+_38741_/A                               1.500    1.532   -0.032 (VIOLATED)
+_38677_/B                               1.500    1.532   -0.032 (VIOLATED)
+_38781_/A                               1.500    1.532   -0.032 (VIOLATED)
+_38702_/B                               1.500    1.532   -0.032 (VIOLATED)
+_38854_/A                               1.500    1.532   -0.032 (VIOLATED)
+_38863_/B1                              1.500    1.532   -0.032 (VIOLATED)
+_38844_/A                               1.500    1.532   -0.032 (VIOLATED)
+_38802_/A                               1.500    1.532   -0.032 (VIOLATED)
+_38866_/A1                              1.500    1.532   -0.032 (VIOLATED)
+_39722_/Y                               1.489    1.520   -0.031 (VIOLATED)
+_45391_/S                               1.500    1.529   -0.029 (VIOLATED)
+_45235_/Y                               1.489    1.518   -0.029 (VIOLATED)
+_34889_/B                               1.500    1.527   -0.027 (VIOLATED)
+_34864_/B                               1.500    1.527   -0.027 (VIOLATED)
+_34931_/A                               1.500    1.527   -0.027 (VIOLATED)
+_34932_/A                               1.500    1.527   -0.027 (VIOLATED)
+_35019_/B1                              1.500    1.527   -0.027 (VIOLATED)
+_34971_/A                               1.500    1.527   -0.027 (VIOLATED)
+_35035_/A                               1.500    1.527   -0.027 (VIOLATED)
+_35045_/A                               1.500    1.527   -0.027 (VIOLATED)
+_35054_/B1                              1.500    1.527   -0.027 (VIOLATED)
+_34992_/A                               1.500    1.527   -0.027 (VIOLATED)
+_35057_/A1                              1.500    1.527   -0.027 (VIOLATED)
+_45615_/A2                              1.500    1.524   -0.024 (VIOLATED)
+_45455_/A2                              1.500    1.524   -0.024 (VIOLATED)
+_45302_/S                               1.500    1.523   -0.023 (VIOLATED)
+_45954_/D                               1.500    1.523   -0.023 (VIOLATED)
+_44754_/Y                               1.489    1.512   -0.023 (VIOLATED)
+ANTENNA_263/DIODE                       1.500    1.520   -0.020 (VIOLATED)
+ANTENNA_262/DIODE                       1.500    1.520   -0.020 (VIOLATED)
+ANTENNA_261/DIODE                       1.500    1.520   -0.020 (VIOLATED)
+ANTENNA_266/DIODE                       1.500    1.520   -0.020 (VIOLATED)
+ANTENNA_265/DIODE                       1.500    1.520   -0.020 (VIOLATED)
+ANTENNA_264/DIODE                       1.500    1.520   -0.020 (VIOLATED)
+ANTENNA_267/DIODE                       1.500    1.520   -0.020 (VIOLATED)
+_46559_/D                               1.500    1.520   -0.020 (VIOLATED)
+_45298_/B                               1.500    1.519   -0.019 (VIOLATED)
+_45949_/D                               1.500    1.519   -0.019 (VIOLATED)
+_40580_/X                               1.495    1.513   -0.018 (VIOLATED)
+_28301_/B                               1.500    1.516   -0.016 (VIOLATED)
+_28353_/B                               1.500    1.516   -0.016 (VIOLATED)
+_28297_/A3                              1.500    1.516   -0.016 (VIOLATED)
+_28298_/B                               1.500    1.516   -0.016 (VIOLATED)
+_28351_/B                               1.500    1.516   -0.016 (VIOLATED)
+_28426_/B                               1.500    1.516   -0.016 (VIOLATED)
+_28474_/B                               1.500    1.516   -0.016 (VIOLATED)
+_28558_/B                               1.500    1.516   -0.016 (VIOLATED)
+_28650_/B                               1.500    1.516   -0.016 (VIOLATED)
+_28728_/B                               1.500    1.516   -0.016 (VIOLATED)
+_28842_/B                               1.500    1.516   -0.016 (VIOLATED)
+_28899_/B                               1.500    1.516   -0.016 (VIOLATED)
+_28993_/A                               1.500    1.515   -0.015 (VIOLATED)
+_45549_/S                               1.500    1.515   -0.015 (VIOLATED)
+_29061_/A                               1.500    1.515   -0.015 (VIOLATED)
+_29131_/B                               1.500    1.515   -0.015 (VIOLATED)
+_29130_/A1                              1.500    1.515   -0.015 (VIOLATED)
+_45390_/S                               1.500    1.515   -0.015 (VIOLATED)
+_29126_/A                               1.500    1.515   -0.015 (VIOLATED)
+_29214_/A                               1.500    1.515   -0.015 (VIOLATED)
+_29760_/B                               1.500    1.515   -0.015 (VIOLATED)
+_29707_/A1                              1.500    1.515   -0.015 (VIOLATED)
+_29706_/A3                              1.500    1.515   -0.015 (VIOLATED)
+_29754_/A3                              1.500    1.515   -0.015 (VIOLATED)
+_29761_/A1                              1.500    1.515   -0.015 (VIOLATED)
+_45548_/S                               1.500    1.515   -0.015 (VIOLATED)
+_29643_/A                               1.500    1.515   -0.015 (VIOLATED)
+_29576_/A                               1.500    1.515   -0.015 (VIOLATED)
+_29368_/A1                              1.500    1.515   -0.015 (VIOLATED)
+_29518_/A                               1.500    1.515   -0.015 (VIOLATED)
+_29369_/B                               1.500    1.515   -0.015 (VIOLATED)
+_29440_/A                               1.500    1.515   -0.015 (VIOLATED)
+_29285_/A                               1.500    1.515   -0.015 (VIOLATED)
+_29364_/A                               1.500    1.515   -0.015 (VIOLATED)
+_45551_/S                               1.500    1.514   -0.014 (VIOLATED)
+ANTENNA_22/DIODE                        1.500    1.514   -0.014 (VIOLATED)
+_46300_/D                               1.500    1.514   -0.014 (VIOLATED)
+_46499_/Q                               1.501    1.515   -0.013 (VIOLATED)
+_45550_/S                               1.500    1.513   -0.013 (VIOLATED)
+_46438_/D                               1.500    1.512   -0.012 (VIOLATED)
+ANTENNA_236/DIODE                       1.500    1.512   -0.012 (VIOLATED)
+_45386_/A                               1.500    1.512   -0.012 (VIOLATED)
+_45546_/A                               1.500    1.512   -0.012 (VIOLATED)
+_45555_/A2                              1.500    1.512   -0.012 (VIOLATED)
+_45306_/S                               1.500    1.512   -0.012 (VIOLATED)
+_45394_/A                               1.500    1.512   -0.012 (VIOLATED)
+_45554_/A                               1.500    1.512   -0.012 (VIOLATED)
+_45552_/S                               1.500    1.512   -0.012 (VIOLATED)
+_45305_/S                               1.500    1.512   -0.012 (VIOLATED)
+_45553_/S                               1.500    1.511   -0.011 (VIOLATED)
+_44720_/Y                               1.489    1.500   -0.010 (VIOLATED)
+_45447_/A2                              1.500    1.508   -0.008 (VIOLATED)
+_44211_/Y                               1.484    1.490   -0.006 (VIOLATED)
+_45445_/A2                              1.500    1.506   -0.006 (VIOLATED)
+_45437_/A2                              1.500    1.505   -0.005 (VIOLATED)
+_45525_/A2                              1.500    1.504   -0.004 (VIOLATED)
+
+max capacitance
+
+Pin                                     Limit      Cap    Slack
+---------------------------------------------------------------
+_26196_/X                               0.077    0.106   -0.029 (VIOLATED)
+_44689_/Y                               0.070    0.093   -0.024 (VIOLATED)
+_44781_/Y                               0.070    0.092   -0.023 (VIOLATED)
+_46494_/Q                               0.175    0.196   -0.021 (VIOLATED)
+_40567_/Y                               0.066    0.086   -0.020 (VIOLATED)
+_40821_/Y                               0.070    0.089   -0.019 (VIOLATED)
+_46490_/Q                               0.175    0.194   -0.019 (VIOLATED)
+_46512_/Q                               0.175    0.193   -0.018 (VIOLATED)
+_36674_/Y                               0.070    0.088   -0.018 (VIOLATED)
+_40557_/X                               0.077    0.093   -0.017 (VIOLATED)
+_46513_/Q                               0.175    0.191   -0.016 (VIOLATED)
+_46496_/Q                               0.175    0.190   -0.016 (VIOLATED)
+_40146_/X                               0.109    0.123   -0.014 (VIOLATED)
+_44396_/Y                               0.074    0.087   -0.013 (VIOLATED)
+_39288_/Y                               0.086    0.098   -0.012 (VIOLATED)
+_40702_/Y                               0.070    0.081   -0.011 (VIOLATED)
+_46476_/Q                               0.175    0.186   -0.011 (VIOLATED)
+_46481_/Q                               0.175    0.185   -0.010 (VIOLATED)
+_45275_/Y                               0.070    0.080   -0.010 (VIOLATED)
+_46463_/Q                               0.175    0.185   -0.010 (VIOLATED)
+_46497_/Q                               0.175    0.184   -0.009 (VIOLATED)
+_26293_/Y                               0.070    0.078   -0.009 (VIOLATED)
+_46475_/Q                               0.175    0.183   -0.008 (VIOLATED)
+_42625_/Y                               0.070    0.077   -0.008 (VIOLATED)
+_40782_/Y                               0.122    0.129   -0.007 (VIOLATED)
+_26267_/Y                               0.070    0.076   -0.007 (VIOLATED)
+_39660_/Y                               0.070    0.075   -0.005 (VIOLATED)
+_39689_/Y                               0.070    0.074   -0.005 (VIOLATED)
+_43373_/Y                               0.050    0.055   -0.004 (VIOLATED)
+_23080_/Y                               0.050    0.054   -0.004 (VIOLATED)
+_40354_/Y                               0.050    0.054   -0.003 (VIOLATED)
+_23934_/Y                               0.050    0.053   -0.003 (VIOLATED)
+_46499_/Q                               0.175    0.178   -0.003 (VIOLATED)
+_26120_/Y                               0.070    0.072   -0.003 (VIOLATED)
+_38676_/Y                               0.050    0.053   -0.003 (VIOLATED)
+_39722_/Y                               0.070    0.072   -0.002 (VIOLATED)
+_34863_/Y                               0.050    0.053   -0.002 (VIOLATED)
+_45235_/Y                               0.070    0.072   -0.002 (VIOLATED)
+_44754_/Y                               0.070    0.072   -0.002 (VIOLATED)
+_40580_/X                               0.077    0.079   -0.002 (VIOLATED)
+_44720_/Y                               0.070    0.071   -0.001 (VIOLATED)
+_44211_/Y                               0.050    0.051   -0.001 (VIOLATED)
+_40067_/Y                               0.070    0.070   -0.000 (VIOLATED)
+_36110_/Y                               0.050    0.050   -0.000 (VIOLATED)
+
+report_clock_skew -digits 3
+Clock core_clock
+  1.234 source latency _45757_/CLK ^
+ -1.756 target latency _46196_/CLK ^
+  0.000 CRPR
+--------------
+ -0.522 setup skew
+
+report_power -corner $power_corner
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power (Watts)
+----------------------------------------------------------------
+Sequential             6.90e-03   3.32e-03   1.26e-08   1.02e-02   6.3%
+Combinational          5.98e-02   8.99e-02   6.17e-08   1.50e-01  91.9%
+Clock                  8.27e-04   2.17e-03   1.28e-09   3.00e-03   1.8%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  6.75e-02   9.54e-02   7.56e-08   1.63e-01 100.0%
+                          41.4%      58.6%       0.0%
+report_floating_nets -verbose
+report_design_area
+Design area 193243 um^2 35% utilization.
+utl::metric "DRT::worst_slack_min" [sta::worst_slack -min]
+utl::metric "DRT::worst_slack_max" [sta::worst_slack -max]
+utl::metric "DRT::tns_max" [sta::total_negative_slack -max]
+utl::metric "DRT::clock_skew" [expr abs([sta::worst_clock_skew -setup])]
+# slew/cap/fanout slack/limit
+utl::metric "DRT::max_slew_slack" [expr [sta::max_slew_check_slack_limit] * 100]
+utl::metric "DRT::max_fanout_slack" [expr [sta::max_fanout_check_slack_limit] * 100]
+utl::metric "DRT::max_capacitance_slack" [expr [sta::max_capacitance_check_slack_limit] * 100]
+# report clock period as a metric for updating limits
+utl::metric "DRT::clock_period" [get_property [lindex [all_clocks] 0] period]
+# not really useful without pad locations
+#set_pdnsim_net_voltage -net $vdd_net_name -voltage $vdd_voltage
+#analyze_power_grid -net $vdd_net_name
+# Power Grid IR Drop Analysis (PDNSim)
+set_pdnsim_net_voltage -net VDD -voltage 1.8
+analyze_power_grid -net VDD
+[INFO PSM-0040] All shapes on net VDD are connected.
+[INFO PSM-0073] Using bump pattern with x-pitch 140.0000um, y-pitch 140.0000um, and size 70.0000um with an reduction factor of 3x.
+########## IR report #################
+Net              : VDD
+Corner           : default
+Supply voltage   : 1.80e+00 V
+Worstcase voltage: 1.80e+00 V
+Average voltage  : 1.80e+00 V
+Average IR drop  : 7.71e-04 V
+Worstcase IR drop: 3.45e-03 V
+Percentage drop  : 0.19 %
+######################################
+set_pdnsim_net_voltage -net VSS -voltage 0.0
+analyze_power_grid -net VSS
+[INFO PSM-0040] All shapes on net VSS are connected.
+[INFO PSM-0073] Using bump pattern with x-pitch 140.0000um, y-pitch 140.0000um, and size 70.0000um with an reduction factor of 3x.
+########## IR report #################
+Net              : VSS
+Corner           : default
+Supply voltage   : 0.00e+00 V
+Worstcase voltage: 3.70e-03 V
+Average voltage  : 8.04e-04 V
+Average IR drop  : 8.04e-04 V
+Worstcase IR drop: 3.70e-03 V
+Percentage drop  : 0.21 %
+######################################
+bft_runtime: 0 count: 0

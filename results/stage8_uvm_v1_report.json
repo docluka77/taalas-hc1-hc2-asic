@@ -1,0 +1,171 @@
+{
+  "stage": 8,
+  "stage_name": "Stage8-Full-UVM-and-Bug-Discovery",
+  "rtl_version": "v1",
+  "timestamp": "2026-11-06T02:25:00+08:00",
+  "verification_environments": {
+    "cpp_uvm_ieee1800_2": {
+      "top_module": "taalas_uvm_all_modules_top",
+      "testbench_files": [
+        "uvm_tb/taalas_uvm_pkg.sv",
+        "uvm_tb/taalas_uvm_all_modules_top.sv",
+        "uvm_tb/tb_uvm_taalas_all_modules.cpp"
+      ],
+      "simulator": "/usr/bin/verilator 4.038 (--cc --exe --build -j 8 --coverage --assert --trace -sv)",
+      "total_simulation_cycles": 527792,
+      "total_uvm_transactions": 107441,
+      "directed_sweep_transactions": 2434,
+      "constrained_random_transactions": 105000,
+      "adversarial_audit_transactions": 7,
+      "concurrent_sva_protocol_checks": 528680,
+      "sva_protocol_violations": 0,
+      "functional_coverage_pct": 100.0,
+      "verilator_total_coverage_points_hit": 3770,
+      "verilator_total_coverage_points_all": 3939,
+      "verilator_total_coverage_pct": 95.0,
+      "coverage_dat": "uvm_tb/coverage.dat",
+      "annotated_dir": "uvm_tb/cov_annotated",
+      "vcd_trace": "uvm_tb/taalas_uvm_trace.vcd"
+    },
+    "native_sv_accellera_uvm_2020_3_1": {
+      "top_module": "tb_sv_uvm_taalas_top",
+      "uvm_library": "/nfs/share/home/chenpei/verisegue_agent_v0/agent_v26/runs/uvm_gate0_20261104_221700/toolchain/uvm-core-2020.3.1/src/uvm_pkg.sv",
+      "simulator": "/nfs/share/home/chenpei/verisegue_agent_v0/agent_v26/runs/uvm_gate0_20261104_221700/toolchain/verilator-5.054/bin/verilator (--timing --coverage-line --coverage-toggle --coverage-user)",
+      "testbench_files": [
+        "uvm_tb/tb_sv_uvm_taalas_top.sv",
+        "uvm_tb/sim_sv_uvm_main.cpp"
+      ],
+      "uvm_test_name": "taalas_full_uvm_test",
+      "sim_time_ps": 5600000,
+      "scoreboard_observations": 556,
+      "uvm_error_count": 0,
+      "uvm_fatal_count": 0,
+      "coverage_dat": "uvm_tb/coverage_sv_uvm.dat"
+    }
+  },
+  "adversarial_bug_summary": {
+    "total_bugs_discovered": 8,
+    "critical_count": 1,
+    "high_count": 5,
+    "medium_count": 2,
+    "live_reproduced_in_uvm_scoreboard": 8
+  },
+  "bugs": [
+    {
+      "bug_id": "BUG-HC1-001",
+      "severity": "CRITICAL",
+      "module": "taalas_flash_decode_attention",
+      "module_id": "M9",
+      "file": "rtl/taalas_flash_decode_attention.sv",
+      "lines": [153],
+      "title": "Newton-Raphson Reciprocal Scaling Constant 2x Error ((32'd4<<15) vs (32'd2<<15))",
+      "root_cause": "In function compute_recip_q30, mr0_q30 is Q2.30 so (mr0_q30 >> 16) is Q1.15 (where 1.0 = 32768 and 2.0 = 65536 = 32'd2 << 15). Line 153 uses (32'd4 << 15) = 131072 (representing 4.0 in Q1.15), computing r1 = r0 * (4.0 - m*r0) instead of r0 * (2.0 - m*r0).",
+      "adversarial_reproduction": "With 2 tokens of equal score (s_t=0, v_t=256), denom_q15 = 65536 (2.0). Exact reciprocal is 0.5 (attn_out = 256), but BUG-HC1-001 produces r1 = 1.46875 (+193.8% inflation, attn_out = 752; or 240 under Q16 saturation).",
+      "stage10_fix": "Change (32'd4 << 15) to (32'd2 << 15) at rtl/taalas_flash_decode_attention.sv:153."
+    },
+    {
+      "bug_id": "BUG-HC1-002",
+      "severity": "HIGH",
+      "module": "taalas_rmsnorm_engine",
+      "module_id": "M10",
+      "file": "rtl/taalas_rmsnorm_engine.sv",
+      "lines": [79, 80, 81, 82, 169],
+      "title": "Unreachable rsqrt_seed_lut_q14 Bins 4'b0_000..4'b0_011 Due to Redundant Bit-13 Indexing",
+      "root_cause": "leading_Shift_even normalizes m_q14 into [0.5, 2.0) = [8192, 32767]. Whenever m_q14[14] == 0 (m in [0.5, 1.0)), m_q14 >= 8192 guarantees m_q14[13] == 1. Passing m_q14[13:11] to rsqrt_seed_lut_q14 makes LUT entries 4'b0_000..4'b0_011 (lines 79-82) 100% unreachable dead code and maps m in [0.5, 0.75) to wrong seeds.",
+      "adversarial_reproduction": "Driven uniform x=185 (m_q14=8556, m=0.522); LUT index {m_q14[14], m_q14[13:11]} = 4'b0_100 selects seed 18448 (1.126) instead of 22486 (1.372), leaving a significant Newton-Raphson residual error.",
+      "stage10_fix": "At rtl/taalas_rmsnorm_engine.sv:169, pass (m_q14[14] ? m_q14[13:11] : m_q14[12:10]) as the 3-bit sub-index to rsqrt_seed_lut_q14."
+    },
+    {
+      "bug_id": "BUG-HC1-003",
+      "severity": "HIGH",
+      "module": "taalas_sram_6t_banked_macro",
+      "module_id": "M5",
+      "file": "rtl/taalas_sram_6t_banked_macro.sv",
+      "lines": [241, 252, 323, 328],
+      "title": "Sub-Word Byte-Strobe RMW Silently Re-Encodes Valid ECC Over Double-Bit Errors & Suppresses ECC Telemetry",
+      "root_cause": "During partial-byte RMW (req_we_i && req_wmask_i != 8'hFF), rmw_dec_comb reads raw_word_from_mem (bypassing raw_word_post_inj), ignores rmw_ded_flag_comb, writes back freshly encoded valid Hamming parity over corrupted data, and gates sec_err_o/ded_err_o/sec_err_cnt_o/ded_err_cnt_o with !req_we_i.",
+      "adversarial_reproduction": "Injected 2-bit error during req_we_i=1, req_wmask_i=8'h01; ded_err_o and ded_err_cnt_o remained 0 and subsequent read returned corrupted word with clean syndrome 0x00.",
+      "stage10_fix": "Feed raw_word_post_inj into rmw_dec_comb, abort RMW writeback (or poison parity) on rmw_ded_flag_comb, and accumulate rmw_sec_flag_comb/rmw_ded_flag_comb into ECC outputs and counters."
+    },
+    {
+      "bug_id": "BUG-HC1-004",
+      "severity": "HIGH",
+      "module": "taalas_kv_cache_manager",
+      "module_id": "M6",
+      "file": "rtl/taalas_kv_cache_manager.sv",
+      "lines": [101, 175, 198, 265],
+      "title": "KV-Head Dimension Omitted from Internal Q4 Memory Index & Sink-Pointer Wrap at LAST_SEQ_PTR",
+      "root_cause": "k_q4_mem/v_q4_mem are sized MAX_USERS*MAX_SEQ_LEN (64) instead of MAX_USERS*NUM_KV_HEADS*MAX_SEQ_LEN (512) and indexed by {act_slot_q, wr_ptr} without act_head_q, causing all 8 GQA KV heads to overwrite each other. Also line 198 (sink_ptr < LAST_SEQ_PTR) wraps sink_tokens_cfg_i == 15 to 0.",
+      "adversarial_reproduction": "Appending to kv_head_id=0 and kv_head_id=1 at slot 0 overwrote the same row and incremented the shared write pointer; sink_tokens_cfg_i=15 wrapped wr_ptr to 0.",
+      "stage10_fix": "Include act_head_q in k_q4_mem/v_q4_mem/scale/zp/ptr arrays and change (sink_ptr < LAST_SEQ_PTR) to (sink_ptr <= LAST_SEQ_PTR)."
+    },
+    {
+      "bug_id": "BUG-HC1-005",
+      "severity": "MEDIUM",
+      "module": "taalas_mxfp4_hc2_mac_lane",
+      "module_id": "M3",
+      "file": "rtl/taalas_mxfp4_hc2_mac_lane.sv",
+      "lines": [132, 147, 184],
+      "title": "OCP MXFP4 Shared Exponent E8M0=0xFF (NaN) Evaluated as Finite Exponent +128",
+      "root_cause": "Per OCP Microscaling Formats (MX) v1.0, E8M0 = 8'hFF (255) is reserved exclusively for NaN scale. Line 184 treats 8'hFF as normal unbiased exponent +128, returning +0.0f when dot_int==0 or finite FP32 when dot_int!=0 instead of IEEE-754 qNaN (32'h7FC0_0000).",
+      "adversarial_reproduction": "Driven act_e8m0_i=2, w_e8m0_i=8'hFF, code=2 (+1.0); observed fp32_l0_o = 32'h4300_0000 (+128.0f) in both C++ UVM and SV UVM-2020.3.1 (25 scoreboard hits) instead of 32'h7FC0_0000.",
+      "stage10_fix": "Detect (act_e8m0_s1[l] == 8'hFF || w_e8m0_s1[l] == 8'hFF) in build_fp32_from_int_and_e8m0 and output 32'h7FC0_0000."
+    },
+    {
+      "bug_id": "BUG-HC1-006",
+      "severity": "MEDIUM",
+      "module": "taalas_lora_sram_overlay_engine",
+      "module_id": "M7",
+      "file": "rtl/taalas_lora_sram_overlay_engine.sv",
+      "lines": [264, 276, 280],
+      "title": "Global active_skew_q Register Overwrites In-Flight Skew Tap & Lacks Downstream Stall Gating",
+      "root_cause": "skew_delta_q[0:7] is an 8-stage shift register, but active_skew_q is a single scalar FF updated immediately on valid_s1_q, switching the output tap for earlier in-flight transactions; also skew_valid_q shifts unconditionally on every clock without stall gating when the parallel Via-Mask ROM is in BIST/sleep.",
+      "adversarial_reproduction": "Issued back-to-back LoRA transactions with skew_delay_i=4 followed by skew_delay_i=1; second transaction overwrote active_skew_q and dropped the in-flight delta at tap 4.",
+      "stage10_fix": "Propagate per-stage target skew metadata alongside skew_delta_q or gate skew updates while in-flight transactions are pending, and add downstream stall_i gating."
+    },
+    {
+      "bug_id": "BUG-HC1-007",
+      "severity": "HIGH",
+      "module": "taalas_token_pipe_noc_router",
+      "module_id": "M12",
+      "file": "rtl/taalas_token_pipe_noc_router.sv",
+      "lines": [105, 123, 284, 296],
+      "title": "Phantom Upstream Credit Return on Local/C2C Flit Pop & Zero-CRC8 False-Negative Waiver",
+      "root_cause": "Multiplexing local_tx_valid_i, c2c_rx_valid_i, and in_valid_i into one FIFO without a source tag causes upstream_credit_ret_o <= fifo_pop_en (line 284) to emit phantom upstream credits when local/C2C flits pop; and line 296 ((head_rx_crc8 != 8'd0) && ...) waives CRC checking whenever rx_crc8 == 8'h00.",
+      "adversarial_reproduction": "Injected local TX flit (in_valid_i=0, local_tx_valid_i=1) and corrupted flit with rx_crc8=8'h00; observed upstream_credit_ret_o=1 (phantom credit) and crc_err_o=0 (false negative).",
+      "stage10_fix": "Store a 2-bit source-port tag in FIFO so upstream_credit_ret_o asserts only for ring-in flits, and remove (head_rx_crc8 != 8'd0) from line 296."
+    },
+    {
+      "bug_id": "BUG-HC1-008",
+      "severity": "HIGH",
+      "module": "taalas_hc1_layer_tile & taalas_hc1_chip_top",
+      "module_id": "M14_M15",
+      "file": "rtl/taalas_hc1_layer_tile.sv",
+      "lines": [369, 649, 184, 238, 363],
+      "title": "Unclamped 24-to-16-Bit FFN Residual Modulo Wrap, Comb Latch in Layer Tile & Token Embed 1-Cycle Skid Hazard",
+      "root_cause": "taalas_hc1_layer_tile.sv:649 slices swiglu_down_acc[i*24+:16] without clamping signed 24b to INT16 (wrapping modulo 65536), and line 369 infers combinational latches on mx_dot/deq_raw_acc_in when !hc2_mxfp4_mode_i; taalas_hc1_chip_top.sv:184 ignores 1-cycle embed_rom_valid latency in tok_in_ready and leaves final_in_vec_q (line 363) unused.",
+      "adversarial_reproduction": "FFN down-projection accumulator > 32767 wrapped negative in residual_2_vec; back-to-back token injection overwrote embed_tok_id_q before embed_rom_valid.",
+      "stage10_fix": "Saturate swiglu_down_acc[i*24+:24] to [-32768,+32767] and initialize mx_dot/deq_raw_acc_in in taalas_hc1_layer_tile.sv; gate tok_in_ready with !embed_rom_pending and wire final_in_vec_q in taalas_hc1_chip_top.sv."
+    }
+  ],
+  "per_module_coverage": {
+    "M1_taalas_via_mask_rom_macro":        { "hit": 128, "total": 134, "pct": 95.52 },
+    "M2_taalas_3b6b_wired_mac_array":      { "hit": 129, "total": 134, "pct": 96.27 },
+    "M3_taalas_mxfp4_hc2_mac_lane":        { "hit":  81, "total":  83, "pct": 97.59 },
+    "M4_taalas_group_dequant_scale_unit":  { "hit":  94, "total":  94, "pct": 100.00 },
+    "M5_taalas_sram_6t_banked_macro":      { "hit": 157, "total": 165, "pct": 95.15 },
+    "M6_taalas_kv_cache_manager":          { "hit": 164, "total": 172, "pct": 95.35 },
+    "M7_taalas_lora_sram_overlay_engine":  { "hit":  88, "total":  93, "pct": 94.62 },
+    "M8_taalas_rope_cordic_unit":          { "hit": 113, "total": 136, "pct": 83.09 },
+    "M9_taalas_flash_decode_attention":    { "hit": 115, "total": 121, "pct": 95.04 },
+    "M10_taalas_rmsnorm_engine":           { "hit": 157, "total": 181, "pct": 86.74 },
+    "M11_taalas_swiglu_ffn_pipe":          { "hit":  76, "total":  86, "pct": 88.37 },
+    "M12_taalas_token_pipe_noc_router":    { "hit": 125, "total": 138, "pct": 90.58 },
+    "M13_taalas_pcie_csr_ctrl":            { "hit": 221, "total": 231, "pct": 95.67 },
+    "M14_taalas_hc1_layer_tile":           { "hit": 196, "total": 209, "pct": 93.78 },
+    "M15_taalas_hc1_chip_top":             { "hit": 149, "total": 166, "pct": 89.76 },
+    "TB_taalas_uvm_all_modules_top":       { "hit": 240, "total": 254, "pct": 94.49 },
+    "TB_taalas_uvm_pkg":                   { "hit":  37, "total":  42, "pct": 88.10 },
+    "AGGREGATE_VERILATOR_COVERAGE":        { "hit": 3770, "total": 3939, "pct": 95.00 }
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "stage": "Stage 2: Microarchitecture Blueprint & Bit-Exact Golden Reference Model",
+  "timestamp": "2026-11-05T17:24:04Z",
+  "execution_time_sec": 3.638,
+  "total_modules_modeled": 14,
+  "total_vectors_tested": 4999,
+  "total_vectors_passed": 4999,
+  "overall_pass_rate": 1.0,
+  "status": "PASS",
+  "module_verification_reports": {
+    "M1_taalas_via_mask_rom_macro": {
+      "vectors_tested": 200,
+      "vectors_passed": 200,
+      "zero_ulp_pass_rate": 1.0,
+      "total_active_vias_read": 41194
+    },
+    "M2_taalas_3b6b_wired_mac_array": {
+      "vectors_tested": 500,
+      "vectors_passed": 500,
+      "max_ulp_error": 0,
+      "zero_skip_macs_saved": 65709
+    },
+    "M3_taalas_mxfp4_hc2_mac_lane": {
+      "vectors_tested": 500,
+      "vectors_passed": 500,
+      "exact_int16_dot_verified": true
+    },
+    "M4_taalas_group_dequant_scale_unit": {
+      "vectors_tested": 300,
+      "vectors_passed": 300,
+      "max_ulp_error": 0
+    },
+    "M5_taalas_sram_6t_banked_macro": {
+      "rows_bijection_verified": 1024,
+      "gf16_bank_conflicts": 0,
+      "single_bit_sec_tested": 72,
+      "single_bit_sec_passed": 72,
+      "double_bit_ded_tested": 2556,
+      "double_bit_ded_passed": 2556
+    },
+    "M6_taalas_kv_cache_manager": {
+      "vectors_tested": 80,
+      "ring_wrap_seq_len": 64,
+      "gqa_bcast_shape": [
+        4,
+        64,
+        64
+      ],
+      "mean_int4_kv_sqnr_db": 21.058233563806578
+    },
+    "M7_taalas_lora_sram_overlay_engine": {
+      "vectors_tested": 100,
+      "vectors_passed": 100,
+      "pipeline_stall_cycles": 0
+    },
+    "M8_taalas_rope_cordic_unit": {
+      "vectors_tested": 100,
+      "mean_cosine_similarity": 0.9999999712271372
+    },
+    "M9_taalas_flash_decode_attention": {
+      "vectors_tested": 50,
+      "mean_cosine_similarity": 0.9999996613979184
+    },
+    "M10_taalas_rmsnorm_engine": {
+      "vectors_tested": 100,
+      "mean_rel_rsqrt_error": 5.443692174216671e-09
+    },
+    "M11_taalas_swiglu_ffn_pipe": {
+      "vectors_tested": 100,
+      "mean_cosine_similarity": 0.9999772444472751
+    },
+    "M12_taalas_token_pipe_noc_router": {
+      "cycles_tested": 300,
+      "flits_received_in_order": 120,
+      "zero_flit_loss_or_reorder": true,
+      "stall_cycles_handled": 61
+    },
+    "M13_taalas_pcie_csr_ctrl": {
+      "registers_verified": 16,
+      "chip_id_hex": "0x54410100",
+      "dma_engine_verified": true
+    },
+    "M14_taalas_hc1_layer_tile_and_chip_top": {
+      "real_llm_checkpoints_evaluated": [
+        "SmolLM2_135M_Layer0",
+        "Qwen2.5_Coder_0.5B_Layer0",
+        "Qwen2.5_Coder_7B_Layer0_QProj_3584x3584"
+      ],
+      "real_llm_metrics": {
+        "SmolLM2_135M_Layer0": {
+          "weight_sqnr_db_hc1_3b6b": {
+            "q_proj": 16.062376142683377,
+            "k_proj": 16.025761746432025,
+            "v_proj": 16.09945887165434,
+            "o_proj": 16.588901572009146,
+            "gate_proj": 16.38777184782752,
+            "up_proj": 16.355648772818732,
+            "down_proj": 16.328944568319212
+          },
+          "weight_sqnr_db_hc2_mxfp4": {
+            "q_proj": 17.833068427190046,
+            "k_proj": 18.002466456976183,
+            "v_proj": 17.990957510567124,
+            "o_proj": 17.67238645912816,
+            "gate_proj": 18.49803526204154,
+            "up_proj": 18.525175517919767,
+            "down_proj": 18.438126390758868
+          },
+          "weight_sqnr_db_naive_3b": {
+            "q_proj": 11.849616230061555,
+            "k_proj": 12.093436731613407,
+            "v_proj": 12.0414297477359,
+            "o_proj": 11.018681476478136,
+            "gate_proj": 12.956309341787637,
+            "up_proj": 12.952052221546005,
+            "down_proj": 12.65710876755038
+          },
+          "mean_weight_sqnr_hc1_db": 16.264123360249194,
+          "mean_weight_sqnr_hc2_db": 18.137173717797385,
+          "mean_weight_sqnr_naive3b_db": 12.22409064525329,
+          "layer_out_cosine_sim_hc1": 0.9852103798202161,
+          "layer_out_cosine_sim_hc2": 0.9896582517113477,
+          "layer_out_cosine_sim_naive3b": 0.9566550511324904,
+          "layer_out_sqnr_db_hc1": 14.993057508681298,
+          "layer_out_sqnr_db_hc2": 16.856152692222615,
+          "layer_out_sqnr_db_naive3b": 10.715351630945696
+        },
+        "Qwen2.5_Coder_0.5B_Layer0": {
+          "weight_sqnr_db_hc1_3b6b": {
+            "q_proj": 16.457149838783153,
+            "k_proj": 16.32970403269728,
+            "v_proj": 16.26607165311177,
+            "o_proj": 16.320116923644555,
+            "gate_proj": 16.368373229880675,
+            "up_proj": 16.35563800530146,
+            "down_proj": 16.30355417744802
+          },
+          "weight_sqnr_db_hc2_mxfp4": {
+            "q_proj": 18.14777400545355,
+            "k_proj": 18.486100790439956,
+            "v_proj": 18.320858334071406,
+            "o_proj": 18.472259828233256,
+            "gate_proj": 18.549035022916016,
+            "up_proj": 18.48611879955495,
+            "down_proj": 18.316418588120516
+          },
+          "weight_sqnr_db_naive_3b": {
+            "q_proj": 11.887662258156315,
+            "k_proj": 12.898843054402098,
+            "v_proj": 12.297825075242452,
+            "o_proj": 12.76774402338874,
+            "gate_proj": 12.94747972547826,
+            "up_proj": 12.858849950134683,
+            "down_proj": 12.403584174912531
+          },
+          "mean_weight_sqnr_hc1_db": 16.342943980123845,
+          "mean_weight_sqnr_hc2_db": 18.39693790982709,
+          "mean_weight_sqnr_naive3b_db": 12.580284037387868,
+          "layer_out_cosine_sim_hc1": 0.971070919712934,
+          "layer_out_cosine_sim_hc2": 0.9831794607781101,
+          "layer_out_cosine_sim_naive3b": 0.9384043288788124,
+          "layer_out_sqnr_db_hc1": 12.29569042188258,
+          "layer_out_sqnr_db_hc2": 14.661936129998892,
+          "layer_out_sqnr_db_naive3b": 8.979673047539269
+        },
+        "Qwen2.5_Coder_7B_Layer0_QProj_3584x3584": {
+          "matrix_shape": [
+            3584,
+            3584
+          ],
+          "total_parameters": 12845056,
+          "sqnr_db_hc1_3b6b": 16.406452659070506,
+          "sqnr_db_hc2_mxfp4": 18.48825916305088,
+          "sqnr_db_naive_3b": 12.699758262781714,
+          "cosine_sim_hc1_3b6b": 0.988737161219467,
+          "cosine_sim_hc2_mxfp4": 0.992895352502174
+        }
+      }
+    }
+  }
+}

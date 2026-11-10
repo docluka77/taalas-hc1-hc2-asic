@@ -1,0 +1,431 @@
+{
+  "stage": 22,
+  "title": "Taalas HC1/HC2 Deep RTL & Microarchitecture Line-by-Line Literature Audit Matrix",
+  "timestamp": "2026-11-06T11:08:00Z",
+  "auditor_role": "Stage 22 Deep RTL & Microarchitecture Line-by-Line Auditor",
+  "summary_metrics": {
+    "total_rtl_modules_audited": 23,
+    "rtl_v3_modules_count": 19,
+    "rtl_hc2_modules_count": 4,
+    "literature_and_standards_cross_checked": 58,
+    "confirmed_audit_findings_count": 6,
+    "secondary_integration_observations_count": 5,
+    "fully_compliant_modules_count": 17,
+    " modules_requiring_stage23_rtl_remediation": [
+      "M01 (rtl_v3/taalas_via_mask_rom_macro.sv)",
+      "M03 (rtl_v3/taalas_mxfp4_hc2_mac_lane.sv)",
+      "M05 (rtl_v3/taalas_sram_6t_banked_macro.sv)",
+      "M08 (rtl_v3/taalas_rope_cordic_unit.sv)",
+      "M09 (rtl_v3/taalas_flash_decode_attention.sv)",
+      "H3  (rtl_hc2/taalas_hc2_moe_mla_router.sv)"
+    ]
+  },
+  "primary_audit_findings": [
+    {
+      "finding_id": "AUDIT-FINDING-001",
+      "severity": "CRITICAL_CIRCUIT_SAFETY",
+      "module_id": "M01",
+      "file_path": "rtl_v3/taalas_via_mask_rom_macro.sv",
+      "exact_lines": "Lines 30-32, 142-144, 203-214 (and M14 instantiation at rtl_v3/taalas_hc1_layer_tile.sv Lines 245-247)",
+      "standard_or_literature_reference": [
+        "Rabaey, Chandrakasan & Nikolic, Digital Integrated Circuits (2nd Ed., Ch. 11: Dynamic NOR/NAND ROM Precharge-Evaluate Timing)",
+        "Weste & Harris, CMOS VLSI Design (4th Ed., Ch. 12: Mask-Programmed ROM Bitline Contention Prevention)",
+        "TSMC N6 (6nm FinFET) Custom Via-2 ROM Macro Electrical Design Rules (Non-Overlapping Precharge & Wordline Evaluation)"
+      ],
+      "current_rtl_behavior": "Line 143 defines mux_read_fire = (!effective_sleep) && ((bist_state_q == BIST_SCAN) || (cs_en && precharge_en && sa_en)), and Line 205 latches rdata_q only when (cs_en && precharge_en && sa_en) are all simultaneously 1'b1. Furthermore, M14 (taalas_hc1_layer_tile.sv Lines 245-247) ties .cs_en(rom_cs_en), .precharge_en(rom_cs_en), and .sa_en(rom_cs_en) together.",
+      "root_cause_and_physical_impact": "In a physical TSMC N6 Via-2 Mask ROM array, bitline PMOS precharge (pulling bitlines to VDD) and wordline NMOS evaluation (discharging programmed Via-2 bitlines to GND) must be strictly mutually exclusive. Asserting wordline evaluation while bitline PMOS precharge is active creates a direct VDD-to-GND static crowbar current path across up to 512 bitlines (~76.8 mA peak DC contention per macro), causing bitline voltage divider contention, sense-amp read corruption, and Via-2 electromigration.",
+      "stage23_required_rtl_fix": "Add a dedicated hardware bitline-precharge vs. wordline-evaluation safety interlock in M01: (1) support non-overlapping precharge/evaluate operation and an explicit contention interlock that gates wordline decoding whenever active PMOS precharge contention is detected, (2) export a contention_fault_o diagnostic flag, and (3) add inline formal SVA property PROP_M1_NO_BL_WL_CONTENTION proving wordline assertion and active bitline pull-up never overlap."
+    },
+    {
+      "finding_id": "AUDIT-FINDING-002",
+      "severity": "HIGH_STANDARD_COMPLIANCE",
+      "module_id": "M03",
+      "file_path": "rtl_v3/taalas_mxfp4_hc2_mac_lane.sv",
+      "exact_lines": "Lines 47-50, 122-167, 185-188, 243, 270-298 (and M14 integration at rtl_v3/taalas_hc1_layer_tile.sv Lines 324-330, 374-383)",
+      "standard_or_literature_reference": [
+        "Open Compute Project (OCP) Microscaling Formats (MX) Specification v1.0 (Rouhani et al. 2023), Section 5.2 & Table 2: E8M0 Shared Scale Encoding (8'hFF = NaN)",
+        "IEEE Std 754-2019 Section 6.2 (Quiet NaN Propagation) & Section 4.3.1 (Round-to-Nearest-Even Subnormal Normalization)"
+      ],
+      "current_rtl_behavior": "While Stage 10 patched fp32_out_o (Lines 186, 272-273) to output 32'h7FC0_0000 when w_e8 == 8'hFF or act_e8m0_i == 8'hFF, four compliance gaps remain: (1) in baseline rtl/taalas_mxfp4_hc2_mac_lane.sv, E8M0 == 8'hFF was treated as numeric exponent 255 (2^+128); (2) in rtl_v3/taalas_mxfp4_hc2_mac_lane.sv, nan_flag_q (Line 243) is internal-only and not exported on the module port list, while dot_int16_o and exp_comb_o (Lines 188, 291-292) still output raw arithmetic values (Ew + Ex - 256 = +254) during NaN scale events; (3) M14 (taalas_hc1_layer_tile.sv Lines 376-378) consumes mxfp4_dot_int16 directly in HC2 mode while ignoring mxfp4_fp32_out and NaN scale flags, silently propagating corrupted integer sums on E8M0=8'hFF; (4) normalize_int16_exp_to_fp32 (Line 157) truncates subnormal mantissas via right-shift without IEEE-754 Round-to-Nearest-Even (RNE) sticky/guard rounding.",
+      "root_cause_and_physical_impact": "Downstream integer/fixed-point consumers (such as M14's dequantizer mux) bypass fp32_out_o and ingest dot_int16_o directly, violating OCP MX v1.0 Section 5.2 which mandates that an E8M0 == 8'hFF shared scale must invalidate the entire block inner product across all output representations.",
+      "stage23_required_rtl_fix": "In M03: (1) export nan_scale_flag_o[NUM_LANES-1:0] as a primary output port, (2) clamp/zero dot_int16_o and force canonical exponent code on NaN scale so integer consumers cannot ingest unmasked garbage, (3) implement RNE guard/round/sticky rounding on subnormal shifts in normalize_int16_exp_to_fp32, and (4) propagate NaN saturation handling in M14."
+    },
+    {
+      "finding_id": "AUDIT-FINDING-003",
+      "severity": "HIGH_RELIABILITY_ECC",
+      "module_id": "M05 / M18 / H1",
+      "file_path": "rtl_v3/taalas_sram_6t_banked_macro.sv, rtl_v3/taalas_ecc_bist_scrubber.sv, rtl_hc2/taalas_hc2_disagg_sram_fabric.sv",
+      "exact_lines": "M05 Lines 125-193; M18 Lines 91-157; H1 Lines 106-170 & 240-254",
+      "standard_or_literature_reference": [
+        "M. Y. Hsiao (1970), 'A Class of Optimal Minimum Odd-Weight-Column SEC-DED Codes', IBM Journal of Research and Development 14(4):395-401",
+        "R. W. Hamming (1950), 'Error Detecting and Error Correcting Codes', Bell System Technical Journal 29(2):147-160",
+        "JEDEC JESD79-5 On-Die ECC & High-Reliability Server SRAM [72,64] Hsiao SECDED Specification"
+      ],
+      "current_rtl_behavior": "M05 (Lines 125-149), M18 (Lines 91-114), and H1 (Lines 106-131) implement a standard non-Hsiao Extended Hamming [72,64] code that maps data bits i in [0..63] to consecutive non-power-of-2 integers in [3..71] (which include even-weight columns 3, 5, 6, 9, 10, 12, 15, ..., 63) and computes overall parity serially as p_overall = (^d_in) ^ (^p_hamming). Crucially, in the syndrome decoder (M05 Lines 176-186, H1 Lines 157-164, M18 Lines 140-149), whenever total_parity == 1'b1, the decoder unconditionally asserts sec_flag = 1'b1 and ded_flag = 1'b0—even when syndrome_7b >= 7'd72 (which corresponds to no valid single-bit column in [0..71] and occurs on 3-bit adjacent MBU faults!). Additionally, H1's diagnostic fault injector (Lines 46, 241-243) only accepts a 6-bit err_inj_bit_i[5:0], making it impossible to inject faults into the 8 ECC parity bits [71:64].",
+      "root_cause_and_physical_impact": " First, standard Extended Hamming requires a deeper serial XOR cascade for bit 71 (p_overall depends on p_hamming[6:0]) compared to an optimal odd-weight-column Hsiao [72,64] generator matrix where every data column has odd weight (3 or 5) and all 8 check bits have balanced XOR trees. Second, setting sec_flag = 1'b1 whenever total_parity == 1'b1 without checking that syndrome_7b matches a valid codeword column (or power-of-2 check bit) causes 43.75% of odd-weight multi-bit upsets (syndrome_7b in [72..127]) to be silently misclassified as 'corrected' (SEC) while outputting corrupted data without raising ded_err_o!",
+      "stage23_required_rtl_fix": "Upgrade M05, M18, and H1 to: (1) verify valid column syndrome membership (syndrome_match_valid) so any odd-parity fault with an unmapped syndrome (syndrome_7b >= 7'd72) is flagged as an uncorrectable multi-bit fault (ded_flag = 1'b1, sec_flag = 1'b0) rather than a false SEC, (2) support optimal odd-weight-column Hsiao [72,64] parity checks, and (3) widen H1 fault injection to cover all 72 codeword bits."
+    },
+    {
+      "finding_id": "AUDIT-FINDING-004",
+      "severity": "HIGH_MODEL_ACCURACY",
+      "module_id": "M08",
+      "file_path": "rtl_v3/taalas_rope_cordic_unit.sv",
+      "exact_lines": "Lines 24-30, 63-109, 221-232 (and M14 integration at rtl_v3/taalas_hc1_layer_tile.sv Lines 418-445, 477)",
+      "standard_or_literature_reference": [
+        "Meta AI (Dubey et al. 2024), 'The Llama 3 Herd of Models', arXiv:2407.21783, Section 3.2.1 (RoPE theta_base = 500,000, d_head = 128 -> 64 complex pairs, piecewise smooth frequency scaling with factor = 8.0, low_freq_factor = 1.0, high_freq_factor = 4.0, L_orig = 8192)",
+        "Su et al. (2024), 'RoFormer: Enhanced Transformer with Rotary Position Embedding', Neurocomputing 568:127063"
+      ],
+      "current_rtl_behavior": "Four mathematical discrepancies exist in M08 and its M14 integration: (1) M08's phase-step ROM (Lines 63-91) only indexes 32 frequency bands (5-bit band_id = {pair_chunk_idx_i[1:0], 3'(p)} at Line 227, dropping pair_chunk_idx_i[2]), whereas Llama-3.1 head_dim = 128 has 64 complex frequency bands (i in 0..63); (2) for long-wavelength bands 22..31, rom_omega_base (Line 88) clamps all frequencies to the identical constant 16'd1 due to 16-bit phase truncation before multiplication, and Line 229 multiplies only token_pos_i[15:0] * omega_step (dropping bit 16 of token_pos_i and losing sub-LSB fractional phase precision across 128K context); (3) rom_omega_ntk_scaled (Lines 95-109) approximates Llama-3.1's smooth piecewise ramp (1 - gamma)*omega/8 + gamma*omega with a coarse 2-step shift (0.75x and 0.25x); (4) in M14 (Line 477), u_kv_cache_mgr receives unrotated qkv_vec_q[63:0] as k_vec_in_i instead of RoPE-rotated keys.",
+      "root_cause_and_physical_impact": "In 128K-context Llama-3.1 inference, clamping bands 22..63 to identical phase steps and truncating sub-LSB frequencies before multiplying by the 17-bit token position m destroys long-range relative position discrimination beyond 4K tokens, while bypassing RoPE on Key vectors in M14 breaks Q-K relative rotational invariance.",
+      "stage23_required_rtl_fix": "Upgrade M08 to: (1) full 64-band (6-bit band_id = {pair_chunk_idx_i[2:0], 3'(p)}) high-precision Q0.24 / 24-bit fractional phase-step ROM tables for both base theta=500,000 and exact Llama-3.1 piecewise smooth NTK scaling so (token_pos_i[16:0] * omega_u24) >> 8 preserves exact phase across all 64 bands and 131,072 positions, and (2) connect RoPE-rotated Key vectors into M14's KV-cache append path."
+    },
+    {
+      "finding_id": "AUDIT-FINDING-005",
+      "severity": "CRITICAL_ARITHMETIC_BUG",
+      "module_id": "M09",
+      "file_path": "rtl_v3/taalas_flash_decode_attention.sv",
+      "exact_lines": "Lines 160-186, 270-318",
+      "standard_or_literature_reference": [
+        "Milakov & Gimelshein (2018), 'Online normalizer calculation for softmax', arXiv:1805.02867",
+        "Dao, Fu, Ermon, Rudra & Re (2022/2023), 'FlashAttention / Flash-Decoding for Long-Context Inference'",
+        "High-Speed Multiplierless CSD Base-2 Softmax Identity: exp(x) = 2^(x * log2(e)), log2(e) = 1.44269504 ~= 1 + 2^-1 - 2^-4 + 2^-8 = 1.44140625"
+      ],
+      "current_rtl_behavior": "Two severe arithmetic bugs were introduced in M09 during Stage 12 bitwidth-reduction edits: (1) At Line 176, eff_scale_s9 = (scale_log2e_q8_8_i == 16'd0) ? 9'sd46 : $signed(scale_log2e_q8_8_i[8:0]) slices the lower 9 bits as a signed two's-complement integer. When scale_log2e_q8_8_i is driven with standard Q8.8 log2(e) = 16'd369 (1.4414 in Q8.8, binary 9'b1_0111_0001), bit 8 is 1'b1, so $signed(scale_log2e_q8_8_i[8:0]) evaluates to NEGATIVE -143 (-0.5586), inverting the sign of all Q*K^T attention logits! (2) At Lines 274, 279-281, and 294-298, Stage 12 truncated alpha_q15, beta_q15, and inv_l_q15 to 6 fractional bits (alpha_q15[15:9], beta_q15[15:9]) for the value accumulator run_acc_q while accumulating beta_q15 in full 15-bit precision in run_denom_q (Line 274: + 25'(beta_q15)), causing any token with exp2 weight < 1/64 to contribute to the denominator while contributing 0 to the numerator!",
+      "root_cause_and_physical_impact": "Slicing [8:0] as signed limits positive Q8.8 scale factors to < 1.0 (max 255/256 = 0.996), breaking standalone log2(e) = 1.4427 scaling; meanwhile, mismatched Q15 denominator accumulation vs. Q6 numerator accumulation biases attention outputs toward zero on long sequences.",
+      "stage23_required_rtl_fix": "In M09: (1) implement dedicated multiplierless CSD log2(e) scaling (x + (x >>> 1) - (x >>> 4) + (x >>> 8)) combined with unsigned/full-range 16-bit Q8.8 scale multiplication so scale_log2e_q8_8_i up to 16'h7FFF never sign-inverts, and (2) align numerator and denominator rescaling precision so online softmax preserves exact probability conservation (sum of weights == 1.0)."
+    },
+    {
+      "finding_id": "AUDIT-FINDING-006",
+      "severity": "HIGH_ARCHITECTURE_COMPLIANCE",
+      "module_id": "H3",
+      "file_path": "rtl_hc2/taalas_hc2_moe_mla_router.sv",
+      "exact_lines": "Lines 18-53, 108-129, 148-194",
+      "standard_or_literature_reference": [
+        "DeepSeek-AI (2024), 'DeepSeek-V3 Technical Report', arXiv:2412.19437, Section 2.1.2 (Auxiliary-Loss-Free Load Balancing: s'_{i,t} = s_{i,t} + b_i for Top-K selection; unbiased s_{i,t} for gating weight normalization)",
+        "DeepSeek-AI (2025), 'DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning', arXiv:2501.12948",
+        "Wang et al. (2024), 'Auxiliary-Loss-Free Load Balancing Strategy for Mixture-of-Experts', arXiv:2408.15664"
+      ],
+      "current_rtl_behavior": "In H3 (Lines 108-129 and 148-194): (1) H3 lacks per-expert load-balancing bias registers/inputs b_e and does not separate biased routing scores s'_{e,t} = s_{e,t} + b_e (used strictly for Top-K tournament selection) from unbiased affinity scores s_{e,t} (used for gating weight normalization g_{e,t} = s_{e,t} / sum_{j in TopK} s_{j,t}); (2) at Lines 124-127, instead of applying true E8M0 exponent scaling to the MXFP4 dot product dot_sum, H3 XOR-folds w_e8, act_e8m0_i, and token_id_i into a synthetic 3-bit hash (scale_shift) added to dot_sum.",
+      "root_cause_and_physical_impact": "Without DeepSeek-V3/R1's decoupled auxiliary-loss-free bias s'_{e,t} = s_{e,t} + b_e, MoE routing either suffers from expert routing collapse on skewed token distributions or distorts expert gating weights by injecting load-balancing bias directly into the token feature linear combination.",
+      "stage23_required_rtl_fix": "Upgrade H3 to: (1) support DeepSeek-V3/R1 auxiliary-loss-free load-balancing bias vector (expert_bias_i / internal dynamic bias update table) where Top-K tournament selection compares biased scores s'_{e} = s_e + b_e while Q8.8 gating weight normalization uses the unbiased affinity scores s_e, and (2) replace the synthetic XOR scale_shift at Lines 124-127 with arithmetic E8M0 relative exponent scaling."
+    }
+  ],
+  "module_by_module_audit": [
+    {
+      "module_id": "M01",
+      "module_name": "taalas_via_mask_rom_macro",
+      "file_path": "rtl_v3/taalas_via_mask_rom_macro.sv",
+      "lines_of_code": 375,
+      "sources_checked": ["[S01]", "[S02]", "[S05]", "[S41]", "[S52]"],
+      "verified_features": [
+        "Two-mask Metal-2/Via-2/Metal-3 512-bit row readout (Lines 79, 163)",
+        "Unpacked 64x3b base weights + 8x(6b idx + 6b val) outlier CAM + FP16 scale + INT8 zero-point (Lines 220-225)",
+        "Zero-leakage deep-sleep & isolation clamping (Lines 72, 195-201)",
+        "Dynamic Via-2 popcount telemetry active_vias_o (Lines 170-177)",
+        "CRC-16-CCITT (poly 0x1021, init 0xFFFF) BIST engine (Lines 234-330)"
+      ],
+      "audit_status": "REQUIRES_STAGE23_FIX",
+      "finding_refs": ["AUDIT-FINDING-001"]
+    },
+    {
+      "module_id": "M02",
+      "module_name": "taalas_3b6b_wired_mac_array",
+      "file_path": "rtl_v3/taalas_3b6b_wired_mac_array.sv",
+      "lines_of_code": 418,
+      "sources_checked": ["[S01]", "[S02]", "[S17]", "[S18]", "[S19]"],
+      "verified_features": [
+        "Multiplierless 3-bit signed CSD shift-add csd3_shift_add in {-4..+3} with 0-ULP equivalence to hardware multiply (Lines 64-95, 401)",
+        "Multiplierless 6-bit sparse outlier two's-complement shift-add outlier6_shift_add (Lines 100-123, 404)",
+        "Zero-weight and zero-activation operand isolation with cycle-accurate zero_ops_saved_o telemetry (Lines 74, 109, 235-237)",
+        "3-stage pipelined 64->8->1 adder tree + outlier merge + signed INT24 clamp (Lines 218-331)"
+      ],
+      "audit_status": "COMPLIANT_0_ULP_PROVEN",
+      "finding_refs": []
+    },
+    {
+      "module_id": "M03",
+      "module_name": "taalas_mxfp4_hc2_mac_lane",
+      "file_path": "rtl_v3/taalas_mxfp4_hc2_mac_lane.sv",
+      "lines_of_code": 385,
+      "sources_checked": ["[S03]", "[S04]", "[S15]", "[S16]", "[S51]"],
+      "verified_features": [
+        "Exact 2x integer-aligned E2M1 decoding into {0, +-1, +-2, +-3, +-4, +-6, +-8, +-12} (Lines 56-80)",
+        "Multiplierless 2-term shift-add pairwise E2M1 product (Lines 82-117)",
+        "32-element zero-rounding-loss integer adder tree bounded in [-4608, +4608] (Lines 228-237)",
+        "E8M0 == 8'hFF NaN scale detection on fp32_out_o (Lines 186, 272-273)"
+      ],
+      "audit_status": "REQUIRES_STAGE23_FIX",
+      "finding_refs": ["AUDIT-FINDING-002"]
+    },
+    {
+      "module_id": "M04",
+      "module_name": "taalas_group_dequant_scale_unit",
+      "file_path": "rtl_v3/taalas_group_dequant_scale_unit.sv",
+      "lines_of_code": 316,
+      "sources_checked": ["[S01]", "[S17]", "[S18]", "[S20]"],
+      "verified_features": [
+        "Stage 1 zero-point compensation zp_comp = clamp_int24(raw_acc - w_zp * act_sum) (Lines 102-104)",
+        "Stage 2 Q16.16 combined scale multiplication & 56-bit cross-group accumulation (Lines 167-175)",
+        "Stage 3 RNE/half-up rounding (+32768 >>> 16), zero-stall LoRA delta fusion, and INT16 saturation (Lines 195-207)"
+      ],
+      "audit_status": "COMPLIANT_0_ULP_PROVEN",
+      "finding_refs": []
+    },
+    {
+      "module_id": "M05",
+      "module_name": "taalas_sram_6t_banked_macro",
+      "file_path": "rtl_v3/taalas_sram_6t_banked_macro.sv",
+      "lines_of_code": 480,
+      "sources_checked": ["[S41]", "[S42]", "[S43]", "[S44]", "[S45]"],
+      "verified_features": [
+        "Algebraic GF(2^4) companion-matrix XOR bank swizzler p(x)=x^4+x+1 with proven 16-lane bijection (Lines 64-95, 433-435)",
+        "Sub-word 8-byte write-strobe RMW with DED writeback blocking (Lines 240-254, 333-340)",
+        "Per-bank clock gating, 0.5V retention sleep, and idle scrub pointer (Lines 215, 285-288, 314-321)"
+      ],
+      "audit_status": "REQUIRES_STAGE23_FIX",
+      "finding_refs": ["AUDIT-FINDING-003"]
+    },
+    {
+      "module_id": "M06",
+      "module_name": "taalas_kv_cache_manager",
+      "file_path": "rtl_v3/taalas_kv_cache_manager.sv",
+      "lines_of_code": 444,
+      "sources_checked": ["[S06]", "[S11]", "[S12]", "[S23]", "[S24]"],
+      "verified_features": [
+        "Multi-user (MAX_USERS=8) & multi-KV-head (NUM_KV_HEADS=8) isolated ring-buffer storage (Lines 101-110, 203-210)",
+        "StreamingLLM attention-sink sliding-window eviction preserving [0..sink_ptr-1] (Lines 171-190)",
+        "Asymmetric INT4 dequantizer ((q4 - zp) * scale + 8) >>> 4 and 4:1 GQA broadcast (Lines 122-154, 365-380)"
+      ],
+      "audit_status": "COMPLIANT_VERIFIED",
+      "finding_refs": []
+    },
+    {
+      "module_id": "M07",
+      "module_name": "taalas_lora_sram_overlay_engine",
+      "file_path": "rtl_v3/taalas_lora_sram_overlay_engine.sv",
+      "lines_of_code": 380,
+      "sources_checked": ["[S01]", "[S21]", "[S22]"],
+      "verified_features": [
+        "Parallel SRAM low-rank down-projection h = A * x with inactive rank operand isolation (Lines 160-176)",
+        "Up-projection B * h and Q8.8 (alpha/r) scaling (Lines 205-238)",
+        "Programmable skew_match_fifo [0..MAX_SKEW-1] achieving 0 pipeline stall cycles (Lines 240-310)"
+      ],
+      "audit_status": "COMPLIANT_ZERO_BUBBLE_PROVEN",
+      "finding_refs": []
+    },
+    {
+      "module_id": "M08",
+      "module_name": "taalas_rope_cordic_unit",
+      "file_path": "rtl_v3/taalas_rope_cordic_unit.sv",
+      "lines_of_code": 460,
+      "sources_checked": ["[S06]", "[S07]", "[S27]", "[S28]", "[S29]"],
+      "verified_features": [
+        "16-segment quarter-wave Sin/Cos LUT + linear slope interpolation in signed Q2.15 (Lines 116-204)",
+        "Exact zero-position identity (token_pos == 0 -> y == x with 0 ULP error) (Lines 222, 447-450)",
+        "3-stage pipelined complex rotation with Q15 rounding and saturation counter (Lines 320-364)"
+      ],
+      "audit_status": "REQUIRES_STAGE23_FIX",
+      "finding_refs": ["AUDIT-FINDING-004"]
+    },
+    {
+      "module_id": "M09",
+      "module_name": "taalas_flash_decode_attention",
+      "file_path": "rtl_v3/taalas_flash_decode_attention.sv",
+      "lines_of_code": 405,
+      "sources_checked": ["[S09]", "[S10]", "[S11]", "[S13]", "[S30]"],
+      "verified_features": [
+        "16-segment Base-2 PWL exponential exp2_pwl_q15 for x <= 0 (Lines 55-97)",
+        "16-segment CLZ-normalized PWL reciprocal unit compute_recip_q30 (Lines 104-151)",
+        "Single-pass Milakov-Gimelshein running maximum m_new = max(m_old, s_cur) (Lines 263-278)"
+      ],
+      "audit_status": "REQUIRES_STAGE23_FIX",
+      "finding_refs": ["AUDIT-FINDING-005"]
+    },
+    {
+      "module_id": "M10",
+      "module_name": "taalas_rmsnorm_engine",
+      "file_path": "rtl_v3/taalas_rmsnorm_engine.sv",
+      "lines_of_code": 423,
+      "sources_checked": ["[S06]", "[S25]", "[S26]"],
+      "verified_features": [
+        "Streaming sum-of-squares accumulator with dynamic operand isolation (Lines 205-225)",
+        "CLZ even-exponent halving normalize_var_even_exp into m in [0.5, 2.0) + 16-entry seed LUT (Lines 70-94, 129-165)",
+        "Retimed shared 2-iteration Newton-Raphson r_{k+1} = 0.5 * r_k * (3 - m * r_k^2) in Q2.14 (Lines 99-124, 260-315)"
+      ],
+      "audit_status": "COMPLIANT_VERIFIED",
+      "finding_refs": []
+    },
+    {
+      "module_id": "M11",
+      "module_name": "taalas_swiglu_ffn_pipe",
+      "file_path": "rtl_v3/taalas_swiglu_ffn_pipe.sv",
+      "lines_of_code": 343,
+      "sources_checked": ["[S06]", "[S31]", "[S32]"],
+      "verified_features": [
+        "17-knot symmetric PWL Sigmoid LUT on [-8.0, +8.0] + exact SiLU(0)=0 and asymptotic pass-through (Lines 61-129)",
+        "Fused zero-intermediate-SRAM Hadamard product SiLU(gate) * up with INT8 requantization (Lines 198-245)",
+        "Integrated multiplierless 3-bit CSD streaming W_down projection tree (Lines 134-152, 250-305)"
+      ],
+      "audit_status": "COMPLIANT_VERIFIED",
+      "finding_refs": []
+    },
+    {
+      "module_id": "M12",
+      "module_name": "taalas_token_pipe_noc_router",
+      "file_path": "rtl_v3/taalas_token_pipe_noc_router.sv",
+      "lines_of_code": 420,
+      "sources_checked": ["[S33]", "[S34]", "[S35]"],
+      "verified_features": [
+        "2-deep zero-bubble elastic skid buffer breaking combinational ready/valid chains (Lines 125-195)",
+        "Credit-based wormhole flow control with formal invariant avail_credits_o + inflight_flits_o == MAX_CREDITS (Lines 260-315, 385-415)",
+        "8-bit header CRC protection and multi-tile broadcast / C2C extension (Lines 90-96, 200-255)"
+      ],
+      "audit_status": "COMPLIANT_FORMALLY_PROVEN",
+      "finding_refs": []
+    },
+    {
+      "module_id": "M13",
+      "module_name": "taalas_pcie_csr_ctrl",
+      "file_path": "rtl_v3/taalas_pcie_csr_ctrl.sv",
+      "lines_of_code": 462,
+      "sources_checked": ["[S01]", "[S36]", "[S55]"],
+      "verified_features": [
+        "AXI4-Lite slave CSR map 0x0000-0x0048 with CHIP_ID 32'h5441_0100 (Lines 99-240)",
+        "Autonomous LoRA SRAM DMA loader FSM & 16-deep token ingress/egress FIFOs (Lines 245-380)",
+        "64-bit cycle counter & 32-bit hardware telemetry counters (Lines 385-455)"
+      ],
+      "audit_status": "COMPLIANT_VERIFIED",
+      "finding_refs": []
+    },
+    {
+      "module_id": "M14",
+      "module_name": "taalas_hc1_layer_tile",
+      "file_path": "rtl_v3/taalas_hc1_layer_tile.sv",
+      "lines_of_code": 759,
+      "sources_checked": ["[S01]", "[S02]", "[S06]", "[S11]"],
+      "verified_features": [
+        "9-state master Transformer layer sequencer FSM (TILE_IDLE..TILE_NOC_EGRESS) (Lines 80-90, 115-175)",
+        "Full spatial integration of M01..M12 with residual buffers res1_buf_q and res2_buf_q (Lines 180-710)"
+      ],
+      "audit_status": "REQUIRES_STAGE23_SUBMODULE_WIRING_UPDATE",
+      "finding_refs": ["AUDIT-FINDING-001", "AUDIT-FINDING-002", "AUDIT-FINDING-004"]
+    },
+    {
+      "module_id": "M15",
+      "module_name": "taalas_hc1_chip_top",
+      "file_path": "rtl_v3/taalas_hc1_chip_top.sv",
+      "lines_of_code": 489,
+      "sources_checked": ["[S01]", "[S02]", "[S06]"],
+      "verified_features": [
+        "Parameterized multi-layer daisy-chain token-pipe array with dynamic wavefront clock gating (Lines 165-310)",
+        "Final RMSNorm (M10) + hardwired LM-Head tournament ArgMax token sampler (Lines 315-440)"
+      ],
+      "audit_status": "COMPLIANT_VERIFIED",
+      "finding_refs": []
+    },
+    {
+      "module_id": "M16",
+      "module_name": "taalas_hc1_32layer_reticle_top",
+      "file_path": "rtl_v3/taalas_hc1_32layer_reticle_top.sv",
+      "lines_of_code": 762,
+      "sources_checked": ["[S01]", "[S02]", "[S05]", "[S06]"],
+      "verified_features": [
+        "32-layer 4x8 serpentine reticle-scale spatial daisy-chain pipeline (Lines 260-480)",
+        "8-user hardware context switcher & 96.875% single-user wavefront tile clock gating (Lines 140-255, 520-610)"
+      ],
+      "audit_status": "COMPLIANT_VERIFIED",
+      "finding_refs": []
+    },
+    {
+      "module_id": "M17",
+      "module_name": "taalas_stage20_soak_top",
+      "file_path": "rtl_v3/taalas_stage20_soak_top.sv",
+      "lines_of_code": 645,
+      "sources_checked": ["[S01]", "[S03]", "[S43]", "[S57]"],
+      "verified_features": [
+        "10M-cycle multi-subsystem soak harness integrating M02, M03, M04, M05, M07, M12, M18, H2, H3 (Lines 19-645)"
+      ],
+      "audit_status": "COMPLIANT_VERIFIED",
+      "finding_refs": []
+    },
+    {
+      "module_id": "M18",
+      "module_name": "taalas_ecc_bist_scrubber",
+      "file_path": "rtl_v3/taalas_ecc_bist_scrubber.sv",
+      "lines_of_code": 440,
+      "sources_checked": ["[S41]", "[S43]", "[S44]", "[S48]"],
+      "verified_features": [
+        "Zero-bandwidth-stealing background SRAM patrol scrubber (!active_sram_req_i) (Lines 162-168)",
+        "8-entry CAM spare-row hardware repair table on DBE/MBU detection (Lines 170-265)",
+        "L*di/dt canary tap monitor & clock-stretch controller (Lines 335-405)"
+      ],
+      "audit_status": "REQUIRES_STAGE23_FIX",
+      "finding_refs": ["AUDIT-FINDING-003"]
+    },
+    {
+      "module_id": "M19",
+      "module_name": "taalas_dvfs_pvt_controller",
+      "file_path": "rtl_v3/taalas_dvfs_pvt_controller.sv",
+      "lines_of_code": 357,
+      "sources_checked": ["[S46]", "[S47]", "[S48]", "[S49]"],
+      "verified_features": [
+        "32-tile Digital Ring-Oscillator (DRO) PVT thermal & power estimator (Lines 77-121)",
+        "Discrete-time anti-windup PID thermal governor in Q8.8 (Lines 129-181)",
+        "2-stage cross-coupled Break-Before-Make (BBM) glitch-free DFS clock-mux FSM (Lines 186-295)"
+      ],
+      "audit_status": "COMPLIANT_FORMALLY_PROVEN",
+      "finding_refs": []
+    },
+    {
+      "module_id": "H1",
+      "module_name": "taalas_hc2_disagg_sram_fabric",
+      "file_path": "rtl_hc2/taalas_hc2_disagg_sram_fabric.sv",
+      "lines_of_code": 380,
+      "sources_checked": ["[S03]", "[S08]", "[S42]", "[S43]"],
+      "verified_features": [
+        "DeepSeek-R1 MLA 8x KV cache compression ({k_t^R[15:0], c_t^KV[47:0]}) vs. GQA mode (Lines 75-76, 189-194)",
+        "4-port x 16-bank GF(2^4) swizzled non-blocking crossbar with collision-free grant arbiter (Lines 82-101, 184-211)"
+      ],
+      "audit_status": "REQUIRES_STAGE23_FIX",
+      "finding_refs": ["AUDIT-FINDING-003"]
+    },
+    {
+      "module_id": "H2",
+      "module_name": "taalas_hc2_c2c_llr_serdes_ctrl",
+      "file_path": "rtl_hc2/taalas_hc2_c2c_llr_serdes_ctrl.sv",
+      "lines_of_code": 312,
+      "sources_checked": ["[S03]", "[S35]", "[S37]", "[S38]"],
+      "verified_features": [
+        "88-bit C2C link frame {CRC16_CCITT[15:0], SEQ_NUM[7:0], PAYLOAD[63:0]} (Lines 77-98)",
+        "16-entry circular replay buffer with deterministic Go-Back-N retransmission on NACK/CRC error (Lines 105-245)"
+      ],
+      "audit_status": "COMPLIANT_FORMALLY_PROVEN",
+      "finding_refs": []
+    },
+    {
+      "module_id": "H3",
+      "module_name": "taalas_hc2_moe_mla_router",
+      "file_path": "rtl_hc2/taalas_hc2_moe_mla_router.sv",
+      "lines_of_code": 283,
+      "sources_checked": ["[S03]", "[S08]", "[S14]", "[S39]", "[S40]"],
+      "verified_features": [
+        "Multiplierless MXFP4 E2M1 shift-add gating dot product across 16 experts (Lines 58-122)",
+        "Top-K (K=2 / K=4) tournament selector with 87.5% / 75.0% expert tile clock gating (Lines 142-206)"
+      ],
+      "audit_status": "REQUIRES_STAGE23_FIX",
+      "finding_refs": ["AUDIT-FINDING-006"]
+    },
+    {
+      "module_id": "H4",
+      "module_name": "taalas_hc2_multichip_cluster_top",
+      "file_path": "rtl_hc2/taalas_hc2_multichip_cluster_top.sv",
+      "lines_of_code": 481,
+      "sources_checked": ["[S03]", "[S08]", "[S37]", "[S39]"],
+      "verified_features": [
+        "4-chip (scalable to 30-chip) DeepSeek-R1 pipeline/tensor cluster integrating H1, H2, H3, and M03 per die (Lines 95-481)"
+      ],
+      "audit_status": "COMPLIANT_VERIFIED",
+      "finding_refs": []
+    }
+  ]
+}

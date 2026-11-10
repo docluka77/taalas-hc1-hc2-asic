@@ -1,0 +1,254 @@
+{
+  "stage": 10,
+  "stage_name": "Stage10-Architectural-Reflection-BugFixes-RTL-v2",
+  "rtl_version": "v2",
+  "rtl_directory": "rtl_v2",
+  "timestamp": "2026-11-06T03:00:00+08:00",
+  "lint_verification": {
+    "tool_verilator_4": "/usr/bin/verilator --lint-only -sv -Wall -Irtl_v2",
+    "tool_verilator_5": "/nfs/share/home/chenpei/verisegue_agent_v0/agent_v26/runs/uvm_gate0_20261104_221700/toolchain/verilator-5.054/bin/verilator --lint-only -sv -Wall -Irtl_v2",
+    "modules_checked": 15,
+    "errors": 0,
+    "warnings": 0,
+    "status": "ALL_15_RTL_V2_LINT_ZERO_WARNINGS_ZERO_ERRORS_PASS"
+  },
+  "formal_sat_verification": {
+    "script": "formal/prove_stage10_rtl_v2.ys",
+    "log_file": "formal/stage10_yosys_formal_v2.log",
+    "solver": "Yosys 0.33 + MiniSat (sat -verify -seq 8 -set-init-zero -prove-asserts)",
+    "total_proof_targets": 10,
+    "all_qed": true,
+    "proofs": [
+      {
+        "proof_id": "F-01",
+        "module": "taalas_flash_decode_attention",
+        "bug_guarded": "BUG-HC1-001",
+        "property": "PROP_BUG001_RECIP_UNIT_NORM",
+        "bmc_depth": 8,
+        "sat_variables": 1121170,
+        "cnf_clauses": 3321713,
+        "status": "Q.E.D."
+      },
+      {
+        "proof_id": "F-02",
+        "module": "taalas_rmsnorm_engine",
+        "bug_guarded": "BUG-HC1-002",
+        "property": "PROP_BUG002_RSQRT_SEED_ACCURACY",
+        "bmc_depth": 8,
+        "sat_variables": 839907,
+        "cnf_clauses": 2474436,
+        "status": "Q.E.D."
+      },
+      {
+        "proof_id": "F-03A",
+        "module": "taalas_sram_6t_banked_macro",
+        "bug_guarded": "BUG-HC1-003",
+        "property": "PROP_M5_SECDED_100PCT_SEC_DED",
+        "bmc_depth": 2,
+        "sat_variables": 64865,
+        "cnf_clauses": 175934,
+        "status": "Q.E.D."
+      },
+      {
+        "proof_id": "F-03B",
+        "module": "taalas_sram_6t_banked_macro",
+        "bug_guarded": "BUG-HC1-003",
+        "property": "PROP_BUG003_RMW_NO_DED_LAUNDERING",
+        "bmc_depth": 8,
+        "sat_variables": 266037,
+        "cnf_clauses": 724050,
+        "status": "Q.E.D."
+      },
+      {
+        "proof_id": "F-04",
+        "module": "taalas_kv_cache_manager",
+        "bug_guarded": "BUG-HC1-004",
+        "property": "PROP_BUG004_GQA_HEAD_ISOLATION",
+        "bmc_depth": 8,
+        "sat_variables": 261032,
+        "cnf_clauses": 753555,
+        "status": "Q.E.D."
+      },
+      {
+        "proof_id": "F-05",
+        "module": "taalas_mxfp4_hc2_mac_lane",
+        "bug_guarded": "BUG-HC1-005",
+        "property": "PROP_BUG005_OCP_E8M0_NAN",
+        "bmc_depth": 8,
+        "sat_variables": 115060,
+        "cnf_clauses": 322759,
+        "status": "Q.E.D."
+      },
+      {
+        "proof_id": "F-06",
+        "module": "taalas_lora_sram_overlay_engine",
+        "bug_guarded": "BUG-HC1-006",
+        "property": "PROP_BUG006_INFLIGHT_SKEW_INVARIANCE",
+        "bmc_depth": 8,
+        "sat_variables": 1183397,
+        "cnf_clauses": 3499851,
+        "status": "Q.E.D."
+      },
+      {
+        "proof_id": "F-07",
+        "module": "taalas_token_pipe_noc_router",
+        "bug_guarded": "BUG-HC1-007",
+        "property": "PROP_BUG007_NO_PHANTOM_CREDITS",
+        "bmc_depth": 8,
+        "sat_variables": 83473,
+        "cnf_clauses": 224262,
+        "status": "Q.E.D."
+      },
+      {
+        "proof_id": "F-08A",
+        "module": "taalas_hc1_layer_tile",
+        "bug_guarded": "BUG-HC1-008",
+        "property": "PROP_BUG008_SWIGLU_SAT_BOUND",
+        "bmc_depth": 8,
+        "sat_variables": 26839,
+        "cnf_clauses": 71672,
+        "status": "Q.E.D."
+      },
+      {
+        "proof_id": "F-08B",
+        "module": "taalas_hc1_chip_top",
+        "bug_guarded": "BUG-HC1-008",
+        "property": "PROP_BUG008_EMBED_BACKPRESSURE",
+        "bmc_depth": 8,
+        "sat_variables": 1878,
+        "cnf_clauses": 4975,
+        "status": "Q.E.D."
+      }
+    ]
+  },
+  "mutation_testing_campaign": {
+    "script": "scripts/run_stage10_mutation_campaign.py",
+    "detailed_report": "results/stage10_mutation_campaign.json",
+    "total_mutants_injected": 40,
+    "mutants_killed": 40,
+    "mutants_survived": 0,
+    "mutation_kill_score_pct": 100.0
+  },
+  "closed_bugs_summary": {
+    "total_v1_bugs_discovered": 8,
+    "total_v2_bugs_fixed": 8,
+    "remaining_v2_bugs": 0,
+    "bugs_closed": [
+      {
+        "bug_id": "BUG-HC1-001",
+        "module": "taalas_flash_decode_attention",
+        "file_v2": "rtl_v2/taalas_flash_decode_attention.sv:154",
+        "v1_behavior": "attn_out = 752 (+193.8% error due to 32'd4<<15)",
+        "v2_behavior": "attn_out = 256 (0 error with 32'd2<<15)",
+        "formal_guard": "PROP_BUG001_RECIP_UNIT_NORM",
+        "status": "CLOSED_AND_PROVED"
+      },
+      {
+        "bug_id": "BUG-HC1-002",
+        "module": "taalas_rmsnorm_engine",
+        "file_v2": "rtl_v2/taalas_rmsnorm_engine.sv:170",
+        "v1_behavior": "LUT bins 0..3 unreachable (inv_rms = 360 for m=0.5)",
+        "v2_behavior": "All 16 LUT bins active (inv_rms = 362 exact for m=0.5)",
+        "formal_guard": "PROP_BUG002_RSQRT_SEED_ACCURACY",
+        "status": "CLOSED_AND_PROVED"
+      },
+      {
+        "bug_id": "BUG-HC1-003",
+        "module": "taalas_sram_6t_banked_macro",
+        "file_v2": "rtl_v2/taalas_sram_6t_banked_macro.sv:242,324",
+        "v1_behavior": "Sub-word RMW ignored raw_word_post_inj, laundered DED with clean ECC, ded_cnt delta = 0",
+        "v2_behavior": "Sub-word RMW decodes raw_word_post_inj, blocks writeback on DED, ded_cnt delta = +1",
+        "formal_guard": "PROP_BUG003_RMW_NO_DED_LAUNDERING",
+        "status": "CLOSED_AND_PROVED"
+      },
+      {
+        "bug_id": "BUG-HC1-004",
+        "module": "taalas_kv_cache_manager",
+        "file_v2": "rtl_v2/taalas_kv_cache_manager.sv:101,176,202",
+        "v1_behavior": "All 8 GQA KV heads aliased in k_q4_mem/v_q4_mem; sink=15 wrapped wr_ptr to 0",
+        "v2_behavior": "Per-head isolation in k_q4_mem/v_q4_mem; sink=15 preserves wr_ptr = 15",
+        "formal_guard": "PROP_BUG004_GQA_HEAD_ISOLATION",
+        "status": "CLOSED_AND_PROVED"
+      },
+      {
+        "bug_id": "BUG-HC1-005",
+        "module": "taalas_mxfp4_hc2_mac_lane",
+        "file_v2": "rtl_v2/taalas_mxfp4_hc2_mac_lane.sv:186,274",
+        "v1_behavior": "OCP MXFP4 E8M0=8'hFF evaluated as finite float 0x43000000 (+128.0f)",
+        "v2_behavior": "OCP MXFP4 E8M0=8'hFF outputs canonical IEEE-754 qNaN 0x7FC00000 and sets nan_flag_q",
+        "formal_guard": "PROP_BUG005_OCP_E8M0_NAN",
+        "status": "CLOSED_AND_PROVED"
+      },
+      {
+        "bug_id": "BUG-HC1-006",
+        "module": "taalas_lora_sram_overlay_engine",
+        "file_v2": "rtl_v2/taalas_lora_sram_overlay_engine.sv:254-295",
+        "v1_behavior": "Global scalar active_skew_q overwrote in-flight tap, dropping earlier skew=5 transaction",
+        "v2_behavior": "Per-stage skew_target_q shift register preserves in-flight tap (saw_txn1_at_tap5 = 1)",
+        "formal_guard": "PROP_BUG006_INFLIGHT_SKEW_INVARIANCE",
+        "status": "CLOSED_AND_PROVED"
+      },
+      {
+        "bug_id": "BUG-HC1-007",
+        "module": "taalas_token_pipe_noc_router",
+        "file_v2": "rtl_v2/taalas_token_pipe_noc_router.sv:101,310,324",
+        "v1_behavior": "Local/C2C flit pop emitted phantom upstream_credit_ret_o=1; rx_crc8=0x00 waived crc_err_o",
+        "v2_behavior": "2-bit SRC_UPSTREAM/LOCAL/C2C tag eliminates phantom credits; rx_crc8=0x00 sets crc_err_o=1",
+        "formal_guard": "PROP_BUG007_NO_PHANTOM_CREDITS",
+        "status": "CLOSED_AND_PROVED"
+      },
+      {
+        "bug_id": "BUG-HC1-008",
+        "module": "taalas_hc1_layer_tile & taalas_hc1_chip_top",
+        "file_v2": "rtl_v2/taalas_hc1_layer_tile.sv:370,640,659 & rtl_v2/taalas_hc1_chip_top.sv:185,364",
+        "v1_behavior": "Unclamped 24-to-16b FFN slice wrapped modulo 65536; comb latch on mx_dot; 1-cycle embed ROM skid",
+        "v2_behavior": "sat24_to_16 clamps FFN residual to [-32768,+32767]; 0 latches; tok_in_ready gated by !embed_rom_valid",
+        "formal_guard": "PROP_BUG008_SWIGLU_SAT_BOUND & PROP_BUG008_EMBED_BACKPRESSURE",
+        "status": "CLOSED_AND_PROVED"
+      }
+    ]
+  },
+
+  "verification_environments_v2": {
+    "cpp_ieee1800_2_uvm_v2": {
+      "simulator": "Verilator 4.038 (Ubuntu 22.04 LTS on ict-eda-9)",
+      "binary": "obj_dir_uvm_v2/Vtaalas_uvm_all_modules_top_v2",
+      "log_file": "uvm_tb/stage10_cpp_uvm_v2.log",
+      "total_cycles": 527843,
+      "total_transactions": 107441,
+      "concurrent_sva_checks": 528731,
+      "concurrent_sva_violations": 0,
+      "functional_coverage_pct": 100.0,
+      "verilator_structural_coverage_points_hit": 3883,
+      "verilator_structural_coverage_points_total": 4050,
+      "verilator_structural_coverage_ratio_pct": 95.88,
+      "verilator_structural_coverage_reported_pct": 95.0,
+      "adversarial_bugs_found": 0
+    },
+    "native_sv_accellera_uvm_2020_3_1_v2": {
+      "simulator": "Verilator 5.054-devel (--binary --timing +incdir+/nfs/share/home/chenpei/hyr/tools/uvm-2020.3.1/src)",
+      "binary": "obj_dir_sv_uvm_v2/sim_sv_uvm_taalas_v2",
+      "log_file": "uvm_tb/stage10_sv_uvm_v2.log",
+      "simulation_time_ps": 5600000,
+      "total_scoreboard_observations": 556,
+      "bug1_hits": 0,
+      "bug2_hits": 0,
+      "uvm_error_count": 0,
+      "uvm_fatal_count": 0
+    }
+  },
+  "v1_vs_v2_comparison": {
+    "v1_adversarial_bugs_found": 8,
+    "v2_adversarial_bugs_found": 0,
+    "v1_structural_points_hit": 3770,
+    "v1_structural_points_total": 3939,
+    "v1_structural_ratio_pct": 95.71,
+    "v2_structural_points_hit": 3883,
+    "v2_structural_points_total": 4050,
+    "v2_structural_ratio_pct": 95.88,
+    "structural_points_gained": 113,
+    "mutation_campaign_killed": 40,
+    "mutation_campaign_total": 40,
+    "mutation_kill_rate_pct": 100.0
+  }
+}

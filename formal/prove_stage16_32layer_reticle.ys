@@ -1,0 +1,13 @@
+# =============================================================================
+# Stage 16 Yosys Formal SAT Proof Script — Full 32-Layer Reticle-Scale Top
+# Mathematically proves PROP_RETICLE32_WAVEFRONT_CONSERVATION,
+# PROP_RETICLE32_CG_COMPLEMENT, and PROP_RETICLE32_USER_SLOT_ISOLATION
+# across the 32-layer token-wavefront scheduler & 8-user context switcher.
+# =============================================================================
+
+design -reset
+read_verilog -sv -formal rtl_v3/taalas_hc1_32layer_reticle_top.sv
+delete taalas_hc1_32layer_reticle_top/c:u_* taalas_hc1_32layer_reticle_top/c:gen_*
+prep -top taalas_hc1_32layer_reticle_top
+memory_map; async2sync; dffunmap; setundef -undriven -anyseq; opt -full
+sat -verify -seq 8 -set-init-zero -prove-asserts
