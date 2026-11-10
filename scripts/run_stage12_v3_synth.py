@@ -20,7 +20,7 @@ import time
 import subprocess
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-WORKSPACE = "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon"
+WORKSPACE = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 YOSYS_BIN = "/usr/local/bin/yosys"
 
 PDK_CONFIGS = {

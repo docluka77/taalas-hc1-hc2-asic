@@ -3,7 +3,7 @@ import os
 import sys
 import json
 
-ROOT = "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, os.path.join(ROOT, "pnr"))
 from run_openroad_taalas import run_openroad_pnr_module
 

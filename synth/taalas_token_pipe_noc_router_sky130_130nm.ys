@@ -1,11 +1,11 @@
-read_liberty -lib /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/sky130_fd_sc_hd__tt_025C_1v80.lib;
-read_verilog -sv -DYOSYS -defer /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl/taalas_token_pipe_noc_router.sv;
+read_liberty -lib synth/lib/sky130_fd_sc_hd__tt_025C_1v80.lib;
+read_verilog -sv -DYOSYS -defer rtl/taalas_token_pipe_noc_router.sv;
 hierarchy -check -top taalas_token_pipe_noc_router -chparam FLIT_WIDTH 128 -chparam FIFO_DEPTH 8 -chparam MAX_CREDITS 8 -chparam TILE_ID 0;
 flatten;
 chformal -remove;
 proc; opt -fast; fsm; opt -fast; memory -nomap; opt_clean; memory_map; opt -fast; techmap; opt -fast;
 ltp;
-dfflibmap -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/sky130_fd_sc_hd__tt_025C_1v80.lib;
-abc -D 3333 -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/sky130_fd_sc_hd__tt_025C_1v80.lib -script +strash;scorr;dc2;strash;&get,-n;&dch,-f;&nf,{D};&put;buffer;upsize,{D};dnsize,{D};topo;stime,-p;print_stats;
-stat -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/sky130_fd_sc_hd__tt_025C_1v80.lib;
-write_verilog -noattr -noexpr /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/netlists/taalas_token_pipe_noc_router_sky130_130nm_netlist.v;
+dfflibmap -liberty synth/lib/sky130_fd_sc_hd__tt_025C_1v80.lib;
+abc -D 3333 -liberty synth/lib/sky130_fd_sc_hd__tt_025C_1v80.lib -script +strash;scorr;dc2;strash;&get,-n;&dch,-f;&nf,{D};&put;buffer;upsize,{D};dnsize,{D};topo;stime,-p;print_stats;
+stat -liberty synth/lib/sky130_fd_sc_hd__tt_025C_1v80.lib;
+write_verilog -noattr -noexpr synth/netlists/taalas_token_pipe_noc_router_sky130_130nm_netlist.v;

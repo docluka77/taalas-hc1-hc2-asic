@@ -4,7 +4,7 @@
   "total_vectors_tested": 131384,
   "total_vectors_passed": 131384,
   "pass_rate": 1.0,
-  "elapsed_sec": 0.061,
+  "elapsed_sec": 0.0182,
   "module_stats": {
     "M01": {
       "vectors": 16384,

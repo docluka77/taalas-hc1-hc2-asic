@@ -1,11 +1,11 @@
-read_liberty -lib /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib;
-read_verilog -sv -DYOSYS -defer /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl/taalas_swiglu_ffn_pipe.sv;
+read_liberty -lib synth/lib/asap7_rvt_ff.lib;
+read_verilog -sv -DYOSYS -defer rtl/taalas_swiglu_ffn_pipe.sv;
 hierarchy -check -top taalas_swiglu_ffn_pipe -chparam CHANNELS 8 -chparam DOWN_OUT_CH 4 -chparam DATA_W 16;
 flatten;
 chformal -remove;
 proc; opt -fast; fsm; opt -fast; memory -nomap; opt_clean; memory_map; opt -fast; techmap; opt -fast;
 ltp;
-dfflibmap -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib;
-abc -D 714 -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib -script +strash;scorr;dc2;strash;&get,-n;&dch,-f;&nf,{D};&put;buffer;upsize,{D};dnsize,{D};topo;stime,-p;print_stats;
-stat -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib;
-write_verilog -noattr -noexpr /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/netlists/taalas_swiglu_ffn_pipe_asap7_7nm_netlist.v;
+dfflibmap -liberty synth/lib/asap7_rvt_ff.lib;
+abc -D 714 -liberty synth/lib/asap7_rvt_ff.lib -script +strash;scorr;dc2;strash;&get,-n;&dch,-f;&nf,{D};&put;buffer;upsize,{D};dnsize,{D};topo;stime,-p;print_stats;
+stat -liberty synth/lib/asap7_rvt_ff.lib;
+write_verilog -noattr -noexpr synth/netlists/taalas_swiglu_ffn_pipe_asap7_7nm_netlist.v;

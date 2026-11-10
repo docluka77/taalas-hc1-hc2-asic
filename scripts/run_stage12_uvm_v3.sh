@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-cd /nfs/share/home/chenpei/hyr/taalas_hc1_marathon
+cd "$(dirname "$0")/.."
 
 python3 - << 'EOF'
 with open("uvm_tb/tb_uvm_taalas_all_modules.cpp") as f:

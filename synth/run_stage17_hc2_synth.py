@@ -9,7 +9,7 @@ import os
 import re
 import subprocess
 
-ROOT_DIR = "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon"
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 LIB_PATH = f"{ROOT_DIR}/synth/lib/asap7_rvt_ff.lib"
 NET_DIR  = f"{ROOT_DIR}/synth/netlists"
 os.makedirs(NET_DIR, exist_ok=True)

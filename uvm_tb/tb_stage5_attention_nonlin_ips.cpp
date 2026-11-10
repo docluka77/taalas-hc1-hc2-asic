@@ -495,7 +495,7 @@ int main(int argc, char** argv) {
     int total_tx  = m8.total_tx + m9.total_kv_steps + m10.total_chunks + m11.total_tx;
     int total_err = m8.errors + m9.errors + m10.errors + m11.errors;
 
-    std::ofstream jf("/nfs/share/home/chenpei/hyr/taalas_hc1_marathon/results/stage5_attention_nonlin_verification.json");
+    std::ofstream jf("results/stage5_attention_nonlin_verification.json");
     jf << std::fixed << std::setprecision(6)
        << "{\n"
        << "  \"stage\": 5,\n"

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-cd /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl
+cd "$(dirname "$0")/../rtl"
 
 echo "=== [1/4] Formal SAT: taalas_rope_cordic_unit ==="
 yosys -p "read_verilog -sv -formal taalas_rope_cordic_unit.sv; chparam -set PAIR_LANES 1 taalas_rope_cordic_unit; prep -top taalas_rope_cordic_unit; memory_map; async2sync; chformal -lower; sat -verify -seq 6 -set-init-zero -prove-asserts" | grep -E "Import|Solving|SUCCESS|Q.E.D."

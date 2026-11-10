@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-cd /nfs/share/home/chenpei/hyr/taalas_hc1_marathon
+cd "$(dirname "$0")/.."
 
 OBJ_DIR="uvm_tb/obj_stage14_v3"
 mkdir -p "$OBJ_DIR" results

@@ -13,7 +13,7 @@ import json
 import shutil
 import subprocess
 
-ROOT = "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 RTL_DIR = os.path.join(ROOT, "rtl")
 SYNTH_DIR = os.path.join(ROOT, "synth")
 PNR_DIR = os.path.join(ROOT, "pnr")

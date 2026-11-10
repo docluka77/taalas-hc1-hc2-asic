@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.collections import LineCollection
 
-ROOT = "/nfs/share/home/chenpei/hyr/taalas_hc1_marathon"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if not os.path.exists(ROOT):
     ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 

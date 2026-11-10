@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-cd /nfs/share/home/chenpei/hyr/taalas_hc1_marathon
+cd "$(dirname "$0")/.."
 
 OBJ_DIR="/tmp/taalas_stage5_obj"
 rm -rf "$OBJ_DIR"
