@@ -443,8 +443,8 @@ module taalas_pcie_csr_ctrl #(
 
     always_ff @(posedge clk) begin
         if (past_valid_q && rst_n) begin
-            // PROP_M13_CHIP_ID_IMMUTABLE: Read-only CHIP_ID is strictly 0x54410100
-            assert (chip_id_o == 32'h5441_0100);
+            // PROP_M13_CHIP_ID_IMMUTABLE: Read-only CHIP_ID is strictly CHIP_ID_VAL
+            assert (chip_id_o == CHIP_ID_VAL);
 
             // PROP_M13_AXI_RESP_OKAY: AXI-Lite write/read responses are always OKAY (2'b00)
             assert (s_axi_bresp == 2'b00);

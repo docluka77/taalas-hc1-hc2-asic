@@ -1,0 +1,11 @@
+read_liberty -lib /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/sky130_fd_sc_hd__tt_025C_1v80.lib;
+read_verilog -sv -lib /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_v3/taalas_via_mask_rom_macro.sv /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_v3/taalas_3b6b_wired_mac_array.sv /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_v3/taalas_mxfp4_hc2_mac_lane.sv /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_v3/taalas_group_dequant_scale_unit.sv /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_v3/taalas_sram_6t_banked_macro.sv /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_v3/taalas_kv_cache_manager.sv /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_v3/taalas_lora_sram_overlay_engine.sv /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_v3/taalas_rope_cordic_unit.sv /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_v3/taalas_flash_decode_attention.sv /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_v3/taalas_rmsnorm_engine.sv /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_v3/taalas_swiglu_ffn_pipe.sv /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_v3/taalas_token_pipe_noc_router.sv /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_v3/taalas_pcie_csr_ctrl.sv /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_v3/taalas_hc1_layer_tile.sv;
+read_verilog -sv -DYOSYS /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_v3/taalas_hc1_chip_top.sv;
+hierarchy -top taalas_hc1_chip_top;
+chformal -remove;
+proc; opt -fast; fsm; opt -fast; memory -nomap; opt_clean; wreduce; alumacc; opt -fast; techmap; opt -fast;
+ltp;
+dfflibmap -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/sky130_fd_sc_hd__tt_025C_1v80.lib;
+abc -D 3333 -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/sky130_fd_sc_hd__tt_025C_1v80.lib -script +strash;scorr;dc2;strash;&get,-n;&dch,-f;&nf,{D};&put;buffer;upsize,{D};dnsize,{D};topo;stime,-p;print_stats;
+stat -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/sky130_fd_sc_hd__tt_025C_1v80.lib;
+write_verilog -noattr -noexpr /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/netlists_v3/taalas_hc1_chip_top_sky130_130nm_netlist.v;

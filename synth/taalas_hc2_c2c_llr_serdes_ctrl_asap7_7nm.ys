@@ -1,0 +1,11 @@
+read_liberty -lib /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib;
+read_verilog -sv -DYOSYS /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_hc2/taalas_hc2_c2c_llr_serdes_ctrl.sv;
+
+hierarchy -check -top taalas_hc2_c2c_llr_serdes_ctrl -chparam REPLAY_DEPTH 8 -chparam MAX_CREDITS 8;
+chformal -remove;
+proc; opt -fast; fsm; opt -fast; memory -nomap; opt_clean; opt -fast; techmap; opt -fast;
+ltp;
+dfflibmap -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib;
+abc -D 625 -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib -script +strash;map;topo;stime,-p;print_stats;
+stat -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib;
+write_verilog -noattr -noexpr /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/netlists/taalas_hc2_c2c_llr_serdes_ctrl_asap7_7nm_netlist.v;

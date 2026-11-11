@@ -300,8 +300,8 @@ int main(int argc, char** argv) {
     }
 
     // =========================================================================
-    // TEST 6: AUDIT-FINDING-013 & 010 — H2 Cumulative Window ACK + 3,000,000
-    //         Golden Reference Lockstep Sweeps (Total > 10,500,000 Txns)
+    // TEST 6: AUDIT-FINDING-013 & 010 — H2 Cumulative Window ACK + 17,491,997
+    //         Golden Reference Lockstep Sweeps (Total = 25,000,000 Txns)
     // =========================================================================
     for (int f = 0; f < 4; ++f) {
         dut->h2_tx_valid_i = 1;
@@ -317,7 +317,7 @@ int main(int argc, char** argv) {
     dut->h2_rx_ack_valid_i = 0;
     tick(dut);
 
-    for (uint64_t i = 0; i < 3000000ULL; ++i) {
+    for (uint64_t i = 0; i < 17491997ULL; ++i) {
         int16_t xr = static_cast<int16_t>(i & 0x7FFFU);
         uint16_t ir = static_cast<uint16_t>((i >> 3) & 0xFFFFU);
         int16_t gm = static_cast<int16_t>((i >> 5) & 0x3FFFU);

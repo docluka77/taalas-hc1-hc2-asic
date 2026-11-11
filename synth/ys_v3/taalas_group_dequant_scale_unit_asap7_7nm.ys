@@ -1,0 +1,11 @@
+read_liberty -lib /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib;
+read_verilog -sv -DYOSYS -defer /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_v3/taalas_group_dequant_scale_unit.sv;
+hierarchy -check -top taalas_group_dequant_scale_unit -chparam OUT_CHANNELS 8 -chparam ACC_WIDTH 24 -chparam SCALE_WIDTH 16 -chparam OUT_WIDTH 16;
+flatten;
+chformal -remove;
+proc; opt -fast; fsm; opt -fast; memory -nomap; opt_clean; memory_map; wreduce; alumacc; opt -fast; techmap; opt -fast;
+ltp;
+dfflibmap -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib;
+abc -D 714 -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib -script +strash;scorr;dc2;strash;&get,-n;&dch,-f;&nf,{D};&put;buffer;upsize,{D};dnsize,{D};topo;stime,-p;print_stats;
+stat -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib;
+write_verilog -noattr -noexpr /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/netlists_v3/taalas_group_dequant_scale_unit_asap7_7nm_netlist.v;

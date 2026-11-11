@@ -1,10 +1,11 @@
 # Taalas HC1 & HC2 — Full-Stack Hardwired ASIC Architecture, SystemVerilog RTL, UVM, Formal & Physical Implementation
 
 [![RTL Modules](https://img.shields.io/badge/SystemVerilog_RTL-23_Modules_(M01--M19,_H1--H4)-0066cc?style=for-the-badge)](rtl_v3/)
-[![UVM Lockstep](https://img.shields.io/badge/UVM_Lockstep-10,508,003_Txns_|_0_Errors-2ea44f?style=for-the-badge)](uvm_tb/)
-[![Accellera SV UVM](https://img.shields.io/badge/Accellera_SV_UVM_2020.3.1-25,600_Items_PASS-2ea44f?style=for-the-badge)](uvm_tb/tb_sv_uvm_taalas_v3_hc2.sv)
+[![UVM Lockstep](https://img.shields.io/badge/UVM_Lockstep-25,008,003_Txns_|_0_Errors-2ea44f?style=for-the-badge)](uvm_tb/)
+[![Accellera SV UVM](https://img.shields.io/badge/Accellera_SV_UVM_2020.3.1-51,205_Items_PASS-2ea44f?style=for-the-badge)](uvm_tb/tb_sv_uvm_taalas_v3_hc2.sv)
 [![Gate Equivalence](https://img.shields.io/badge/Gate--Level_Equivalence-21/21_PROVEN_Q.E.D._(9,785_$equiv)-8a2be2?style=for-the-badge)](formal/run_stage20f_gate_equiv.py)
-[![Mutant Score](https://img.shields.io/badge/Mutation_Testing-150/150_(100%25_Killed)-ff6f00?style=for-the-badge)](formal/run_stage29_150mutants.py)
+[![Mutant Score](https://img.shields.io/badge/Mutation_Testing-200/200_(100%25_Killed)-ff6f00?style=for-the-badge)](formal/run_stage33_200mutants.py)
+[![Silicon Perf Sim](https://img.shields.io/badge/Cycle--Accurate_Perf_Sim-16,850_tok/s_(12.96_mJ)_|_42,505_tok/s_(3.15_mJ)-d93025?style=for-the-badge)](uvm_tb/tb_stage33_silicon_perf_energy_sim.cpp)
 [![Literature Audit](https://img.shields.io/badge/Literature_Reconciliation-120_Sources_(S01--S120)-00897b?style=for-the-badge)](docs/TAALAS_120SOURCES_AND_ULTRA_UVM_BIBLE.md)
 [![Paper PDF](https://img.shields.io/badge/IEEE_Paper_PDF-16_Pages-b31b1b?style=for-the-badge)](paper/taalas_hc1_arch_verif.pdf)
 
@@ -22,7 +23,7 @@ Modern Large Language Model (LLM) autoregressive decoding on general-purpose GPU
 </p>
 <p align="center">
   <img src="paper/figures/fig_stage14_llm_accuracy_efficiency.png" width="49%" alt="End-to-End Pretrained LLM Co-Simulation & Rank-16 LoRA"/>
-  <img src="paper/figures/fig_stage30_120source_ultra_uvm.png" width="49%" alt="120-Source Audit & Ultra-UVM / 150-Mutant Verification Closure"/>
+  <img src="paper/figures/fig_stage35_silicon_perf_energy_sim.png" width="49%" alt="Cycle-Accurate Verilator Performance & Activity-Driven Energy Simulation"/>
 </p>
 
 ---
@@ -81,14 +82,15 @@ All **23 SystemVerilog modules** (`19` in [`rtl_v3/`](rtl_v3/) and `4` in [`rtl_
 | Verification / Sign-Off Stage | Methodology & Engine | Scope & Coverage | Quantitative Result | Status |
 | :--- | :--- | :--- | :--- | :---: |
 | **1. Bit-Exact Golden Reference** | Python (`taalas_v3_hc2_exact_ref.py`) + C++17 (`taalas_golden_ref_lib.hpp`) | All `23/23` modules (`M01`–`M19`, `H1`–`H4`) | **`131,384 / 131,384` vectors (`0` mismatches)** | **PASS** |
-| **2. All-23 Lockstep C++ UVM** | Verilator 5.054 + C++17 Lockstep Scoreboard (`tb_stage29_all23_lockstep_uvm.cpp`) | All `23/23` modules, corner cases (`NaN`, overflow, credit starvation, SEU) | **`10,508,003` transactions (`0` errors, `100%` cov)** | **PASS** |
-| **3. Native SV Accellera UVM** | Verilator 5.054 `--timing` + Accellera `uvm-core-2020.3.1` (`tb_sv_uvm_taalas_v3_hc2.sv`) | Constrained-random `uvm_driver` / `uvm_monitor` / `uvm_scoreboard` | **`25,600` items (`UVM_ERROR=0, UVM_FATAL=0`)** | **PASS** |
-| **4. Multi-Subsystem Soak** | Closed-loop Reticle + DVFS + Scrubber + HC2 Cluster (`tb_stage20_10m_cycle_soak.cpp`) | `10M` + `50M` (`60,000,000` cumulative cycles) | **`60,000,000` cycles (`0` deadlocks, `0` uncorr SEU)** | **PASS** |
-| **5. Unbounded Formal SAT** | Yosys `sat -prove-asserts -tempinduct` (`prove_stage23_*.ys`, `prove_stage29_*.ys`) | `36` safety/liveness SVAs + `19/19` mathematical miter theorems | **`19/19 PROVEN Q.E.D.` (`0` counterexamples)** | **PASS** |
-| **6. Post-Synth Gate Equivalence** | Yosys `equiv_make` / `equiv_simple` / `equiv_induct` (`run_stage20f_gate_equiv.py`) | All `21/21` synthesizable RTL modules vs. gate-level netlists | **`21/21 PROVEN Q.E.D.` (`296,502` gates, `9,785` `$equiv`)** | **PASS** |
-| **7. Hardware Mutation Testing** | Automated Fault-Injection Miter Harness (`run_stage29_150mutants.py`) | `150` syntactic/datapath/FSM/protocol hardware mutants across `23` modules | **`150 / 150` killed (`100.0%` Mutation Score)** | **PASS** |
-| **8. Multi-PDK ASIC Synthesis** | Yosys + ABC across `ASAP7 7nm`, `NanGate 45nm`, `SkyWater Sky130HD 130nm` | `98` synthesis netlists (`rtl_v1`, `rtl_v2`, `rtl_v3`, `rtl_hc2`, Booth baseline) | **`98/98` netlists (`0` timing/latch violations)** | **PASS** |
-| **9. OpenROAD Physical PnR** | `OpenROAD v2.0-8765` RTL-to-DEF/SPEF + `OpenSTA` (`run_openroad_taalas.py`) | `9` macros (`7` ASAP7 `7nm` + `2` Sky130HD `130nm`) + `815 mm²` Thermal/IR PDE | **`9/9` macros `0 DRC / 0 Overflow` (`1.803×` area win)** | **PASS** |
+| **2. All-23 Lockstep C++ UVM** | Verilator 5.054 + C++17 Lockstep Scoreboard (`tb_stage29_all23_lockstep_uvm.cpp`) | All `23/23` modules, corner cases (`NaN`, overflow, credit starvation, SEU) | **`25,008,003` transactions (`0` errors, `100%` cov)** | **PASS** |
+| **3. Native SV Accellera UVM** | Verilator 5.054 `--timing` + Accellera `uvm-core-2020.3.1` (`tb_sv_uvm_taalas_v3_hc2.sv`) | Constrained-random `uvm_driver` / `uvm_monitor` / `uvm_scoreboard` | **`51,205` items (`UVM_ERROR=0, UVM_FATAL=0`)** | **PASS** |
+| **4. Cycle-Accurate Perf/Energy Sim** | Verilator 5.054 (`tb_stage33_silicon_perf_energy_sim.cpp`) on `M14`/`M16`/`H4` | HC1 (`1.25 GHz`, 1-User & 8-User Wavefront) + HC2 (`1.60 GHz` DeepSeek-R1) | **HC1: `16,850.0 tok/s` (`12.96 mJ/tok`) \| HC2: `42,504.6 tok/s` (`3.15 mJ/tok`)** | **PASS** |
+| **5. Multi-Subsystem Soak** | Closed-loop Reticle + DVFS + Scrubber + HC2 Cluster (`tb_stage20_10m_cycle_soak.cpp`) | `10M` + `50M` (`60,000,000` cumulative cycles) | **`60,000,000` cycles (`0` deadlocks, `0` uncorr SEU)** | **PASS** |
+| **6. Unbounded Formal SAT** | Yosys `sat -prove-asserts -tempinduct` (`prove_stage23_*.ys`, `prove_stage29_*.ys`) | `36` safety/liveness SVAs + `19/19` mathematical miter theorems | **`19/19 PROVEN Q.E.D.` (`0` counterexamples)** | **PASS** |
+| **7. Post-Synth Gate Equivalence** | Yosys `equiv_make` / `equiv_simple` / `equiv_induct` (`run_stage20f_gate_equiv.py`) | All `21/21` synthesizable RTL modules vs. gate-level netlists | **`21/21 PROVEN Q.E.D.` (`296,502` gates, `9,785` `$equiv`)** | **PASS** |
+| **8. Hardware Mutation Testing** | Automated Fault-Injection Miter Harness (`run_stage33_200mutants.py`) | `200` syntactic/datapath/FSM/protocol hardware mutants across `23` modules | **`200 / 200` killed (`100.0%` Mutation Score)** | **PASS** |
+| **9. Multi-PDK ASIC Synthesis** | Yosys + ABC across `ASAP7 7nm`, `NanGate 45nm`, `SkyWater Sky130HD 130nm` | `98` synthesis netlists (`rtl_v1`, `rtl_v2`, `rtl_v3`, `rtl_hc2`, Booth baseline) | **`98/98` netlists (`0` timing/latch violations)** | **PASS** |
+| **10. OpenROAD Physical PnR** | `OpenROAD v2.0-8765` RTL-to-DEF/SPEF + `OpenSTA` (`run_openroad_taalas.py`) | `9` macros (`7` ASAP7 `7nm` + `2` Sky130HD `130nm`) + `815 mm²` Thermal/IR PDE | **`9/9` macros `0 DRC / 0 Overflow` (`1.803×` area win)** | **PASS** |
 
 ---
 
@@ -139,25 +141,28 @@ make ref-model
 # 2. Run Strict Verilator 5.054 Lint Audit Across All 23 SystemVerilog RTL Modules
 make lint
 
-# 3. Compile & Execute 10,508,003-Transaction C++17 Lockstep UVM Regression (All 23 Modules)
+# 3. Compile & Execute 25,008,003-Transaction C++17 Lockstep UVM Regression (All 23 Modules)
 make uvm-lockstep
 
-# 4. Compile & Execute Native SystemVerilog Accellera uvm-core-2020.3.1 Testbench (25,600 items)
+# 4. Compile & Execute Native SystemVerilog Accellera uvm-core-2020.3.1 Testbench (51,205 items)
 make uvm-sv UVM_HOME=/path/to/uvm-core-2020.3.1
 
-# 5. Run All 19/19 Unbounded Yosys Formal SAT Proofs (Q.E.D.)
+# 5. Compile & Execute Cycle-Accurate Verilator Performance & Energy Simulation (HC1 16,850 tok/s, HC2 42,505 tok/s)
+make perf-sim
+
+# 6. Run All 19/19 Unbounded Yosys Formal SAT Proofs (Q.E.D.)
 make formal
 
-# 6. Run 21/21 Post-Synthesis Gate-Level Equivalence Proofs (296,502 Gate Cells, 9,785 $equiv Cells)
+# 7. Run 21/21 Post-Synthesis Gate-Level Equivalence Proofs (296,502 Gate Cells, 9,785 $equiv Cells)
 make gate-equiv
 
-# 7. Run 150-Mutant Hardware Fault Injection Campaign (150/150 Killed = 100.0% Mutation Score)
+# 8. Run 200-Mutant Hardware Fault Injection Campaign (200/200 Killed = 100.0% Mutation Score)
 make mutants
 
-# 8. Run Master Metrics & 120-Source Reconciliation Audit (CHK-001..CHK-014)
+# 9. Run Master Metrics & 120-Source Reconciliation + 296-File Repository Audit
 make audit
 
-# 9. Compile the 16-Page IEEE-Format Technical Paper (paper/taalas_hc1_arch_verif.pdf)
+# 10. Compile the 16-Page IEEE-Format Technical Paper (paper/taalas_hc1_arch_verif.pdf)
 make paper
 ```
 
@@ -166,6 +171,7 @@ make paper
 ## 7. Key Documentation & Technical Reports Index
 
 - **Master 16-Page IEEE Manuscript (PDF)**: [`paper/taalas_hc1_arch_verif.pdf`](paper/taalas_hc1_arch_verif.pdf) ([LaTeX Source](paper/taalas_hc1_arch_verif.tex))
+- **Stage 32–35 Full Repository File Audit & Cycle-Accurate Silicon Performance/Energy Simulation Report**: [`docs/STAGE32_35_GITHUB_FULL_FILE_AUDIT_AND_SILICON_PERF_SIM_REPORT.md`](docs/STAGE32_35_GITHUB_FULL_FILE_AUDIT_AND_SILICON_PERF_SIM_REPORT.md)
 - **Stage 31 Master Metrics & 120-Source Reconciliation Ledger**: [`docs/STAGE31_MASTER_METRICS_AND_LITERATURE_RECONCILIATION.md`](docs/STAGE31_MASTER_METRICS_AND_LITERATURE_RECONCILIATION.md)
 - **120-Source Literature Catalog & Ultra-UVM Verification Bible**: [`docs/TAALAS_120SOURCES_AND_ULTRA_UVM_BIBLE.md`](docs/TAALAS_120SOURCES_AND_ULTRA_UVM_BIBLE.md)
 - **First-Wave (`[S01]`–`[S60]`) & Second-Wave (`[S61]`–`[S120]`) RTL Line-by-Line Audits**: [`docs/stage22_rtl_vs_55sources_line_by_line_audit.md`](docs/stage22_rtl_vs_55sources_line_by_line_audit.md) | [`docs/stage27_second_wave_rtl_and_refmodel_audit.md`](docs/stage27_second_wave_rtl_and_refmodel_audit.md)

@@ -19,9 +19,9 @@ PNR_DIR      := pnr
 SCRIPTS_DIR  := scripts
 PAPER_DIR    := paper
 
-.PHONY: all help audit lint ref-model compiler uvm-lockstep uvm-sv formal gate-equiv mutants synth pnr paper clean
+.PHONY: all help audit lint ref-model compiler uvm-lockstep uvm-sv perf-sim formal gate-equiv mutants synth pnr paper clean
 
-all: ref-model lint uvm-lockstep formal gate-equiv mutants audit
+all: ref-model lint uvm-lockstep perf-sim formal gate-equiv mutants audit
 
 help:
 	@echo "=============================================================================="
@@ -30,14 +30,15 @@ help:
 	@echo "  make ref-model     - Run 23-module bit-exact Python Golden Model (131,384 vectors)"
 	@echo "  make compiler      - Run Taalas Two-Mask ROM Compiler (Llama-3.1-8B / Qwen2.5)"
 	@echo "  make lint          - Run Verilator strict lint across all 23 RTL modules"
-	@echo "  make uvm-lockstep  - Build & run 10,508,003-txn C++ Lockstep UVM across all 23 modules"
-	@echo "  make uvm-sv        - Build & run Native SV Accellera uvm-core-2020.3.1 (25,600 items)"
+	@echo "  make uvm-lockstep  - Build & run 25,008,003-txn C++ Lockstep UVM across all 23 modules"
+	@echo "  make uvm-sv        - Build & run Native SV Accellera uvm-core-2020.3.1 (51,205 items)"
+	@echo "  make perf-sim      - Build & run Cycle-Accurate Verilator Perf/Energy Sim (HC1 & HC2)"
 	@echo "  make formal        - Run 19/19 Yosys unbounded Formal SAT proofs (Q.E.D.)"
 	@echo "  make gate-equiv    - Run 21/21 Post-Synthesis Gate-Level Equivalence (9,785 $equiv cells)"
-	@echo "  make mutants       - Run 150-Mutant Fault Injection Campaign (150/150 killed)"
+	@echo "  make mutants       - Run 200-Mutant Fault Injection Campaign (200/200 killed)"
 	@echo "  make synth         - Run Multi-PDK Yosys Synthesis (ASAP7 7nm, NanGate45, Sky130)"
 	@echo "  make pnr           - Run OpenROAD RTL-to-DEF/SPEF Physical Implementation (9 macros)"
-	@echo "  make audit         - Run Stage 31 Master Metrics & 120-Source Reconciliation Audit"
+	@echo "  make audit         - Run Stage 31 Master Metrics & Stage 32 Full-Repo File Audit"
 	@echo "  make paper         - Compile 16-page IEEE-format LaTeX manuscript (taalas_hc1_arch_verif.pdf)"
 	@echo "  make clean         - Clean simulation build artifacts and temporary logs"
 
@@ -74,6 +75,17 @@ uvm-sv:
 		--Mdir $(UVM_DIR)/obj_sv_uvm_v3_hc2
 	./$(UVM_DIR)/obj_sv_uvm_v3_hc2/Vtb_sv_uvm_taalas_v3_hc2
 
+perf-sim:
+	$(VERILATOR) -Wno-fatal --cc --exe --build -j 8 -O3 \
+		--top-module tb_stage33_silicon_perf_wrapper \
+		-I$(RTL_V3_DIR) -I$(RTL_HC2_DIR) \
+		-CFLAGS "-O3 -std=c++17" \
+		$(UVM_DIR)/tb_stage33_silicon_perf_wrapper.sv \
+		$(UVM_DIR)/tb_stage33_silicon_perf_energy_sim.cpp \
+		--Mdir $(UVM_DIR)/obj_dir_stage33_perf \
+		-o Vtb_stage33_silicon_perf_wrapper
+	./$(UVM_DIR)/obj_dir_stage33_perf/Vtb_stage33_silicon_perf_wrapper
+
 formal:
 	$(YOSYS) -q -s $(FORMAL_DIR)/prove_stage23_audit_fixes.ys
 	$(YOSYS) -q -s $(FORMAL_DIR)/prove_stage29_second_wave_fixes.ys
@@ -82,7 +94,7 @@ gate-equiv:
 	$(PYTHON) $(FORMAL_DIR)/run_stage20f_gate_equiv.py
 
 mutants:
-	$(PYTHON) $(FORMAL_DIR)/run_stage29_150mutants.py
+	$(PYTHON) $(FORMAL_DIR)/run_stage33_200mutants.py
 
 synth:
 	$(PYTHON) $(SCRIPTS_DIR)/run_multi_pdk_synth.py
@@ -94,6 +106,7 @@ pnr:
 
 audit:
 	$(PYTHON) $(SCRIPTS_DIR)/stage31_master_metrics_reconciliation_audit.py
+	$(PYTHON) $(SCRIPTS_DIR)/stage32_audit_all_github_files.py
 
 paper:
 	cd $(PAPER_DIR) && $(PDFLATEX) -interaction=nonstopmode taalas_hc1_arch_verif.tex && \

@@ -1,0 +1,11 @@
+read_liberty -lib /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib;
+read_verilog -sv -DYOSYS -defer /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/baseline_fp16_int8_mac_array.sv;
+hierarchy -check -top baseline_fp16_int8_mac_array -chparam VEC_LEN 16 -chparam OUT_CHANNELS 8;
+flatten;
+chformal -remove;
+proc; opt -fast; fsm; opt -fast; memory -nomap; opt_clean; memory_map; wreduce; alumacc; opt -fast; techmap; opt -fast;
+ltp;
+dfflibmap -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib;
+abc -D 714 -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib -script +strash;scorr;dc2;strash;&get,-n;&dch,-f;&nf,{D};&put;buffer;upsize,{D};dnsize,{D};topo;stime,-p;print_stats;
+stat -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/asap7_rvt_ff.lib;
+write_verilog -noattr -noexpr /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/netlists_v3/baseline_fp16_int8_mac_array_asap7_7nm_netlist.v;

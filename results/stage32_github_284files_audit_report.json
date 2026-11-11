@@ -1,0 +1,2903 @@
+{
+  "stage": "Stage 32: Exhaustive File-by-File GitHub Repository Audit",
+  "total_files_audited": 358,
+  "category_breakdown": {
+    "root": 5,
+    "compiler": 13,
+    "docs": 25,
+    "formal": 17,
+    "golden_model": 3,
+    "paper": 21,
+    "pnr": 25,
+    "results": 40,
+    "rtl": 15,
+    "rtl_hc2": 4,
+    "rtl_v2": 15,
+    "rtl_v3": 19,
+    "scripts": 20,
+    "synth": 107,
+    "uvm_tb": 29
+  },
+  "json_files_verified": 40,
+  "python_scripts_compiled": 31,
+  "production_rtl_modules_verified": 23,
+  "verilator_lint_status": "SKIPPED_LOCAL_NO_VERILATOR",
+  "self_contained_helpers_verified": [
+    "pnr/flow_helpers.tcl",
+    "pnr/helpers.tcl",
+    "pnr/custom_flow.tcl",
+    "pnr/asap7/asap7.vars",
+    "pnr/sky130hd/sky130hd.vars",
+    "synth/lib/NangateOpenCellLibrary_typical.lib"
+  ],
+  "issues_found": 0,
+  "issue_details": [],
+  "elapsed_sec": 0.2783,
+  "status": "PASS",
+  "files": [
+    {
+      "path": ".gitignore",
+      "category": "root",
+      "size_bytes": 906,
+      "lines": 50,
+      "sha256": "671bb2f2168cffff19dcc181224a08c377195e3b867fb38cc12141649f7c241b",
+      "status": "PASS"
+    },
+    {
+      "path": "compiler/generated/taalas_compiled_rom_llama31_8b.sv",
+      "category": "compiler",
+      "size_bytes": 5544,
+      "lines": 129,
+      "sha256": "742c2c818b5306c4d59d8c631d0794d981bc834010541df216661cbb8001ec7b",
+      "status": "PASS"
+    },
+    {
+      "path": "compiler/generated/taalas_compiled_rom_llama31_8b_hc1.hex",
+      "category": "compiler",
+      "size_bytes": 264192,
+      "lines": 2048,
+      "sha256": "19b47f06f5216cf8c54f60c2562f4dee31c95cd15345a8925ec8f606ece02c63",
+      "status": "PASS"
+    },
+    {
+      "path": "compiler/generated/taalas_compiled_rom_llama31_8b_hc2.hex",
+      "category": "compiler",
+      "size_bytes": 264192,
+      "lines": 2048,
+      "sha256": "2776e2c93e84e67a3f62617243e4aeeb987beda022d54912e7aa9abf42f80909",
+      "status": "PASS"
+    },
+    {
+      "path": "compiler/generated/taalas_compiled_rom_qwen25_coder_05b.sv",
+      "category": "compiler",
+      "size_bytes": 5542,
+      "lines": 129,
+      "sha256": "461ef973adef9c8b1b8df03b42b6046fc60c62a90a9cd147742bbf413c8b808c",
+      "status": "PASS"
+    },
+    {
+      "path": "compiler/generated/taalas_compiled_rom_qwen25_coder_05b_hc1.hex",
+      "category": "compiler",
+      "size_bytes": 264192,
+      "lines": 2048,
+      "sha256": "5570f94c464e2a6740ef38886703321ada90a7bd9c944eb6350d3de758688ea7",
+      "status": "PASS"
+    },
+    {
+      "path": "compiler/generated/taalas_compiled_rom_qwen25_coder_05b_hc2.hex",
+      "category": "compiler",
+      "size_bytes": 264192,
+      "lines": 2048,
+      "sha256": "58b09b41a94859a5df54f1b4d6e58fd70c0383d5f3050f258927d1b83be4313b",
+      "status": "PASS"
+    },
+    {
+      "path": "compiler/generated/taalas_compiled_rom_qwen25_coder_7b.sv",
+      "category": "compiler",
+      "size_bytes": 5547,
+      "lines": 129,
+      "sha256": "feb5eafa5664867a0c400d53993d25c5d2e4001043f858b8b82f29c8793b2a7f",
+      "status": "PASS"
+    },
+    {
+      "path": "compiler/generated/taalas_compiled_rom_qwen25_coder_7b_hc1.hex",
+      "category": "compiler",
+      "size_bytes": 264192,
+      "lines": 2048,
+      "sha256": "32a92a532754cab84be729a1d946f4fe62d5dbd82facd4f60a83bf60bc106a66",
+      "status": "PASS"
+    },
+    {
+      "path": "compiler/generated/taalas_compiled_rom_qwen25_coder_7b_hc2.hex",
+      "category": "compiler",
+      "size_bytes": 264192,
+      "lines": 2048,
+      "sha256": "a0fe821ee4ec06b98fc4ea4463313597a43937d6378819c8080bfb6eb313fe4e",
+      "status": "PASS"
+    },
+    {
+      "path": "compiler/generated/taalas_compiled_rom_smollm2_135m.sv",
+      "category": "compiler",
+      "size_bytes": 5536,
+      "lines": 129,
+      "sha256": "e63a332323c2592bf35231acda4f6dbfce75345636298d371be37c4ad9c6a8b2",
+      "status": "PASS"
+    },
+    {
+      "path": "compiler/generated/taalas_compiled_rom_smollm2_135m_hc1.hex",
+      "category": "compiler",
+      "size_bytes": 264192,
+      "lines": 2048,
+      "sha256": "24fe6e000f70bafba8dd933871004257b9805c1f4061fd85e27c487ad54b9a6c",
+      "status": "PASS"
+    },
+    {
+      "path": "compiler/generated/taalas_compiled_rom_smollm2_135m_hc2.hex",
+      "category": "compiler",
+      "size_bytes": 264192,
+      "lines": 2048,
+      "sha256": "0df6e66bee65169ee538eb341cbd4341d591f65e18e6a2fbcfd0884db6afc49c",
+      "status": "PASS"
+    },
+    {
+      "path": "compiler/taalas_two_mask_compiler.py",
+      "category": "compiler",
+      "size_bytes": 44801,
+      "lines": 929,
+      "sha256": "0aa550d4f1cde54612e832354178998efaabe260458d4c74063991d1e308ae7b",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage10_bug_ledger_and_reflection.md",
+      "category": "docs",
+      "size_bytes": 18268,
+      "lines": 121,
+      "sha256": "3f18ecea6c4a17bb2104b7cc4c156ce3b18d07da88cfc7268e4bfdecea16b5ec",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage11_multi_pdk_synthesis_report.md",
+      "category": "docs",
+      "size_bytes": 21221,
+      "lines": 143,
+      "sha256": "f8739fd41b2537e7dc883c361bfd1bdbba2f6df1268ff1168bbdf35dec0029e1",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage12_ppa_efficiency_closure.md",
+      "category": "docs",
+      "size_bytes": 30089,
+      "lines": 231,
+      "sha256": "14194f1b5261ed10b460829c995100eea36bf51ed91e162ef1dc2393fe4162fb",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage13_openroad_physical_report.md",
+      "category": "docs",
+      "size_bytes": 15163,
+      "lines": 106,
+      "sha256": "d1b95954a271ea383fa1a5238cd7a80fb81677e29d8a6460cc39694cd987efbe",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage14_real_llm_rtl_inference_report.md",
+      "category": "docs",
+      "size_bytes": 24933,
+      "lines": 181,
+      "sha256": "aa1bdfe74c769f6b90ca0304fb8660ef5f1ccb72882eb6ba2a9ecbd0e86c0e90",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage16_32layer_reticle_report.md",
+      "category": "docs",
+      "size_bytes": 8568,
+      "lines": 83,
+      "sha256": "392481aa4413b670c56651ddf9fdcc26707ad58ec378f7d2047c3c73a933bd12",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage17_hc2_disagg_multichip_report.md",
+      "category": "docs",
+      "size_bytes": 11786,
+      "lines": 99,
+      "sha256": "67c1c3c954833e31bcb6bcd07c707568b1c20b6b32ca79d9fb5d3d33bbb2aa6f",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage18_reliability_scrubbing_report.md",
+      "category": "docs",
+      "size_bytes": 9451,
+      "lines": 82,
+      "sha256": "37dd933e1572be0db8864d5752e338ad216bbcfb4afc42af6ad51da2f16719d6",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage19_exhaustive_formal_mutation_report.md",
+      "category": "docs",
+      "size_bytes": 9455,
+      "lines": 62,
+      "sha256": "51cd0a773f8f33fa2e378a3703bedf30f8d8dbc7c7a26386d8ab475fb1a41e39",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage1_taalas_complete_intelligence_report.md",
+      "category": "docs",
+      "size_bytes": 69737,
+      "lines": 536,
+      "sha256": "a8c80bc34c308cfb91fb4497ab8769cfce84d128c021f66efb4e189a70b6fb21",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage20_10m_cycle_soak_report.md",
+      "category": "docs",
+      "size_bytes": 6238,
+      "lines": 63,
+      "sha256": "3fcf00cbc4c2b6fc987c0903e48c0d9b5ba458333ddba1683375b8908ac217c0",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/STAGE20_FINAL_AUDIT_LEDGER.md",
+      "category": "docs",
+      "size_bytes": 17563,
+      "lines": 105,
+      "sha256": "63df342aeba0573845f329a8f321f5e8f93160fbff676bb6d540b92c5929120c",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage21_55plus_literature_database.md",
+      "category": "docs",
+      "size_bytes": 45701,
+      "lines": 413,
+      "sha256": "99535d7ab6d7b9733d074faef6ef230ff89a95370ae2f512dda9ebc5e24615ef",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage22_rtl_vs_55sources_line_by_line_audit.md",
+      "category": "docs",
+      "size_bytes": 20661,
+      "lines": 210,
+      "sha256": "74448523b9455cd3c5bf4b3be90c231b69c9ec6fc9dff541c6ecaa7fde0a85bc",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage26_second_60sources_literature_database.md",
+      "category": "docs",
+      "size_bytes": 47023,
+      "lines": 406,
+      "sha256": "cc4777c64351033f50f5f6fd9e47ada1d43704456886ffb71db179457b584b5c",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage27_second_wave_rtl_and_refmodel_audit.md",
+      "category": "docs",
+      "size_bytes": 13916,
+      "lines": 91,
+      "sha256": "47edb234a64dc46b5b87e9bf11ed6972f4712c59489aaeab6594131f73c042fe",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage2_taalas_microarch_spec.md",
+      "category": "docs",
+      "size_bytes": 59870,
+      "lines": 588,
+      "sha256": "b073d363651b4fb09fac2544ef943364e343afa368f52e346d796af59f274c57",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/STAGE31_MASTER_METRICS_AND_LITERATURE_RECONCILIATION.md",
+      "category": "docs",
+      "size_bytes": 11255,
+      "lines": 63,
+      "sha256": "73f0354305037606f11547eaaae8359eee8ac8c4578b030cebff12639b417df2",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/STAGE32_35_GITHUB_FULL_FILE_AUDIT_AND_SILICON_PERF_SIM_REPORT.md",
+      "category": "docs",
+      "size_bytes": 8068,
+      "lines": 70,
+      "sha256": "c5957201ce64a5d82f52d853e7436cf39409598da16b3ef4db4bbfb91d8a521b",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage7_two_mask_compiler_report.md",
+      "category": "docs",
+      "size_bytes": 17876,
+      "lines": 146,
+      "sha256": "766160946ba6ac607edb1ac5db78911095457260105c7a93336c94b473ce8b77",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage8_uvm_bug_discovery.md",
+      "category": "docs",
+      "size_bytes": 31012,
+      "lines": 275,
+      "sha256": "b2a6e32cb5f4c660af4c18fb2c3f921b0d26b035f03053fa2974907d7888c49e",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/stage9_formal_verification_report.md",
+      "category": "docs",
+      "size_bytes": 18538,
+      "lines": 180,
+      "sha256": "aee1cdbbee9036df9d88a396d527f09e2e73dadd2d80ed1afdb5c143cd678a92",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/TAALAS_120SOURCES_AND_ULTRA_UVM_BIBLE.md",
+      "category": "docs",
+      "size_bytes": 5437,
+      "lines": 34,
+      "sha256": "54e0c34ac39c5738015ad52f42a815cb10b58247b5287537731f77fc59dc5b70",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/TAALAS_60SOURCES_VERIFICATION_BIBLE.md",
+      "category": "docs",
+      "size_bytes": 47934,
+      "lines": 275,
+      "sha256": "7fb77032d06fb7b6e77ed6f5b97b5177be8691834e6899b01509aa7a5206d33f",
+      "status": "PASS"
+    },
+    {
+      "path": "docs/TAALAS_HC1_HC2_COMPLETE_REPRODUCTION_REPORT.md",
+      "category": "docs",
+      "size_bytes": 121174,
+      "lines": 787,
+      "sha256": "c9d005e173c4173562637305ef0424357d204e90ea3199b8237458ed8485e29a",
+      "status": "PASS"
+    },
+    {
+      "path": "formal/prove_stage10_rtl_v2.ys",
+      "category": "formal",
+      "size_bytes": 3485,
+      "lines": 79,
+      "sha256": "7abad52402798d2edeb5481111ce7a189e079ec31c8bdc76871df76589db5378",
+      "status": "PASS"
+    },
+    {
+      "path": "formal/prove_stage12_rtl_v3.ys",
+      "category": "formal",
+      "size_bytes": 3474,
+      "lines": 77,
+      "sha256": "961ef5edab0e009da568dc0e8a1e212d296ef8756ab2c71e4dc6c2c7c59dd148",
+      "status": "PASS"
+    },
+    {
+      "path": "formal/prove_stage16_32layer_reticle.ys",
+      "category": "formal",
+      "size_bytes": 772,
+      "lines": 13,
+      "sha256": "2c0c3009b6718dbb64a7b712a2d025b9435455f4636c2665e2b143046f8f8920",
+      "status": "PASS"
+    },
+    {
+      "path": "formal/prove_stage17_hc2_cluster.ys",
+      "category": "formal",
+      "size_bytes": 2309,
+      "lines": 45,
+      "sha256": "52bde1a9e46326005c3c821bacd38ff2fadde2fd99232222a665726b6a33e7ec",
+      "status": "PASS"
+    },
+    {
+      "path": "formal/prove_stage18_scrubber.ys",
+      "category": "formal",
+      "size_bytes": 979,
+      "lines": 16,
+      "sha256": "208d49742d024a877b82a5d169e9809b3d1cb9db256dbb3ff230114207b09115",
+      "status": "PASS"
+    },
+    {
+      "path": "formal/prove_stage20_dvfs_pvt.ys",
+      "category": "formal",
+      "size_bytes": 796,
+      "lines": 13,
+      "sha256": "2a81e9241fd5653cdb72c5133f387b7a75ae352c0a62533d34f745048fcc1ed8",
+      "status": "PASS"
+    },
+    {
+      "path": "formal/prove_stage23_audit_fixes.ys",
+      "category": "formal",
+      "size_bytes": 3413,
+      "lines": 69,
+      "sha256": "0bd7ebda5b5fd8a31b9f99326ad3e16691eca41bc6c9ce0931fa8c1fad2ef4af",
+      "status": "PASS"
+    },
+    {
+      "path": "formal/prove_stage29_second_wave_fixes.ys",
+      "category": "formal",
+      "size_bytes": 3381,
+      "lines": 84,
+      "sha256": "76e0031e99bbb93b2a5935bef35de91bbb2d37ecd8032d3fe7a6d35a77dc2678",
+      "status": "PASS"
+    },
+    {
+      "path": "formal/prove_stage3_memory_ips.ys",
+      "category": "formal",
+      "size_bytes": 1759,
+      "lines": 43,
+      "sha256": "13f3a8fe1b0a9fc8e6ed3052ed86e58b3dff3a1b55dd1931dcbfb2b2071ef15e",
+      "status": "PASS"
+    },
+    {
+      "path": "formal/prove_stage4_compute_ips.ys",
+      "category": "formal",
+      "size_bytes": 1944,
+      "lines": 40,
+      "sha256": "85c1877698c7da13c24d5e19ea66ba70710a65c9bc239aca0cc858a3c585eed2",
+      "status": "PASS"
+    },
+    {
+      "path": "formal/run_stage19_seq_equiv_100mutants.py",
+      "category": "formal",
+      "size_bytes": 101744,
+      "lines": 1295,
+      "sha256": "8892fd012a89f6ceec5530005e6f5e509b19143885abbca1642e1b7f8a8c646f",
+      "status": "PASS"
+    },
+    {
+      "path": "formal/run_stage20f_gate_equiv.py",
+      "category": "formal",
+      "size_bytes": 12416,
+      "lines": 310,
+      "sha256": "2be938c065b71f8c39bdd5f9b592b0a18bb4225552344262754187912badca9c",
+      "status": "PASS"
+    },
+    {
+      "path": "formal/run_stage29_150mutants.py",
+      "category": "formal",
+      "size_bytes": 4918,
+      "lines": 91,
+      "sha256": "68fdc89864e990f848d8cce6a35e026dd775ea28d2139fc0dec6bbcd40474c0d",
+      "status": "PASS"
+    },
+    {
+      "path": "formal/run_stage33_200mutants.py",
+      "category": "formal",
+      "size_bytes": 6717,
+      "lines": 121,
+      "sha256": "08153557f8ce6be13e1564e4e25e5a3548eccb4694b1a32a14037140b7a77f81",
+      "status": "PASS"
+    },
+    {
+      "path": "formal/run_stage9_deep_formal.py",
+      "category": "formal",
+      "size_bytes": 20842,
+      "lines": 426,
+      "sha256": "379e68cae414f15198e3ee52f2610915c3231a027ce0090ede66f5787a712690",
+      "status": "PASS"
+    },
+    {
+      "path": "formal/taalas_formal_miter_suite.sv",
+      "category": "formal",
+      "size_bytes": 38466,
+      "lines": 814,
+      "sha256": "481bdc64cac0f1b4d612c8d18313116e9f421d8df0bc996b6d154296ebbff8d6",
+      "status": "PASS"
+    },
+    {
+      "path": "formal/tb_stage29_formal_wrappers.sv",
+      "category": "formal",
+      "size_bytes": 4534,
+      "lines": 108,
+      "sha256": "0e7b3beb502b199ae8f43ea8e53acd179ea7843c80470e4a0d764b827e58211b",
+      "status": "PASS"
+    },
+    {
+      "path": "golden_model/taalas_golden_model.py",
+      "category": "golden_model",
+      "size_bytes": 76674,
+      "lines": 1659,
+      "sha256": "e805fee872d43719fefd12c6bf65ca7f1a795a57998f8c77773b50247819359d",
+      "status": "PASS"
+    },
+    {
+      "path": "golden_model/taalas_golden_ref_lib.hpp",
+      "category": "golden_model",
+      "size_bytes": 4487,
+      "lines": 107,
+      "sha256": "6716f731d102ac493278bd20c04fa683ee600e540612254ed07d5dad13b00b45",
+      "status": "PASS"
+    },
+    {
+      "path": "golden_model/taalas_v3_hc2_exact_ref.py",
+      "category": "golden_model",
+      "size_bytes": 12511,
+      "lines": 272,
+      "sha256": "f83d830455c14df96b5abd5cf945114a4374b35ccb71b1c83c36377ca6a87178",
+      "status": "PASS"
+    },
+    {
+      "path": "LICENSE",
+      "category": "root",
+      "size_bytes": 1077,
+      "lines": 21,
+      "sha256": "ef0c045165354adbd6f304a2acdc95e9862c48d16f9698472621874805dcfdfa",
+      "status": "PASS"
+    },
+    {
+      "path": "Makefile",
+      "category": "root",
+      "size_bytes": 4922,
+      "lines": 117,
+      "sha256": "2795d8add0faf4a1fb85f590e5a2b3a3582395b0b575bb0a3b4308b4a005ce4f",
+      "status": "PASS"
+    },
+    {
+      "path": "MARATHON_STATE.md",
+      "category": "root",
+      "size_bytes": 20080,
+      "lines": 45,
+      "sha256": "ae8df8c98fd28d2ea00b74fb6100abf8c8fe755ee63a924cddbf91959a1ef678",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage13_fullchip_floorplan_thermal_ir.pdf",
+      "category": "paper",
+      "size_bytes": 100617,
+      "lines": 0,
+      "sha256": "98e78fa2b4e4bafcea6b97e94aea1971f654a3c34934356e110a835c92be045a",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage13_openroad_def_layouts.pdf",
+      "category": "paper",
+      "size_bytes": 1153308,
+      "lines": 0,
+      "sha256": "9e6477ad720ab566360f56434f59da5e641da797dd3c05f0a9b8bdc6d54cae99",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage13_openroad_def_layouts.png",
+      "category": "paper",
+      "size_bytes": 1454904,
+      "lines": 0,
+      "sha256": "14aa2dc14fecf725277795360173fc2065dcdd03b035e40726ebbab54c961491",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage13_openroad_layout_gallery.pdf",
+      "category": "paper",
+      "size_bytes": 1153308,
+      "lines": 0,
+      "sha256": "9e6477ad720ab566360f56434f59da5e641da797dd3c05f0a9b8bdc6d54cae99",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage13_taalas_815mm2_floorplan.pdf",
+      "category": "paper",
+      "size_bytes": 100617,
+      "lines": 0,
+      "sha256": "98e78fa2b4e4bafcea6b97e94aea1971f654a3c34934356e110a835c92be045a",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage13_taalas_815mm2_floorplan.png",
+      "category": "paper",
+      "size_bytes": 774963,
+      "lines": 0,
+      "sha256": "efea433a15a5c4b84f71ceebdf7d4ea9dbd0c0ceacfb06a4b2e8ac5e0561a7b9",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage14_llm_accuracy_efficiency.pdf",
+      "category": "paper",
+      "size_bytes": 47669,
+      "lines": 0,
+      "sha256": "62c6953909f5d04a28b20ee014da355adc16723e7c973aad8033affcd7810bf1",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage14_llm_accuracy_efficiency.png",
+      "category": "paper",
+      "size_bytes": 635490,
+      "lines": 0,
+      "sha256": "be1fe1aa8efa40d98eee4756c3ba3b079f282db58222c8bc563c8da6a73cbd0b",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage15_architecture_pipeline.pdf",
+      "category": "paper",
+      "size_bytes": 35862,
+      "lines": 0,
+      "sha256": "c4f64656870c5ead37c1b94d20949696a962e5479e6f36b2a694e26b410738dc",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage15_ppa_v2_v3_closure.pdf",
+      "category": "paper",
+      "size_bytes": 31498,
+      "lines": 0,
+      "sha256": "545207e967ce72fd317d851ef273060073ccb7411831ed4e4284efc6c2097202",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage15_verification_reliability_matrix.pdf",
+      "category": "paper",
+      "size_bytes": 32623,
+      "lines": 0,
+      "sha256": "279dd9b9f0bcaa129c5243c5e34755dad95fdac0499b0ea03ad553e274a492ee",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage20_dvfs_soak_mutation.pdf",
+      "category": "paper",
+      "size_bytes": 54400,
+      "lines": 0,
+      "sha256": "e756a07174f003c4a93531424ad93d165f9b6c0e50b7582b959d5502f4061277",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage20_dvfs_soak_mutation.png",
+      "category": "paper",
+      "size_bytes": 638931,
+      "lines": 0,
+      "sha256": "59a73e20418a86ffb932cf5a0d2e4a04318450fd585f3999ad4267de7a7c19a4",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage25_60source_audit.pdf",
+      "category": "paper",
+      "size_bytes": 37483,
+      "lines": 0,
+      "sha256": "43c0eb5d6efbb97ce02f8d2f1ec8af6ec04cd1030b881d7e4b0d249b5a00f29c",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage25_60source_audit.png",
+      "category": "paper",
+      "size_bytes": 587188,
+      "lines": 0,
+      "sha256": "397d0657d42abc94d3ab5ae136f09ad9f9c0741f386940677cbb713418c109fb",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage30_120source_ultra_uvm.pdf",
+      "category": "paper",
+      "size_bytes": 36634,
+      "lines": 0,
+      "sha256": "c27d58bbcaff55466a46a24d1832c329bf404523319bd7660e0283ee8840e2e6",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage30_120source_ultra_uvm.png",
+      "category": "paper",
+      "size_bytes": 490051,
+      "lines": 0,
+      "sha256": "3df2b5a0a308c9a45a581945f9fef31ceaaa7e8503d14df8d6793f4c5d8a9f72",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage35_silicon_perf_energy_sim.pdf",
+      "category": "paper",
+      "size_bytes": 50956,
+      "lines": 0,
+      "sha256": "c0b618631cf7f552c69884e23dbf11253625d0d40da0800c385c90ba7d8a78d2",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/figures/fig_stage35_silicon_perf_energy_sim.png",
+      "category": "paper",
+      "size_bytes": 708805,
+      "lines": 0,
+      "sha256": "12c057af48c01ec896ff8f48319d8c4d6d397a2a28d2f4df1fb8f96afdb8bd9b",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/taalas_hc1_arch_verif.pdf",
+      "category": "paper",
+      "size_bytes": 2000147,
+      "lines": 0,
+      "sha256": "67b1a671ec7962b44e3e2d76abde51aa6506e20de78954603508769015c51417",
+      "status": "PASS"
+    },
+    {
+      "path": "paper/taalas_hc1_arch_verif.tex",
+      "category": "paper",
+      "size_bytes": 97064,
+      "lines": 537,
+      "sha256": "7a9d55a865fc8433d279f8fcd56d8cb5fd28219313e21b8e574abf2d5785ce34",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/asap7/asap7.vars",
+      "category": "pnr",
+      "size_bytes": 1918,
+      "lines": 53,
+      "sha256": "43625d8c1badeb21af360af50cb11b6480589c0d131e7618c27d7162494efb1e",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/baseline_fp16_int8_mac_array_asap7.tcl",
+      "category": "pnr",
+      "size_bytes": 374,
+      "lines": 11,
+      "sha256": "83e47722bd75c818c0f6b1280ecddcf06dd12c63951148964edc46db1ad9fb6d",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/baseline_fp16_int8_mac_array_sky130hd.tcl",
+      "category": "pnr",
+      "size_bytes": 368,
+      "lines": 11,
+      "sha256": "28647061f926d704ccb5e60a9b133bd270857fbe6623ecfd40cd945f002e9772",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/custom_flow.tcl",
+      "category": "pnr",
+      "size_bytes": 11422,
+      "lines": 336,
+      "sha256": "dbeb86b2e8c9c126b39833be9d66fd655d1b1a0238d0f178431471b9093e0dbe",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/flow_helpers.tcl",
+      "category": "pnr",
+      "size_bytes": 1924,
+      "lines": 62,
+      "sha256": "6049df6b01a73d19c53c55134e6abb9e3882e521741ce128ea48e1406dd332dd",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/generate_taalas_815mm2_floorplan.py",
+      "category": "pnr",
+      "size_bytes": 24638,
+      "lines": 549,
+      "sha256": "500bd5f3997e4319badb191b00ed864f5b0a3c53a955ce5c032861ac7576f56d",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/helpers.tcl",
+      "category": "pnr",
+      "size_bytes": 6844,
+      "lines": 241,
+      "sha256": "c8958e5a36f83d56f3667111a4179c0ec807ec1c007110283c63ced48afcbb46",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/logs/or_baseline_fp16_int8_mac_array_asap7.log",
+      "category": "pnr",
+      "size_bytes": 65613,
+      "lines": 1264,
+      "sha256": "52e794b3bdfc29559baaaec5508cec4aa28b410a4b4cd71084ebb895196ec6de",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/logs/or_baseline_fp16_int8_mac_array_sky130hd.log",
+      "category": "pnr",
+      "size_bytes": 140959,
+      "lines": 2264,
+      "sha256": "421e9f85e5666d2f41014f5c0a4c7da0ee686f07455185a24b76a94c33e16ea8",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/logs/or_taalas_3b6b_wired_mac_array_asap7.log",
+      "category": "pnr",
+      "size_bytes": 59293,
+      "lines": 1180,
+      "sha256": "86ba09d9d970918c99ff0664ef06bfed8f68c8823a68bcdfcbef63f158b1c298",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/logs/or_taalas_3b6b_wired_mac_array_sky130hd.log",
+      "category": "pnr",
+      "size_bytes": 90916,
+      "lines": 1578,
+      "sha256": "2b2065dc945d2214b977c3ea557a651451a96717dc0f5a1c4d23602e4f3bdafd",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/logs/or_taalas_mxfp4_hc2_mac_lane_asap7.log",
+      "category": "pnr",
+      "size_bytes": 55453,
+      "lines": 1119,
+      "sha256": "e6e32485e0cd1edb1362c8375953431685d626e109e8e394c0b705f21aa5da79",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/logs/or_taalas_sram_6t_banked_macro_asap7.log",
+      "category": "pnr",
+      "size_bytes": 66505,
+      "lines": 1283,
+      "sha256": "ae6b2bc81c6d9148a33063fbd68e2a3dc036e8c0528a8292cb8caa14b87590d4",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/logs/or_taalas_token_pipe_noc_router_asap7.log",
+      "category": "pnr",
+      "size_bytes": 56975,
+      "lines": 1145,
+      "sha256": "42b4767809027786a0da85db4754343ee6c0df96901437a2f224b0a3367eea8b",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/logs/or_taalas_token_pipe_noc_router_sky130hd.log",
+      "category": "pnr",
+      "size_bytes": 67357,
+      "lines": 1270,
+      "sha256": "88ffe701c439fe8e620d9b98de438d163dd7f178da17947d4ff6d3f60e2f9b64",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/run_openroad_taalas.py",
+      "category": "pnr",
+      "size_bytes": 30080,
+      "lines": 639,
+      "sha256": "2f455dfbbf93d26186a58e894efb9559e4954f96b208077da407a1b0dc5bbdfd",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/run_stage20_m19_pnr.py",
+      "category": "pnr",
+      "size_bytes": 965,
+      "lines": 23,
+      "sha256": "f6af0345e6ea9ab00b98bfc4b19447b728e75c200592583063e72ad269c87983",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/sky130hd/sky130hd.vars",
+      "category": "pnr",
+      "size_bytes": 1665,
+      "lines": 57,
+      "sha256": "361ef88b1af5c3cd438ed3a6d90f0c3d7952f4e3a7b3e3bf8e8ec49b1f2f342a",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/taalas_3b6b_wired_mac_array_asap7.tcl",
+      "category": "pnr",
+      "size_bytes": 370,
+      "lines": 11,
+      "sha256": "076ec7e32cc784c15e0e211ae5466c9bb80352790fc6c3c4e088e228434c886e",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/taalas_3b6b_wired_mac_array_sky130hd.tcl",
+      "category": "pnr",
+      "size_bytes": 364,
+      "lines": 11,
+      "sha256": "f89d7d29e11432798cc705947678ccfa1a6481901558e0f7e8ef964d4d0c8941",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/taalas_dvfs_pvt_controller_asap7.tcl",
+      "category": "pnr",
+      "size_bytes": 366,
+      "lines": 11,
+      "sha256": "fcf7c1822ddaea3b02903b7757085f9fb5b6f5e9a392de27fe7394159640d793",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/taalas_mxfp4_hc2_mac_lane_asap7.tcl",
+      "category": "pnr",
+      "size_bytes": 362,
+      "lines": 11,
+      "sha256": "f89cf9f2dc18a05947cde42ff97f224de0b9b3aafedccacd0a98a39bc57d6113",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/taalas_sram_6t_banked_macro_asap7.tcl",
+      "category": "pnr",
+      "size_bytes": 370,
+      "lines": 11,
+      "sha256": "98c919bfff553ed7ddc7fd1a139f7663560c91f3dc0382f514a56bcaccca6fb0",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/taalas_token_pipe_noc_router_asap7.tcl",
+      "category": "pnr",
+      "size_bytes": 378,
+      "lines": 11,
+      "sha256": "16ab1d0cc3c8f29308729103affcb97ba0ec52fe8828a2f53a4b841d2ee5728d",
+      "status": "PASS"
+    },
+    {
+      "path": "pnr/taalas_token_pipe_noc_router_sky130hd.tcl",
+      "category": "pnr",
+      "size_bytes": 372,
+      "lines": 11,
+      "sha256": "d1891112a122845ebecebbea8fcb60b89446baaf8e58abfb677798e162281f7d",
+      "status": "PASS"
+    },
+    {
+      "path": "README.md",
+      "category": "root",
+      "size_bytes": 20257,
+      "lines": 186,
+      "sha256": "430c751bc18f7e6a92ff1b4d608833b4974fbf5f4860d2e31380c37591761d64",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage10_mutation_campaign.json",
+      "category": "results",
+      "size_bytes": 27541,
+      "lines": 727,
+      "sha256": "8625345870bca912020b9030e3330ff7a425e23c4e4d3e4ceafa5155552c1d2e",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage10_uvm_formal_v2_closure.json",
+      "category": "results",
+      "size_bytes": 9797,
+      "lines": 254,
+      "sha256": "e637ee041bcc3b9e492b3caef8c6af5689d5f445e52a33e8b82ee0c22e5e8d54",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage11_ppa_v2_synthesis.json",
+      "category": "results",
+      "size_bytes": 77920,
+      "lines": 2078,
+      "sha256": "d157e8b22bad0eb3ba2689e2516fd4d1ac50c17a1358e6490d275c4bb4a509ba",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage12_ppa_v3_verification.json",
+      "category": "results",
+      "size_bytes": 84818,
+      "lines": 2340,
+      "sha256": "320462535cbd6331607e3fae59d5058ceac91ffdd3d3aca5ab86008d80f78827",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage13_openroad_physical.json",
+      "category": "results",
+      "size_bytes": 88807,
+      "lines": 3019,
+      "sha256": "5c0c753023b8884030b9fbfa9053e118f7258100acb32968c319ba8f9e9247f7",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage14_real_llm_rtl_eval.json",
+      "category": "results",
+      "size_bytes": 18926,
+      "lines": 420,
+      "sha256": "0edfdf410d07a730ee898b59a2c48cdc942c77bd82a7069da3d30247372f07c6",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage14_verilated_rtl_telemetry.json",
+      "category": "results",
+      "size_bytes": 1064,
+      "lines": 30,
+      "sha256": "c686e2bba68da0d885e1047a91098dc31f6eab2c1159ee96954fa743ac307d53",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage16_32layer_reticle_verification.json",
+      "category": "results",
+      "size_bytes": 1024,
+      "lines": 30,
+      "sha256": "7496c7b14f3f9643c562f067ffc2bc689926f89c171ce852508f45a72b7e2791",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage17_hc2_cluster_verification.json",
+      "category": "results",
+      "size_bytes": 4962,
+      "lines": 141,
+      "sha256": "e88a8140783ece57ca9a1c5b2ae1f59ac2e26c3eb770c43683f33b69e7ed12e8",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage17_hc2_synth_summary.json",
+      "category": "results",
+      "size_bytes": 1407,
+      "lines": 50,
+      "sha256": "7c1b3d8a3ace6db7afa3549c99299d96387baa76a7df0d739e9926677ab4c454",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage18_reliability_scrubbing.json",
+      "category": "results",
+      "size_bytes": 3752,
+      "lines": 92,
+      "sha256": "8ddc130dce31268cbbc87f9bce01ed5cc92aa7ec8c749a893cf3cec8bbf39426",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage19_100mutant_and_seq_equiv.json",
+      "category": "results",
+      "size_bytes": 105181,
+      "lines": 2644,
+      "sha256": "fe5a7d8674c8f4f36f91efc04bd8fecee3bde1234283b93727cb5492e7b043f8",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage1_taalas_specs_database.json",
+      "category": "results",
+      "size_bytes": 4962,
+      "lines": 128,
+      "sha256": "2cf698ce1c0ca8cb1276717ad51a4c04c4700a0c97203986f649d793aa21523a",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage20_10m_cycle_soak.json",
+      "category": "results",
+      "size_bytes": 1128,
+      "lines": 34,
+      "sha256": "1f2f9bd1fbb26ecc4f20ab1ddc6a6ccb997521d77d046dae4c1e4d5630929f03",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage20_dvfs_and_sv_uvm.json",
+      "category": "results",
+      "size_bytes": 3777,
+      "lines": 82,
+      "sha256": "bc6de8d5c12cf2f1e308e4231a1a1c83d0bbd4d7aaae3e41cda3cc3ca2dfab57",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage20_final_workspace_audit.json",
+      "category": "results",
+      "size_bytes": 1144,
+      "lines": 28,
+      "sha256": "bb6fdb7394a72a928d3eadee7b21a734b9f8ebd21fad3defa307e5ecb52421bd",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage20_m19_pnr_summary.json",
+      "category": "results",
+      "size_bytes": 4208,
+      "lines": 159,
+      "sha256": "9a724c8da6c550be3669f8b48a83e514e7fcef0bc0c45c65d3ebe6f4ea491990",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage20_reticle_dvfs_closedloop.json",
+      "category": "results",
+      "size_bytes": 102011,
+      "lines": 541,
+      "sha256": "115006a83e87609a9373261d35f3b1c30976037e2a9bdd0105fb7e579ae93f46",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage20f_50m_cycle_soak.json",
+      "category": "results",
+      "size_bytes": 1153,
+      "lines": 34,
+      "sha256": "915a5b8604766b3c7deb72cc6d04a91a4bdc29042172932db5aba2e313d7f97a",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage20f_gate_level_equiv.json",
+      "category": "results",
+      "size_bytes": 12243,
+      "lines": 327,
+      "sha256": "514a7f55ca19082a5b672df52bf1d6d2f5ebe25ef51d42b6db6f244a2f14ba85",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage21_55plus_sources_catalog.json",
+      "category": "results",
+      "size_bytes": 62852,
+      "lines": 1258,
+      "sha256": "a8beb7b3118c7af48e1e3efdf8137996d1873cce48628a2aa77cc37503082f2c",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage22_discrepancy_and_audit_matrix.json",
+      "category": "results",
+      "size_bytes": 30114,
+      "lines": 431,
+      "sha256": "d41498df3369fe71258ff4b84c71bba82a19a9dde3f2830a61dff120f757902e",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage23_24_audit_remediation_verification.json",
+      "category": "results",
+      "size_bytes": 3033,
+      "lines": 67,
+      "sha256": "5407a892d73330b9c7050ee96a1102c701de732a5ae52f6a43d5b0ba1f90dfda",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage26_120sources_master_catalog.json",
+      "category": "results",
+      "size_bytes": 121852,
+      "lines": 2647,
+      "sha256": "ab0ec9c89f6ea8999043d6b1d78247c08fc51c96f8bef52ab7e8e8bdaae54126",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage27_second_wave_audit_findings.json",
+      "category": "results",
+      "size_bytes": 17274,
+      "lines": 362,
+      "sha256": "471bd1d818b60339e9b96428c757fc662d6104bc35aab12ce5cd5295e29d2479",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage28_golden_model_23modules_verification.json",
+      "category": "results",
+      "size_bytes": 768,
+      "lines": 36,
+      "sha256": "7a1aa1c84ad80bc3aa46b35d5e632f6c5836ede79cc02f81168d60aeb5f514ec",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage29_150mutants_report.json",
+      "category": "results",
+      "size_bytes": 38802,
+      "lines": 1211,
+      "sha256": "4c85b2ce8af2885c85ace70cd1d8d3d384353929e143c96f670ff2dcddcc7c4b",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage29_ultra_uvm_formal_150mutants.json",
+      "category": "results",
+      "size_bytes": 2697,
+      "lines": 82,
+      "sha256": "aba5dd3ca75d0a3383ce12b68514c3faf89558a8d160307543f058b949045177",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage2_golden_verification.json",
+      "category": "results",
+      "size_bytes": 6332,
+      "lines": 181,
+      "sha256": "f07733c0e51f408155ef5a06ffb4ba7c68b0c1a0225cff93810b56dde23f5a34",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage31_master_metrics_reconciliation_report.json",
+      "category": "results",
+      "size_bytes": 10935,
+      "lines": 185,
+      "sha256": "47e2f028cef80b11045e527b2362d674f75533c18e2e911f2bf20480b98b4883",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage32_github_284files_audit_report.json",
+      "category": "results",
+      "size_bytes": 94612,
+      "lines": 2905,
+      "sha256": "f003510f3e05139fbdc6929db41d500d98656730bd8c0e7a129dcb6af5e395b2",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage33_silicon_perf_energy_simulation.json",
+      "category": "results",
+      "size_bytes": 2540,
+      "lines": 62,
+      "sha256": "cf82a48716190d5aab1657705c5cce7c1e74eeda5decdf583112961daf6a491c",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage34_25m_uvm_200mutants.json",
+      "category": "results",
+      "size_bytes": 55610,
+      "lines": 1616,
+      "sha256": "d8fdfc78d8128f78a8ac49fb698c8be8975f54c01ed03e3cd1344f93ec9e3ac7",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage3_memory_ips_verification.json",
+      "category": "results",
+      "size_bytes": 865,
+      "lines": 25,
+      "sha256": "e7b73754ac90d63d34d69557f4941e86e01753c49d72958f25d767958e9cce80",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage4_compute_ips_verification.json",
+      "category": "results",
+      "size_bytes": 1068,
+      "lines": 38,
+      "sha256": "c904e7cad1ab87b571019e39f731a66eee91aec2dcf5bc51bbd6654f41542e94",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage5_attention_nonlin_verification.json",
+      "category": "results",
+      "size_bytes": 1130,
+      "lines": 39,
+      "sha256": "1cd36b4a22ac3081a51da790b4583378e16420e87d60e53d6c3d985acfc1511c",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage6_fullchip_verification.json",
+      "category": "results",
+      "size_bytes": 964,
+      "lines": 27,
+      "sha256": "5351b83bb327b3d01d98779c2f2463c54fb2c2c875dff2cd56aef0c488e624d0",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage7_compiler_benchmarks.json",
+      "category": "results",
+      "size_bytes": 21288,
+      "lines": 617,
+      "sha256": "0b061e28b6f67cd9857a1ebeb3ef0646b72c4f878cda532255d75cbc524efb24",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage8_uvm_v1_report.json",
+      "category": "results",
+      "size_bytes": 12090,
+      "lines": 171,
+      "sha256": "cc51cf73c0a8b41927fbb886d955e1f8be12cce26fe7686a27e98702dfdd8f84",
+      "status": "PASS"
+    },
+    {
+      "path": "results/stage9_formal_report.json",
+      "category": "results",
+      "size_bytes": 33160,
+      "lines": 519,
+      "sha256": "b36ba0841422cc34ad70110c81843c3c3cdc0f32a8a5348485edb69784540a56",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl/taalas_3b6b_wired_mac_array.sv",
+      "category": "rtl",
+      "size_bytes": 17768,
+      "lines": 416,
+      "sha256": "f901fbc428235f1703dc02d67f02f4b24d1fd198ae341eb473fea4190c2604b2",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl/taalas_flash_decode_attention.sv",
+      "category": "rtl",
+      "size_bytes": 18345,
+      "lines": 405,
+      "sha256": "4814bdf41045b3d67b03ebaabe9ef7a386991c2aaadd7b63bda8bd96d33ee44f",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl/taalas_group_dequant_scale_unit.sv",
+      "category": "rtl",
+      "size_bytes": 13671,
+      "lines": 316,
+      "sha256": "6c4988317ce2bb2cf2cbab6ea56b062047a4a18fd1cb9709b7fe680c8506b62f",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl/taalas_hc1_chip_top.sv",
+      "category": "rtl",
+      "size_bytes": 20881,
+      "lines": 462,
+      "sha256": "cf0cea8f10d75f33c154c29e1010fff14e03b2359c34d71c2060b948abba204a",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl/taalas_hc1_layer_tile.sv",
+      "category": "rtl",
+      "size_bytes": 30611,
+      "lines": 738,
+      "sha256": "9327f1cdcae02c681402e6a917dc9b0f2e14bdd407dbfc53aac1aa50f8e1fed4",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl/taalas_kv_cache_manager.sv",
+      "category": "rtl",
+      "size_bytes": 18431,
+      "lines": 427,
+      "sha256": "260082ce999c1d2cbb8c4a080a5ee9f9ce8ef49156ed32f6a62ac1ebfe75a277",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl/taalas_lora_sram_overlay_engine.sv",
+      "category": "rtl",
+      "size_bytes": 15024,
+      "lines": 344,
+      "sha256": "17e070b0a10b298941d3d482dd3d2abea2631610eeb53f47baa6ebec6c87e9bd",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl/taalas_mxfp4_hc2_mac_lane.sv",
+      "category": "rtl",
+      "size_bytes": 16269,
+      "lines": 363,
+      "sha256": "7ea92c132784c2171506a68e499587ed7b212ba4f4160c67099034f35d062166",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl/taalas_pcie_csr_ctrl.sv",
+      "category": "rtl",
+      "size_bytes": 21232,
+      "lines": 461,
+      "sha256": "f8263eaa209a245dc2fa6c679d021d50d69f71379653215357e5e1c92f28b79a",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl/taalas_rmsnorm_engine.sv",
+      "category": "rtl",
+      "size_bytes": 18984,
+      "lines": 431,
+      "sha256": "dcadf83669c76c00b173dc991645b199ac001320beef9f9a7b678dec353724b2",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl/taalas_rope_cordic_unit.sv",
+      "category": "rtl",
+      "size_bytes": 21059,
+      "lines": 460,
+      "sha256": "e81868d309b5f96c96b2ab329ddb9341b9d40509bceb57d3c1b4cceeaa44e648",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl/taalas_sram_6t_banked_macro.sv",
+      "category": "rtl",
+      "size_bytes": 20659,
+      "lines": 465,
+      "sha256": "7c0eb38b4682120266aff33c71801b59c97463a65ccd36cbac85684b9abebaa3",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl/taalas_swiglu_ffn_pipe.sv",
+      "category": "rtl",
+      "size_bytes": 15231,
+      "lines": 343,
+      "sha256": "eab02776aa1380ad4545a87472f63cf8b2b5a8ce7552dffc65c2880a19090298",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl/taalas_token_pipe_noc_router.sv",
+      "category": "rtl",
+      "size_bytes": 16726,
+      "lines": 374,
+      "sha256": "119991b5b2addd5c01f167716f1521b53493e39ad4409272f33528792ab94a70",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl/taalas_via_mask_rom_macro.sv",
+      "category": "rtl",
+      "size_bytes": 15602,
+      "lines": 375,
+      "sha256": "d9f7c0be8e76ba14df816ebc881aeccd8c91d05688256c25a65ea53b9cb426f8",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_hc2/taalas_hc2_c2c_llr_serdes_ctrl.sv",
+      "category": "rtl_hc2",
+      "size_bytes": 14850,
+      "lines": 319,
+      "sha256": "bd5ae5a2e6c2c342e1ac577ac67ff064986e97112e831303761b2a9d84679387",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_hc2/taalas_hc2_disagg_sram_fabric.sv",
+      "category": "rtl_hc2",
+      "size_bytes": 18661,
+      "lines": 394,
+      "sha256": "1f8e170213309827c4a80a7cc39b68c6c49cb55c2b0631c9f600a45449373021",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_hc2/taalas_hc2_moe_mla_router.sv",
+      "category": "rtl_hc2",
+      "size_bytes": 16999,
+      "lines": 330,
+      "sha256": "b64d48f2474c3b175d30542812300422ea9b5a083e03867e77f717418766bc81",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_hc2/taalas_hc2_multichip_cluster_top.sv",
+      "category": "rtl_hc2",
+      "size_bytes": 25577,
+      "lines": 483,
+      "sha256": "2b31c15d07ce93189dbcf74133663995adb71737ec41d8d21e2fb25eab1475f1",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v2/taalas_3b6b_wired_mac_array.sv",
+      "category": "rtl_v2",
+      "size_bytes": 17768,
+      "lines": 416,
+      "sha256": "f901fbc428235f1703dc02d67f02f4b24d1fd198ae341eb473fea4190c2604b2",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v2/taalas_flash_decode_attention.sv",
+      "category": "rtl_v2",
+      "size_bytes": 18780,
+      "lines": 411,
+      "sha256": "4d4cb246b24f101b7f885f756c24e1259753511136b54416b0e2955d4b057277",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v2/taalas_group_dequant_scale_unit.sv",
+      "category": "rtl_v2",
+      "size_bytes": 13671,
+      "lines": 316,
+      "sha256": "6c4988317ce2bb2cf2cbab6ea56b062047a4a18fd1cb9709b7fe680c8506b62f",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v2/taalas_hc1_chip_top.sv",
+      "category": "rtl_v2",
+      "size_bytes": 20579,
+      "lines": 455,
+      "sha256": "ecb4455ddccfc6f7fd88fe56df36915e3f61bcafcd985cf04ceeb5018f938617",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v2/taalas_hc1_layer_tile.sv",
+      "category": "rtl_v2",
+      "size_bytes": 31393,
+      "lines": 754,
+      "sha256": "a678859d84ae21bbdb34077bf289067b253d7ca9a86c38de2e4e4723006e3c21",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v2/taalas_kv_cache_manager.sv",
+      "category": "rtl_v2",
+      "size_bytes": 19427,
+      "lines": 444,
+      "sha256": "3255efc368967432a4653117f778a9556ad6d45c2d7da7a5063a0fc08ec06fed",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v2/taalas_lora_sram_overlay_engine.sv",
+      "category": "rtl_v2",
+      "size_bytes": 16053,
+      "lines": 365,
+      "sha256": "2896bcb6c98cd5b5f85db3fa1b70b1e8047848159d7bd24e79514cd4bd959cb7",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v2/taalas_mxfp4_hc2_mac_lane.sv",
+      "category": "rtl_v2",
+      "size_bytes": 17363,
+      "lines": 385,
+      "sha256": "93d5adc809a7fae2538e7373fd6fe7daa02ec92f62995f7ad8f36924df652f75",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v2/taalas_pcie_csr_ctrl.sv",
+      "category": "rtl_v2",
+      "size_bytes": 21264,
+      "lines": 462,
+      "sha256": "e7ac8aa5fd046992d4167f047319386c01be6fdc7435f5f47ca2c292e07ba2c4",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v2/taalas_rmsnorm_engine.sv",
+      "category": "rtl_v2",
+      "size_bytes": 19377,
+      "lines": 436,
+      "sha256": "13bad0509d33cc1252a27d4838c2b1db2aaf9cbed16cebc2a6d30ee5765f545f",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v2/taalas_rope_cordic_unit.sv",
+      "category": "rtl_v2",
+      "size_bytes": 21059,
+      "lines": 460,
+      "sha256": "e81868d309b5f96c96b2ab329ddb9341b9d40509bceb57d3c1b4cceeaa44e648",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v2/taalas_sram_6t_banked_macro.sv",
+      "category": "rtl_v2",
+      "size_bytes": 21658,
+      "lines": 480,
+      "sha256": "1da052c6fd8d6431535250b031db283acb77f41bf2b675ef802a04a2642a75c5",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v2/taalas_swiglu_ffn_pipe.sv",
+      "category": "rtl_v2",
+      "size_bytes": 15231,
+      "lines": 343,
+      "sha256": "eab02776aa1380ad4545a87472f63cf8b2b5a8ce7552dffc65c2880a19090298",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v2/taalas_token_pipe_noc_router.sv",
+      "category": "rtl_v2",
+      "size_bytes": 18783,
+      "lines": 420,
+      "sha256": "2842e6af80766153a6a05e12a4c6b6e618f78fe6b1d00f0bcb0b2fbba8ea8bed",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v2/taalas_via_mask_rom_macro.sv",
+      "category": "rtl_v2",
+      "size_bytes": 15602,
+      "lines": 375,
+      "sha256": "d9f7c0be8e76ba14df816ebc881aeccd8c91d05688256c25a65ea53b9cb426f8",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_3b6b_wired_mac_array.sv",
+      "category": "rtl_v3",
+      "size_bytes": 18465,
+      "lines": 425,
+      "sha256": "f7d26c7b4a0cbb48927f4fee143fe80267c6ca7100e3eb6f32ad923f3468dadf",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_dvfs_pvt_controller.sv",
+      "category": "rtl_v3",
+      "size_bytes": 17310,
+      "lines": 357,
+      "sha256": "76100f10f77c4c856843e91e37730a78d91abc26b2151f9076fcc9316b190438",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_ecc_bist_scrubber.sv",
+      "category": "rtl_v3",
+      "size_bytes": 19976,
+      "lines": 440,
+      "sha256": "b80afd7cde4f7c6b1bcf3db2e2bd6177a8496233179aa618c3d0c0d081bda701",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_flash_decode_attention.sv",
+      "category": "rtl_v3",
+      "size_bytes": 20961,
+      "lines": 434,
+      "sha256": "9219cc632f0c6226d61f23cc0d9ca06faaebd43443311347c91cb182a238b839",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_group_dequant_scale_unit.sv",
+      "category": "rtl_v3",
+      "size_bytes": 14354,
+      "lines": 324,
+      "sha256": "6a073d4214cbfc534c188315fcc2ff5120f38e1e93ecafec641b5cebf39fd5b1",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_hc1_32layer_reticle_top.sv",
+      "category": "rtl_v3",
+      "size_bytes": 35005,
+      "lines": 763,
+      "sha256": "4112b502894e2ffcf8fa5e3cfb61ac4f202f714c441bb43836ad264473ca1907",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_hc1_chip_top.sv",
+      "category": "rtl_v3",
+      "size_bytes": 21819,
+      "lines": 490,
+      "sha256": "845f8c15a090e6d63ce2a626e0685cb9b5d2815df7fa442f40b4d2f67ac62bd3",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_hc1_layer_tile.sv",
+      "category": "rtl_v3",
+      "size_bytes": 31972,
+      "lines": 764,
+      "sha256": "0573357d91fb53188a6322509a13c5163811aed829b0773cd05f508133bcf96a",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_kv_cache_manager.sv",
+      "category": "rtl_v3",
+      "size_bytes": 20925,
+      "lines": 457,
+      "sha256": "3b74a25e8a5ec52243d6fd630f2af45bb2eb1b9eb96a883c19e0923ec9b7fb2d",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_lora_sram_overlay_engine.sv",
+      "category": "rtl_v3",
+      "size_bytes": 15896,
+      "lines": 340,
+      "sha256": "4ed699a451eb7d4520bcb23a944c72d516b09737d330d903bbe96a071f2dffb3",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_mxfp4_hc2_mac_lane.sv",
+      "category": "rtl_v3",
+      "size_bytes": 18353,
+      "lines": 404,
+      "sha256": "347d0cc15ffa2db3b038759124dde2eedcfc4d9c49d9d02be48993c4301b19eb",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_pcie_csr_ctrl.sv",
+      "category": "rtl_v3",
+      "size_bytes": 22540,
+      "lines": 487,
+      "sha256": "b25e737b454eff88591b0d1e036723808b8d2ec8b1112549611fd90afea9b90c",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_rmsnorm_engine.sv",
+      "category": "rtl_v3",
+      "size_bytes": 18478,
+      "lines": 425,
+      "sha256": "fbf4a4f39509c6528c56fad891075529e5cfcba05605b734ab9308180e5578d9",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_rope_cordic_unit.sv",
+      "category": "rtl_v3",
+      "size_bytes": 25900,
+      "lines": 528,
+      "sha256": "c82bded396008ef3469bb321a10e0ff202e676fadd8fea84c043076262dfe61b",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_sram_6t_banked_macro.sv",
+      "category": "rtl_v3",
+      "size_bytes": 22589,
+      "lines": 496,
+      "sha256": "d8c00c936090457637682388d07c3052fe592e1c1b656b5e629cdf581dea6292",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_stage20_soak_top.sv",
+      "category": "rtl_v3",
+      "size_bytes": 27946,
+      "lines": 647,
+      "sha256": "40ba0765096fef6d74a8c3f58b8392b2ddfb88fa9d00f6ace95853364361f102",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_swiglu_ffn_pipe.sv",
+      "category": "rtl_v3",
+      "size_bytes": 16143,
+      "lines": 359,
+      "sha256": "1bfece7f6dffb2bccfd3265686ad2e7cc2350d91e10bb01def7c4850a7f54ecc",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_token_pipe_noc_router.sv",
+      "category": "rtl_v3",
+      "size_bytes": 19019,
+      "lines": 425,
+      "sha256": "f7c4fc922a78146738aa7d2064a16b1f0f69e24961ac3b7a3ab94c42a8410e06",
+      "status": "PASS"
+    },
+    {
+      "path": "rtl_v3/taalas_via_mask_rom_macro.sv",
+      "category": "rtl_v3",
+      "size_bytes": 17012,
+      "lines": 393,
+      "sha256": "0368b0257f5231715654ac3ed94c102685362682482bb9e19b0a6d6830a2e071",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/fix_layout_boxes.py",
+      "category": "scripts",
+      "size_bytes": 1757,
+      "lines": 53,
+      "sha256": "03889cf9ee7b756662da64cec0caf993d15d36dc4d5b8b6ce9fe5f1cc1d54d52",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/gen_stage20_figure.py",
+      "category": "scripts",
+      "size_bytes": 10077,
+      "lines": 202,
+      "sha256": "af3dbf5a4bdc0766cac6c990e109fa9be0dbfdd3b1d9a92dab0d085998eb3db5",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/gen_stage25_60source_audit_figure.py",
+      "category": "scripts",
+      "size_bytes": 6906,
+      "lines": 149,
+      "sha256": "6de6b49cc85e76fcbdb8cc3ebb9072c7b40d41d575d72e8d5820bb9ae7c69946",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/gen_stage35_silicon_perf_energy_figure.py",
+      "category": "scripts",
+      "size_bytes": 5811,
+      "lines": 129,
+      "sha256": "f69ccb4dd88b04dc81fc170caff3394c6126744f52fbebcf83dbf9ca647995b0",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/generate_stage15_paper_figures.py",
+      "category": "scripts",
+      "size_bytes": 9985,
+      "lines": 176,
+      "sha256": "cc9a18c53fc43dbdf288b8b4f85f945f5da31c0e3ac40a93050d20e822ba074e",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/run_e2e_llm_rtl_inference.py",
+      "category": "scripts",
+      "size_bytes": 49029,
+      "lines": 1064,
+      "sha256": "72875c794a82bfd591225971f8e67991de75c8cecc7723265ca0b56b0fb36b83",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/run_multi_pdk_synth.py",
+      "category": "scripts",
+      "size_bytes": 29155,
+      "lines": 672,
+      "sha256": "36d8769c78780ead9a2fa0b36c3990180c0f866172f3cc7f9fb73fbf2adf24b2",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/run_stage10_mutation_campaign.py",
+      "category": "scripts",
+      "size_bytes": 27397,
+      "lines": 468,
+      "sha256": "2361a14a73270bacdc3b3f3988f04be06c87ca67964adb874c1f7ac564ecd5e9",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/run_stage12_uvm_v3.sh",
+      "category": "scripts",
+      "size_bytes": 911,
+      "lines": 22,
+      "sha256": "0f7348fa183315c8f8587e3c4c2b0cf1d390c5083eec9f1de70b93ef3a15a03d",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/run_stage12_v3_synth.py",
+      "category": "scripts",
+      "size_bytes": 30338,
+      "lines": 690,
+      "sha256": "8ab6c1ed57c5912f02bdd587d806bca81a0e57bdcfa1574a6c612c04f8de41a4",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/run_stage20_final_audit.py",
+      "category": "scripts",
+      "size_bytes": 8254,
+      "lines": 169,
+      "sha256": "7e05a940b01b28f2a25706b81dd82377b1c34df1126dbad192010c096896fb1b",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/run_stage33_silicon_perf_energy_sim.py",
+      "category": "scripts",
+      "size_bytes": 1789,
+      "lines": 55,
+      "sha256": "ad43e1533803642668f736b7ee9b6ff88afbbca66ad77aff1f339c3b9541d984",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/sanitize_tex.py",
+      "category": "scripts",
+      "size_bytes": 644,
+      "lines": 22,
+      "sha256": "bac2ebe0877a0e3f15c2ff86263c07372b1b5fba726e61fe1eca9ff541f4482c",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/stage1_math_reconciliation.py",
+      "category": "scripts",
+      "size_bytes": 19019,
+      "lines": 367,
+      "sha256": "78eb38811f5aaaf72002adc9c955d360a54d1bdbcf99c78147e5052dc65d9224",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/stage21_generate_55plus_literature_db.py",
+      "category": "scripts",
+      "size_bytes": 62588,
+      "lines": 819,
+      "sha256": "c419d9bfd75cf7aeccf44186fb1a08f1668b0dfea37e97c47b37e26e5ee31f92",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/stage26_generate_120sources_db.py",
+      "category": "scripts",
+      "size_bytes": 51617,
+      "lines": 746,
+      "sha256": "2388ec94d3bbb5b7a1189d8ab3df460aeca29a915db16bb5b5dc820ecec4e8f0",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/stage27_generate_audit_report.py",
+      "category": "scripts",
+      "size_bytes": 18166,
+      "lines": 267,
+      "sha256": "39e63395e80eeb875249a787e375cbdf1e639a76bb7024460a0888e340e7f995",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/stage30_generate_figure_and_bible.py",
+      "category": "scripts",
+      "size_bytes": 13844,
+      "lines": 203,
+      "sha256": "d39e54602abb3d138139c1f81653b1e2e1b8584564e2400f8627177c7f4f4073",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/stage31_master_metrics_reconciliation_audit.py",
+      "category": "scripts",
+      "size_bytes": 24134,
+      "lines": 370,
+      "sha256": "0def950cae38392bc7bf1938941a4c28067d7f6b5a25edc6d685f3d685d43a48",
+      "status": "PASS"
+    },
+    {
+      "path": "scripts/stage32_audit_all_github_files.py",
+      "category": "scripts",
+      "size_bytes": 7393,
+      "lines": 195,
+      "sha256": "c5adceef5e777210c867993f35f2c304b6faa2ffcdf53adebba297daf419ee47",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/baseline_fp16_int8_mac_array.sv",
+      "category": "synth",
+      "size_bytes": 5563,
+      "lines": 135,
+      "sha256": "58beed1e7e0ed7cb44d6171ceb15abda3803c9a986e22c806758b2246f0458d2",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/baseline_fp16_int8_mac_array_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 696,
+      "lines": 11,
+      "sha256": "bd5cac1bad315948ff1955c3617ab1935e756b84dedf10e322443a6d9a22cf44",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/baseline_fp16_int8_mac_array_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 772,
+      "lines": 11,
+      "sha256": "a08872de04e5edb96d25591dad483c58c2392bd1acd065bdda142b01243880c7",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/baseline_fp16_int8_mac_array_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 768,
+      "lines": 11,
+      "sha256": "afcfdca55ea63a94d9f0e119d0817fc5f03b5769bfc191f64dfb4735e91adb34",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/fast_map.abc",
+      "category": "synth",
+      "size_bytes": 11,
+      "lines": 2,
+      "sha256": "7cf98e1e21dd944d9eb47b7ffe0528f8b1d22a55948b5435b9385e78d670e10e",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/fast_map_stime.abc",
+      "category": "synth",
+      "size_bytes": 22,
+      "lines": 4,
+      "sha256": "cd8492b9c78b925508d9188bb2b3599112db1caf897cd6c6ad0d4bf77a217eca",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/lib/NangateOpenCellLibrary_typical.lib",
+      "category": "synth",
+      "size_bytes": 6692032,
+      "lines": 133314,
+      "sha256": "8d540a4d4cf6d09d27c87ad067857a9c0c2eeb023ab7a56e058cd3113db4e9b1",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/run_stage17_hc2_synth.py",
+      "category": "synth",
+      "size_bytes": 5315,
+      "lines": 132,
+      "sha256": "333348c489079e426c691cf723b1710566b174a98a05710d1cd1eaa369c413f5",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_3b6b_wired_mac_array_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 715,
+      "lines": 11,
+      "sha256": "bf4d28cf6f72e68138043f64e54400c13d92eb6ccf9964ee50c76733fc247197",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_3b6b_wired_mac_array_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 791,
+      "lines": 11,
+      "sha256": "20ec7fa66d18c701ab28315bdc713a0efc2054d2692b45edc03bb89d5d028407",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_3b6b_wired_mac_array_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 787,
+      "lines": 11,
+      "sha256": "0356ee8b3388f3bd970166f8842a7d981698a236b722ad1a09c1553893166dd5",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_dvfs_pvt_controller_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 915,
+      "lines": 11,
+      "sha256": "e8c70894ed6ae147f3438fbb70998ee6812c4ba78dd0fde9b79a22aeb7c86fbc",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_ecc_bist_scrubber_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 621,
+      "lines": 11,
+      "sha256": "172da132b8fd9a0394aa030039b458efb66922d09113f71f0d9cb0b06301491e",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_flash_decode_attention_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 642,
+      "lines": 11,
+      "sha256": "eb45b2598279b72ebe189ff19812f127a2bc567402f078f9f19f22f6e7620125",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_flash_decode_attention_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 718,
+      "lines": 11,
+      "sha256": "11b3e1aa7fb006e992ff16cab06cb4d4538521eceeaca0b750fd165928d6ed18",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_flash_decode_attention_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 714,
+      "lines": 11,
+      "sha256": "4cc28cb06c3e7136857fa577078d765430896df04044620cc80f794979413229",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_group_dequant_scale_unit_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 751,
+      "lines": 11,
+      "sha256": "ecb5d9bf4a2019e3231e6d8ad0452565b0e825e799f78744a634b284e03afa52",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_group_dequant_scale_unit_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 827,
+      "lines": 11,
+      "sha256": "54aeddaf1fbf098999a55a1a8120e582cc379185d82f46f20fe2a880598a2db2",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_group_dequant_scale_unit_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 823,
+      "lines": 11,
+      "sha256": "b9d02b0c7dd23a5eed8a83b404bdc30916a06f68ad06213d2e359ab7308f3f10",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_hc1_chip_top_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 1510,
+      "lines": 11,
+      "sha256": "53c3b0b05f2f82cfb9385eceb40c7e4e32a0803a49d87591aad498f1f44fb4db",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_hc1_chip_top_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 1586,
+      "lines": 11,
+      "sha256": "88f3d77ef02cd398672bde24547bc87b55d28350d0eeb93df98e98e6f8efda0c",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_hc1_chip_top_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 1582,
+      "lines": 11,
+      "sha256": "9f8979ee401e81c703a8c94a99459154371aef67937ba08338c15bd6679be3fc",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_hc1_layer_tile_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 1456,
+      "lines": 11,
+      "sha256": "8e92ec89ad6441edd8cb8f671960451c274763226d508a0963f42f874c7023c1",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_hc1_layer_tile_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 1532,
+      "lines": 11,
+      "sha256": "7b6048ff9702ceb162691eaf60a7d8a3a1499653b771b19816c140a1ad0746ab",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_hc1_layer_tile_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 1528,
+      "lines": 11,
+      "sha256": "84f516bba04a87cedb0be0f22b7f5b7fe12ac96f0896609df81161e5395bb47a",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_hc2_c2c_llr_serdes_ctrl_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 897,
+      "lines": 11,
+      "sha256": "b1ebd4084a8da8adf35190336b21e74ae4a5c75acb5c64a0efa411eca180c2fa",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_hc2_disagg_sram_fabric_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 912,
+      "lines": 11,
+      "sha256": "37c2ee7255d636dc9536cc6c3f1169888b2e56c02025efee8be33ae7ecdf0eae",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_hc2_moe_mla_router_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 917,
+      "lines": 11,
+      "sha256": "181a1a0ba69b9fd1c22f42a2748747adcc94191647d860297e702af3a0347db5",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_hc2_multichip_cluster_top_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 907,
+      "lines": 11,
+      "sha256": "79ab9e12d6ea7af58491c76218a77c0afd7e1fc2890371bef6aa85131bc193dc",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_kv_cache_manager_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 732,
+      "lines": 11,
+      "sha256": "7578a93a1b40aa075d2bed8ca30f4d97ba8681ca017fe7768bbfe587b0eefce6",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_kv_cache_manager_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 808,
+      "lines": 11,
+      "sha256": "a3fee48b02df75650b7a8a86f36568246275782acc0151861d46776e0767ed9a",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_kv_cache_manager_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 804,
+      "lines": 11,
+      "sha256": "8ba562144f17fa86d67eecc1e109a1f02ec7aec312cff192e155eedde1627ecd",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_lora_sram_overlay_engine_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 730,
+      "lines": 11,
+      "sha256": "206366aff8efa17ccf3b063aa56759e07c09461dde413a91d97a8ba9db794ecd",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_lora_sram_overlay_engine_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 806,
+      "lines": 11,
+      "sha256": "383925658785b9499cdcfb62c070207b92ace9e3b3e5868d57bd7dda0500fe1c",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_lora_sram_overlay_engine_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 802,
+      "lines": 11,
+      "sha256": "8b34cb62931a30e894ffbfb9f36e4eb077e9f1f9370a75dd9c225077e1806845",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_mxfp4_hc2_mac_lane_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 685,
+      "lines": 11,
+      "sha256": "3d49d74ff659644d4cf8df8f6f7b6116d21710d5c664ee90e2e36e5fc67b29ec",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_mxfp4_hc2_mac_lane_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 761,
+      "lines": 11,
+      "sha256": "2e6ad8cdf975c097cacddb8fd9039a7254b75769485b89f96ab813b16aeca7df",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_mxfp4_hc2_mac_lane_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 757,
+      "lines": 11,
+      "sha256": "2dec366b4d275286d42851adfe51d9b152ef8a9a54d2428477619af39fd13931",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_pcie_csr_ctrl_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 701,
+      "lines": 11,
+      "sha256": "597c0b76ad6fb1fac98c99c9c70cb955b40ddafb27ca39292835fb85e157c2ec",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_pcie_csr_ctrl_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 777,
+      "lines": 11,
+      "sha256": "23684d6866f457079bb6bc3c460f9e8f07ce556a0ea2c4913885acd708ca423b",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_pcie_csr_ctrl_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 773,
+      "lines": 11,
+      "sha256": "6fa43fcbdfa6ebfca983ab733d389d1971ddbca8f7935e3fe4edd749edfb9dca",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_rmsnorm_engine_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 711,
+      "lines": 11,
+      "sha256": "a5ffe01a5d2030c7933b16af7d0fdab71f24ef40a31a3ef42759a65b7734077f",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_rmsnorm_engine_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 787,
+      "lines": 11,
+      "sha256": "d5aa856827cb62b1c1502ed2ce59a9b168c5454cc6c1ec107f00f2f005c98aa2",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_rmsnorm_engine_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 783,
+      "lines": 11,
+      "sha256": "49ca61d4c4cb0f8743fd7bb3d07d656a07aa1b9b6e77c81fa71710c324331f52",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_rope_cordic_unit_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 716,
+      "lines": 11,
+      "sha256": "ee4533c3a0a38c797f34e24407a3a644bc686078387c964b80003fec881d14a5",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_rope_cordic_unit_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 792,
+      "lines": 11,
+      "sha256": "d1c62ca2ba9854c6606d660fb46ea542675d2a6e09fce57507995fbafb8650c5",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_rope_cordic_unit_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 788,
+      "lines": 11,
+      "sha256": "dede0cc4ff18979abcabccd3892cd652fe7130f942693d4686331638e5b505f4",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_sram_6t_banked_macro_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 744,
+      "lines": 11,
+      "sha256": "fc17e68c3efae134cbc1aa90d806b6d4b5c3c772eddf02d918fb5805ab5ee7c6",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_sram_6t_banked_macro_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 820,
+      "lines": 11,
+      "sha256": "cad5070bc6997a0d611db4bab5dfcf8c6375401b2236aa9e5f57c7738c24643c",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_sram_6t_banked_macro_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 816,
+      "lines": 11,
+      "sha256": "606d93bd71e298c74d825952cdb4f5da17699c8634c05fcd003e9bdab2930b60",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_swiglu_ffn_pipe_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 694,
+      "lines": 11,
+      "sha256": "ecb0c5491109e35ff767a809c0658e774f335c1e595471366d1d30c95f5cf906",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_swiglu_ffn_pipe_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 770,
+      "lines": 11,
+      "sha256": "0a403e24ace6893d2bca9e18b7ed8d5aedf07d3c8d6217e880b9baa3a8b22a0b",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_swiglu_ffn_pipe_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 766,
+      "lines": 11,
+      "sha256": "5f448249810bffa3dcc07bc8f034c09f991f0ee0e313f950fffa6f9f74bc22f7",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_token_pipe_noc_router_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 738,
+      "lines": 11,
+      "sha256": "98ae30f9189d58038bfabde226e4976ec8129b74b3e9346e9882fde43d466ad8",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_token_pipe_noc_router_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 814,
+      "lines": 11,
+      "sha256": "04c716b269e4e53e0f0b3a826e86ce69f44f0cc39de1ddcb77bcbd0710cc1b14",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_token_pipe_noc_router_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 810,
+      "lines": 11,
+      "sha256": "8ca5c9a3504e5a73d8e139c05d4fe7ee040a34b5115a2bbf1a1562e71224660d",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_via_mask_rom_macro_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 727,
+      "lines": 11,
+      "sha256": "02c7bbfdfa8335362d541346b1e96a7bb22c2e2eac954f2a6c0f93451a06df84",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_via_mask_rom_macro_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 803,
+      "lines": 11,
+      "sha256": "da3300e63bc593a95b4f92f1e4ac6093ebf1ec7cebd4a3146051b3e48f30380e",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/taalas_via_mask_rom_macro_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 799,
+      "lines": 11,
+      "sha256": "51c324d0411487e5ed897704b8db5c855294698c43e86a6ae5ec0520cea94dd5",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/baseline_fp16_int8_mac_array_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 1005,
+      "lines": 11,
+      "sha256": "e6e8445c9b3d45c271eb22e0426c617562e2bf7558caf198e764b60d5e060a25",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/baseline_fp16_int8_mac_array_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 1081,
+      "lines": 11,
+      "sha256": "422eb1a13cb657d6962560e25e9fc2f79ad5ce32abe632c91c545687bdc43075",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/baseline_fp16_int8_mac_array_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 1077,
+      "lines": 11,
+      "sha256": "a078a7d135b9e1e1428e846ae7789fafd524727403bf98597d27b83777ec1346",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_3b6b_wired_mac_array_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 1027,
+      "lines": 11,
+      "sha256": "85a4d4ea08dcc7af2d59841a78caec431f1e48b6791b4903b38d236ff6674258",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_3b6b_wired_mac_array_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 1103,
+      "lines": 11,
+      "sha256": "665e859c83e006973dcc2cf36e0c029d95a4958eeeaf4d5688d93e03171287c4",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_3b6b_wired_mac_array_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 1099,
+      "lines": 11,
+      "sha256": "93dbc76ad0008a3635af6f4420fbc056d002cbcf24d7e72f23c7df0942374a1d",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_flash_decode_attention_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 1025,
+      "lines": 11,
+      "sha256": "ca4d6a336d8d4ac8003a25669720d6ce47fd1f64393cea255678daf2c891ba0f",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_flash_decode_attention_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 1101,
+      "lines": 11,
+      "sha256": "744df5704b03b43c81dc969c1cab829ee4c13793774aedfe9cef04642bc42535",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_flash_decode_attention_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 1097,
+      "lines": 11,
+      "sha256": "22ba4fcc1ee60e3cd8c1153e2df8080b8f304188b9271c5e0fdaa958591d3deb",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_group_dequant_scale_unit_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 1063,
+      "lines": 11,
+      "sha256": "4442285738930c9869b787322e530ac0c7f6efe64cd19ece9627805742e48af6",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_group_dequant_scale_unit_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 1139,
+      "lines": 11,
+      "sha256": "8ee445ea30f8d1c8aea5ddafa6387219ee520aa81f8f48ec6699dc6a25fb6d90",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_group_dequant_scale_unit_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 1135,
+      "lines": 11,
+      "sha256": "96d16463017c2afae140bb158a9c6e6ba4f5ee8ad0dea2d2f6227196e41713d6",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_hc1_chip_top_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 2102,
+      "lines": 11,
+      "sha256": "a05f3d041fbeccbeb0b35f77b81e28fe757724a9d8d74fdc5c5555a1a5b3b42d",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_hc1_chip_top_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 2178,
+      "lines": 11,
+      "sha256": "45dbe5c36e0dd45cf43be0ee53f7e2fe19abe36bc4bacc2e300633810cb956dd",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_hc1_chip_top_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 2174,
+      "lines": 11,
+      "sha256": "838a61643f655629b2a8f99fe16041f8b07aa64a8bf0b2bdc6ec61bb25766d6e",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_hc1_layer_tile_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 2028,
+      "lines": 11,
+      "sha256": "27cd9e2952783eb34a6aefae18812656869cb30d392146802014eac0f727160d",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_hc1_layer_tile_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 2104,
+      "lines": 11,
+      "sha256": "12d53f3e128c700c3e59583380b10668e7efad26e4b6a2966f226890db2056b9",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_hc1_layer_tile_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 2100,
+      "lines": 11,
+      "sha256": "60e745ae9be3d94b5becf47ae15a8fc053ee9f9d7de83b02d6b8760d5d628bac",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_kv_cache_manager_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 1044,
+      "lines": 11,
+      "sha256": "5cfcb87d1159eab81e8bf3a976dab0cd37ca93ca33c9d2f4c364b3f64866e2a3",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_kv_cache_manager_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 1120,
+      "lines": 11,
+      "sha256": "94fb85818115ac9f64f800f005759369514541927cfdc7851d586c82af2ced35",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_kv_cache_manager_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 1116,
+      "lines": 11,
+      "sha256": "0c8f63d6d193bac1b58a29ef677ebff4eec553c5747d45513c36105111fa0ded",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_lora_sram_overlay_engine_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 1042,
+      "lines": 11,
+      "sha256": "fc50eee6c7dde844374184c917f429d2c0715e1799de9d4430e74c2b65860b89",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_lora_sram_overlay_engine_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 1118,
+      "lines": 11,
+      "sha256": "c8aec391665108c8c3c437de90055a77a46eb6d35f13e890f72777c636e04b43",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_lora_sram_overlay_engine_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 1114,
+      "lines": 11,
+      "sha256": "f3a9ac65f8f0cca60a2685681546fdb9339f7143a35128e390f38d1f2a92ea33",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_mxfp4_hc2_mac_lane_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 997,
+      "lines": 11,
+      "sha256": "83c42d34bc1e90cc2ea418ec964b387910573fccdbd96b58e8c936e3684e4a69",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_mxfp4_hc2_mac_lane_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 1073,
+      "lines": 11,
+      "sha256": "7d1ce7790d8401ffff38a4ae317ff7cfd8c8e72caff5aef851f4f2b75ee0dabb",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_mxfp4_hc2_mac_lane_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 1069,
+      "lines": 11,
+      "sha256": "5e8863dc59389a6c664e9d2e04e8eb1c59e573e7103a76dc7293ce27fdd23a53",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_pcie_csr_ctrl_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 1013,
+      "lines": 11,
+      "sha256": "760bb4b78df6e6910e3dd35a16fda279825452fddf3540c3be520c2555435de4",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_pcie_csr_ctrl_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 1089,
+      "lines": 11,
+      "sha256": "4276784e46852f425a158562116a70b2d84bbc3935c6cdf9ba11f450fc941ed8",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_pcie_csr_ctrl_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 1085,
+      "lines": 11,
+      "sha256": "5fd3c1210b948e64273349886dc1c07038e519d1c92ced5b7579a4b0d3e0bec7",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_rmsnorm_engine_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 1023,
+      "lines": 11,
+      "sha256": "5ff6bf06804d49340e9add9e77e44d45a02afc3dd91ccc1b58c24b2e76622a3f",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_rmsnorm_engine_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 1099,
+      "lines": 11,
+      "sha256": "eeaece8edc4f2c965fc51e5342e47327e1e8ba88a1bf919a586609bfad14c2e7",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_rmsnorm_engine_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 1095,
+      "lines": 11,
+      "sha256": "0545e37a73caf945a1eed0ff5a8c8c11d271a9d1c67ac84fadc291a5543945fc",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_rope_cordic_unit_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 1028,
+      "lines": 11,
+      "sha256": "4fec09b38151248344c93c6bb144cdb5d5791da51f04f0ea61c953fee08682b6",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_rope_cordic_unit_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 1104,
+      "lines": 11,
+      "sha256": "af46a4e64e025b805eb72823c58b36077d2e41586e2595d0b6d4acdb9933145e",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_rope_cordic_unit_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 1100,
+      "lines": 11,
+      "sha256": "9bc0c673d7523ea07f346df7cbf4b3dac5caddad3c24c9f354c566463166875b",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_sram_6t_banked_macro_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 1056,
+      "lines": 11,
+      "sha256": "75088a8837f4515cd0c23cdf0b00e61c66d3f556c2e098a92e6cb7f327b5d5a6",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_sram_6t_banked_macro_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 1132,
+      "lines": 11,
+      "sha256": "3779ac2f8f8f97583984d4c36e7d6caa184286d311cce98686a50bedd58ac824",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_sram_6t_banked_macro_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 1128,
+      "lines": 11,
+      "sha256": "ccc8417994ade9df362f68701ca63401a3cef7a9d4c9d3a49f18a194eca0a20a",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_swiglu_ffn_pipe_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 1006,
+      "lines": 11,
+      "sha256": "3fac158769ae35908f783bfa8da4f458bca9617e5bc540427ae3515566094798",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_swiglu_ffn_pipe_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 1082,
+      "lines": 11,
+      "sha256": "6742c6601d82ca4b7656e651cc02a345a8fc84c9ae20de4bf630f6563e651ff6",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_swiglu_ffn_pipe_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 1078,
+      "lines": 11,
+      "sha256": "de4ab4f345d1c5584b5f6b3cb979dd98b0c1b39e398c23b6faab01b694e06303",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_token_pipe_noc_router_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 1050,
+      "lines": 11,
+      "sha256": "52087c145066d3afdd3a34fb8f1db476087aa5268b06ef5b7440c8b43d8918b6",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_token_pipe_noc_router_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 1126,
+      "lines": 11,
+      "sha256": "46325d904025cccd2f5478d1aa316645732af4ae4794642197ef3657e6677935",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_token_pipe_noc_router_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 1122,
+      "lines": 11,
+      "sha256": "44918e5d3dcb1f8a6f5decd09eb37319a86738c60956af944cbf77bd3079f824",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_via_mask_rom_macro_asap7_7nm.ys",
+      "category": "synth",
+      "size_bytes": 1039,
+      "lines": 11,
+      "sha256": "922c750e84329456ba92565a07efb92f852f4e2a97c09c368a11241f40879a0f",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_via_mask_rom_macro_nangate_45nm.ys",
+      "category": "synth",
+      "size_bytes": 1115,
+      "lines": 11,
+      "sha256": "5ea5b5b8d2a7745e1fb30f8ee3506a37fbe2530289534c2c79586655cb44cb1b",
+      "status": "PASS"
+    },
+    {
+      "path": "synth/ys_v3/taalas_via_mask_rom_macro_sky130_130nm.ys",
+      "category": "synth",
+      "size_bytes": 1111,
+      "lines": 11,
+      "sha256": "d5045f2941e257260599b288a26df9faea9ccfbb99fb13166e81468c68193510",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/build_and_run_stage14_rtl.sh",
+      "category": "uvm_tb",
+      "size_bytes": 1459,
+      "lines": 35,
+      "sha256": "dce6b84084780fd57fc744de22127e6af26f9549f7b08014bdc4ae78f51b0e29",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/run_stage5_formal.sh",
+      "category": "uvm_tb",
+      "size_bytes": 1506,
+      "lines": 17,
+      "sha256": "ad06f1434454f6659631057c52b563e08c5e27f35f3b831691e31d25bbdff9fd",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/run_stage5_uvm.sh",
+      "category": "uvm_tb",
+      "size_bytes": 990,
+      "lines": 28,
+      "sha256": "c922dc294b38ca6171ea3c03a2407e3fbda3b63edf5411e2db81fc24e9fa5c6a",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/sim_sv_uvm_main.cpp",
+      "category": "uvm_tb",
+      "size_bytes": 1001,
+      "lines": 26,
+      "sha256": "c515821361dbdc969bc5467eaccd6d30a129d9a21fc55cb54d7186ababc436a3",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/stage4_compute_ips_top.sv",
+      "category": "uvm_tb",
+      "size_bytes": 5425,
+      "lines": 123,
+      "sha256": "f95f9f58359fda534a7a73f19aed6d7145ea22c0a62267478b5408f8f76e87c6",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/taalas_stage23_audit_verif_top.sv",
+      "category": "uvm_tb",
+      "size_bytes": 10577,
+      "lines": 256,
+      "sha256": "ba7b8ec17eb072271cfeef4434fcb8b51a34cf975cd6b3658cb60513bd53f3b2",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/taalas_stage3_tb_top.sv",
+      "category": "uvm_tb",
+      "size_bytes": 9632,
+      "lines": 229,
+      "sha256": "3b55808b13a867b487345c419c726f1a1103fbcb340ccde08ef01ba477f3cbef",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/taalas_uvm_all_modules_top.sv",
+      "category": "uvm_tb",
+      "size_bytes": 40127,
+      "lines": 950,
+      "sha256": "777c2ccad359c88542fb5493f3b1a2bc0d3a418dc46d1005b5960677e826a1f9",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/taalas_uvm_pkg.sv",
+      "category": "uvm_tb",
+      "size_bytes": 4615,
+      "lines": 113,
+      "sha256": "afb2fc25b0906754753a7a5f012350297bfd2014dca519be7ae55a936c2673bc",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_stage14_real_llm_rtl_runner.cpp",
+      "category": "uvm_tb",
+      "size_bytes": 48643,
+      "lines": 985,
+      "sha256": "256b3f87df762c38f9ddd4358da188ead1dd4356d76dbefb950708631dad5bf7",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_stage16_32layer_multiuser.cpp",
+      "category": "uvm_tb",
+      "size_bytes": 21580,
+      "lines": 491,
+      "sha256": "ff756556699881403c90bd8935262897c4dfa56ad7e4946ad613ef32742d3baf",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_stage17_hc2_cluster.cpp",
+      "category": "uvm_tb",
+      "size_bytes": 14862,
+      "lines": 320,
+      "sha256": "3cdc9a2af1e7a0bd368fd0b9f3d97151e2a6a6bd7ab83faf9ada70f0ccf09bb1",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_stage18_fault_resilience.cpp",
+      "category": "uvm_tb",
+      "size_bytes": 18204,
+      "lines": 415,
+      "sha256": "23bda478949188fc187e77bf79fb2d3729ab973059583e938658a6df641e37d5",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_stage20_10m_cycle_soak.cpp",
+      "category": "uvm_tb",
+      "size_bytes": 38888,
+      "lines": 848,
+      "sha256": "a02b644ee816b60783c01290cdc4ff92edf869aff3ff05dea70fbf54e5275fe5",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_stage20_reticle_dvfs_closedloop.cpp",
+      "category": "uvm_tb",
+      "size_bytes": 36992,
+      "lines": 833,
+      "sha256": "076eb9771ecff37b8b0bd48df513a7877010a99ab6c85e53ecc5acfb76b4cae2",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_stage23_60source_audit_verif.cpp",
+      "category": "uvm_tb",
+      "size_bytes": 21835,
+      "lines": 467,
+      "sha256": "6bd83de302e489ab54895ffb979bff9dfa9dfd474b66d2e8b02b2ba1535a86ef",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_stage29_all23_lockstep_uvm.cpp",
+      "category": "uvm_tb",
+      "size_bytes": 13783,
+      "lines": 338,
+      "sha256": "e2cdc5f5146a5d9d1bb84f2fa218cf356df2e7045e6fce18ca5931021651f999",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_stage29_all23_lockstep_wrapper.sv",
+      "category": "uvm_tb",
+      "size_bytes": 12353,
+      "lines": 325,
+      "sha256": "bc94e5602c9bfbc5a8618c00274a56d3677fa2dbba0701e3ef0da4489fdd6e80",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_stage33_silicon_perf_energy_sim.cpp",
+      "category": "uvm_tb",
+      "size_bytes": 27418,
+      "lines": 509,
+      "sha256": "e345fc0f8b278a8b1c4c404a19ad9f0f19ef3cdf088a75ba265985cb848bb656",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_stage33_silicon_perf_wrapper.sv",
+      "category": "uvm_tb",
+      "size_bytes": 10090,
+      "lines": 217,
+      "sha256": "d3a9f6c6ff8ffa7e00cdca85cdf5f8bb3d97b1993a5a58bf02c2eabe79288965",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_stage3_memory_ips.cpp",
+      "category": "uvm_tb",
+      "size_bytes": 23170,
+      "lines": 540,
+      "sha256": "a031a9aa361cab7290a6c48f25f6bb8e3c5dd5958e30dda36d326840c2166333",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_stage4_compute_ips.cpp",
+      "category": "uvm_tb",
+      "size_bytes": 22048,
+      "lines": 529,
+      "sha256": "1199cb252aa51526a77f0c9af6534b7ef0c25319407535f8102e671a09a8dbdf",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_stage5_attention_nonlin_ips.cpp",
+      "category": "uvm_tb",
+      "size_bytes": 21739,
+      "lines": 548,
+      "sha256": "7ea113364fb323c3f9a0920e6bd6f3d27b04ab6896bf8892ff4f5fb1248cd826",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_stage6_fullchip_top.cpp",
+      "category": "uvm_tb",
+      "size_bytes": 13205,
+      "lines": 318,
+      "sha256": "2f941f8f1e3967f5e2b763599d4fac56fa0ea3a75296b5d01d547f4ec980058a",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_sv_uvm_taalas_top.sv",
+      "category": "uvm_tb",
+      "size_bytes": 28489,
+      "lines": 693,
+      "sha256": "2e205baa08e5125ab1a481b9e26ac17d5aa987e2b85710b0b540984d2d58e690",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_sv_uvm_taalas_v3_hc2.sv",
+      "category": "uvm_tb",
+      "size_bytes": 29216,
+      "lines": 696,
+      "sha256": "d9226e159d2ff8148bd8544c5dbfa5f71431582a76af4fdf10d34b7ca3c99c4e",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_uvm_taalas_all_modules.cpp",
+      "category": "uvm_tb",
+      "size_bytes": 50777,
+      "lines": 1115,
+      "sha256": "23b6142c10a00708684f7a4ddfdf7628c30671169c7791b08570c868fb319690",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_uvm_taalas_all_modules_v3.cpp",
+      "category": "uvm_tb",
+      "size_bytes": 50562,
+      "lines": 1115,
+      "sha256": "a25350e8e3d397fa2c9c55c1e1ca6ae245f6b3d5e8548d9961f99762c7da9cc1",
+      "status": "PASS"
+    },
+    {
+      "path": "uvm_tb/tb_uvm_taalas_all_modules_v3_nocov.cpp",
+      "category": "uvm_tb",
+      "size_bytes": 50516,
+      "lines": 1115,
+      "sha256": "b62f3f4098ebd081947d88c7280355aba47fbcba8f18961f0fe1856b2284eadc",
+      "status": "PASS"
+    }
+  ]
+}

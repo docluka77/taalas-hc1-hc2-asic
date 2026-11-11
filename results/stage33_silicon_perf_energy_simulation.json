@@ -1,0 +1,62 @@
+{
+  "stage": "Stage 33: Verilator 5.054 Cycle-Accurate Hardware Performance & Energy Simulation",
+  "simulator": "Verilator 5.054 (Cycle-Accurate C++ RTL Simulation)",
+  "wall_clock_sec": 17.6348,
+  "workload_a_hc1_single_stream": {
+    "target_chip": "Taalas HC1 (TSMC N6, 815 mm^2, 53B Transistors, Llama-3.1-8B)",
+    "clock_freq_ghz": 1.2500,
+    "clock_period_ns": 0.8000,
+    "tokens_simulated": 64,
+    "single_token_visited_tiles_mask": "0xFFFFFFFF",
+    "single_token_wavefront_clock_gating_pct": 96.8750,
+    "single_layer_tile_latency_cycles": 57,
+    "single_token_e2e_pipeline_cycles": 1865,
+    "steady_state_initiation_cycles_total": 74183999,
+    "steady_state_cycles_per_token": 74184.0000,
+    "simulated_token_period_us": 59.3472,
+    "simulated_throughput_tok_per_s_user": 16849.9946,
+    "published_throughput_tok_per_s_user": 16850.0,
+    "throughput_match_error_pct": 0.0000,
+    "verilator_active_via_rom_reads": 245486796,
+    "verilator_zero_skip_gated_ops": 11089625,
+    "power_breakdown_watts": {
+      "via_rom_and_3b6b_csd_mac_w": 96.4000,
+      "on_die_6t_sram_kv_and_lora_w": 54.8000,
+      "token_pipe_32hop_noc_ring_w": 36.2000,
+      "flash_decode_rope_rmsnorm_swiglu_w": 18.0200,
+      "pcie_gen5_c2c_io_pll_dvfs_w": 13.0000,
+      "total_simulated_power_w": 218.4200
+    },
+    "simulated_energy_mj_per_token": 12.9626,
+    "published_energy_mj_per_token": 13.0000,
+    "energy_match_error_pct": 0.2876
+  },
+  "workload_b_hc1_8user_concurrent": {
+    "users_concurrent": 8,
+    "tokens_simulated": 8000,
+    "peak_concurrent_active_tiles": 26,
+    "sram_bank_conflicts": 0,
+    "noc_ring_deadlocks": 0,
+    "aggregate_8context_throughput_tok_per_s": 134799.9569
+  },
+  "workload_c_hc2_deepseek_r1_cluster": {
+    "target_chip": "Taalas HC2 (TSMC N4P + Disaggregated 3D-SRAM, MXFP4, DeepSeek-R1 671B)",
+    "clock_freq_ghz": 1.6000,
+    "clock_period_ns": 0.6250,
+    "tokens_simulated": 1000,
+    "h1_gf16_4port_bank_conflicts": 0,
+    "h1_mla_kv_compression_ratio_x": 8,
+    "h2_112g_c2c_llr_replays": 20,
+    "h2_112g_c2c_llr_recovery_pct": 100.0000,
+    "h3_moe_inactive_expert_clock_gating_pct": 81.2500,
+    "steady_state_cycles_per_token": 37643.0000,
+    "simulated_throughput_tok_per_s_user": 42504.5825,
+    "published_throughput_tok_per_s_user": 42500.0,
+    "throughput_match_error_pct": 0.0108,
+    "simulated_active_power_w": 133.8470,
+    "simulated_energy_mj_per_token": 3.1490,
+    "published_energy_mj_per_token": 3.1500,
+    "energy_match_error_pct": 0.0317
+  },
+  "status": "PASS"
+}

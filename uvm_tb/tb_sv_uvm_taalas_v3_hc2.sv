@@ -153,13 +153,13 @@ package taalas_v3_hc2_uvm_pkg;
 
         task body();
             bit [63:0] lfsr = 64'h5441_414C_5633_4843;
-            // Generate 25,600 constrained-random & corner-case SV UVM transactions (5x Stage 29 Intensity)
-            for (int i = 0; i < 25600; i++) begin
+            // Generate 51,200 constrained-random & corner-case SV UVM transactions (10x Stage 29 Intensity)
+            for (int i = 0; i < 51200; i++) begin
                 taalas_v3_hc2_item item = taalas_v3_hc2_item::type_id::create("item");
                 start_item(item);
                 lfsr = {lfsr[62:0], lfsr[63] ^ lfsr[61] ^ lfsr[3] ^ lfsr[0]};
                 item.txn_id         = i;
-                item.phase_kind     = (i < 512) ? 2'd0 : (i >= 24000) ? 2'd2 : 2'd1;
+                item.phase_kind     = (i < 512) ? 2'd0 : (i >= 48000) ? 2'd2 : 2'd1;
                 item.seed_lo        = lfsr;
                 item.seed_hi        = ~lfsr ^ (64'h9E37_79B9_7F4A_7C15 * (i + 1));
                 item.mode           = 4'(i % 8);

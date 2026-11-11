@@ -1,0 +1,11 @@
+read_liberty -lib /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/NangateOpenCellLibrary_typical.lib;
+read_verilog -sv -DYOSYS -defer /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/rtl_v3/taalas_lora_sram_overlay_engine.sv;
+hierarchy -check -top taalas_lora_sram_overlay_engine -chparam IN_DIM 16 -chparam OUT_CHANNELS 8 -chparam MAX_RANK 4 -chparam MAX_SKEW 4;
+flatten;
+chformal -remove;
+proc; opt -fast; fsm; opt -fast; memory -nomap; opt_clean; wreduce; alumacc; opt -fast; techmap; opt -fast;
+ltp;
+dfflibmap -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/NangateOpenCellLibrary_typical.lib;
+abc -D 1333 -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/NangateOpenCellLibrary_typical.lib -script +strash;scorr;dc2;strash;&get,-n;&dch,-f;&nf,{D};&put;buffer;upsize,{D};dnsize,{D};topo;stime,-p;print_stats;
+stat -liberty /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/lib/NangateOpenCellLibrary_typical.lib;
+write_verilog -noattr -noexpr /nfs/share/home/chenpei/hyr/taalas_hc1_marathon/synth/netlists_v3/taalas_lora_sram_overlay_engine_nangate_45nm_netlist.v;

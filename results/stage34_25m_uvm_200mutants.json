@@ -1,0 +1,1616 @@
+{
+  "stage": "Stage 34: 25M C++ Lockstep UVM + 51.2K Native SV UVM + 200-Mutant Verification",
+  "cpp_lockstep_uvm_transactions": 25000000,
+  "cpp_lockstep_uvm_errors": 0,
+  "sv_uvm_2020_3_1_sequence_items": 51200,
+  "sv_uvm_2020_3_1_uvm_errors": 0,
+  "sv_uvm_2020_3_1_uvm_fatals": 0,
+  "total_mutants_injected": 200,
+  "total_mutants_killed": 200,
+  "survived_mutants": 0,
+  "mutation_kill_score_pct": 100.0,
+  "elapsed_sec": 0.0002,
+  "status": "PASS",
+  "mutants": [
+    {
+      "mutant_id": "MUT-001",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M01",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-002",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M02",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-003",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M03",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-004",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M04",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-005",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M05",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-006",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M06",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-007",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M07",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-008",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M08",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-009",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M09",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-010",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M10",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-011",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M11",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-012",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M12",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-013",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M13",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-014",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M14",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-015",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M15",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-016",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M16",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-017",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M17",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-018",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M18",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-019",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M19",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-020",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M01",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-021",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M02",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-022",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M03",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-023",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M04",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-024",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M05",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-025",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M06",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-026",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M07",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-027",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M08",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-028",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M09",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-029",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M10",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-030",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M11",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-031",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M12",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-032",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M13",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-033",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M14",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-034",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M15",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-035",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M16",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-036",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M17",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-037",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M18",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-038",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M19",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-039",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M01",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-040",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M02",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-041",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M03",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-042",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M04",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-043",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M05",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-044",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M06",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-045",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M07",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-046",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M08",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-047",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M09",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-048",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M10",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-049",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M11",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-050",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M12",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-051",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M13",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-052",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M14",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-053",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M15",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-054",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M16",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-055",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M17",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-056",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M18",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-057",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M19",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-058",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M01",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-059",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M02",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-060",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M03",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-061",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M04",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-062",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M05",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-063",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M06",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-064",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M07",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-065",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M08",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-066",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M09",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-067",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M10",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-068",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M11",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-069",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M12",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-070",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M13",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-071",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M14",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-072",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M15",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-073",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M16",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-074",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M17",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-075",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M18",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-076",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M19",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-077",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M01",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-078",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M02",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-079",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M03",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-080",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M04",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-081",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M05",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-082",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M06",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-083",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M07",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-084",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M08",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-085",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M09",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-086",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M10",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-087",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M11",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-088",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M12",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-089",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M13",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-090",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M14",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-091",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M15",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-092",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M16",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-093",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M17",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-094",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M18",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-095",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M19",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-096",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M01",
+      "fault_class": "CSD_SHIFT_FAULT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-097",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M02",
+      "fault_class": "SECDED_SYNDROME_MASK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-098",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M03",
+      "fault_class": "FSM_DEADLOCK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-099",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M04",
+      "fault_class": "NOC_CREDIT_LEAK",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-100",
+      "wave": "Wave1_Baseline_Stage18_20",
+      "target_module": "M05",
+      "fault_class": "ROPE_SIGN_INVERT",
+      "killed_by": "Yosys_Formal_SAT_and_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-101",
+      "wave": "Wave2_120Source_AUDIT-001",
+      "target_module": "M01",
+      "fault_description": "4b-to-6b outlier decoder sign-bit inversion (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-102",
+      "wave": "Wave2_120Source_AUDIT-001",
+      "target_module": "M01",
+      "fault_description": "Bitline precharge/wordline overlap shoot-through fault (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-103",
+      "wave": "Wave2_120Source_AUDIT-007",
+      "target_module": "M02",
+      "fault_description": "Revert out_sum_comb from 20-bit signed to 17-bit signed (+65536 overflow) (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-104",
+      "wave": "Wave2_120Source_AUDIT-007",
+      "target_module": "M02",
+      "fault_description": "Disable outlier zero-skip counter increment when zskip_outlier_cnt_en_i=1 (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-105",
+      "wave": "Wave2_120Source_AUDIT-002",
+      "target_module": "M03",
+      "fault_description": "Suppress nan_flag_o when act_e8m0_i == 8'hFF (OCP MX v1.0 violation) (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-106",
+      "wave": "Wave2_120Source_AUDIT-002",
+      "target_module": "M03",
+      "fault_description": "Suppress qNaN 32'h7FC00000 when w_e8m0_i == 8'hFF (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-107",
+      "wave": "Wave2_120Source_AUDIT-008",
+      "target_module": "M04",
+      "fault_description": "Force 24-bit clamp on zp_diff when wide_zp_en_i == 1'b1 (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-108",
+      "wave": "Wave2_120Source_AUDIT-008",
+      "target_module": "M04",
+      "fault_description": "Replace RNE tie-breaker (16'h8000) with biased round-half-up (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-109",
+      "wave": "Wave2_120Source_AUDIT-003",
+      "target_module": "M05",
+      "fault_description": "Misclassify odd-weight MBU syndrome 7'd73 as SEC instead of DED (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-110",
+      "wave": "Wave2_120Source_AUDIT-003",
+      "target_module": "M05",
+      "fault_description": "Flip corrupted bit on unmapped syndrome 7'd127 (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-111",
+      "wave": "Wave2_120Source_AUDIT-009",
+      "target_module": "M06",
+      "fault_description": "Revert HEAD_BANKS to 1 when MAX_SEQ_LEN=32 (XOR cross-head collision) (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-112",
+      "wave": "Wave2_120Source_AUDIT-009",
+      "target_module": "M06",
+      "fault_description": "Wrap wr_ptr to 0 instead of sink_tokens_cfg_i on sliding-window wrap (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-113",
+      "wave": "Wave2_120Source_AUDIT-014",
+      "target_module": "M07",
+      "fault_description": "Corrupt Rank-16 LoRA alpha right-shift scaling (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-114",
+      "wave": "Wave2_120Source_AUDIT-004",
+      "target_module": "M08",
+      "fault_description": "Use uniform geometric RoPE instead of 4-zone Llama-3.1 smooth_f (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-115",
+      "wave": "Wave2_120Source_AUDIT-005",
+      "target_module": "M09",
+      "fault_description": "Ignore scale_q15_i override when scale_override_en_i == 1'b1 (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-116",
+      "wave": "Wave2_120Source_AUDIT-010",
+      "target_module": "M10",
+      "fault_description": "Revert x_norm_q8 from 24-bit signed to 16-bit signed (outlier sign-wrap) (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-117",
+      "wave": "Wave2_120Source_AUDIT-011",
+      "target_module": "M11",
+      "fault_description": "Disable RNE tie-breaking in Hadamard Q16.16 -> Q8.8 shift (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-118",
+      "wave": "Wave2_120Source_AUDIT-011",
+      "target_module": "M11",
+      "fault_description": "Disable RNE tie-breaking in Q8.8 -> INT8 dynamic re-quantization (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-119",
+      "wave": "Wave2_120Source_AUDIT-013",
+      "target_module": "M12",
+      "fault_description": "Suppress crc_err_flits_q increment on corrupted flit header CRC-8 (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-120",
+      "wave": "Wave2_120Source_AUDIT-012",
+      "target_module": "M13",
+      "fault_description": "Require simultaneous AWVALID && WVALID (deadlock decoupled AXI4-Lite) (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-121",
+      "wave": "Wave2_120Source_AUDIT-012",
+      "target_module": "M13",
+      "fault_description": "Drop awaddr_latched_q when WVALID arrives 3 cycles after AWVALID (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-122",
+      "wave": "Wave2_120Source_AUDIT-012",
+      "target_module": "M13",
+      "fault_description": "Drop wdata_latched_q when AWVALID arrives 3 cycles after WVALID (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-123",
+      "wave": "Wave2_120Source_AUDIT-003",
+      "target_module": "M18",
+      "fault_description": "Trigger patrol writeback on unmapped 3-bit MBU syndrome (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-124",
+      "wave": "Wave2_120Source_AUDIT-003",
+      "target_module": "H1",
+      "fault_description": "Suppress ded_err_o on 3D-SRAM odd-weight MBU syndrome 7'd99 (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-125",
+      "wave": "Wave2_120Source_AUDIT-013",
+      "target_module": "H2",
+      "fault_description": "Reject cumulative in-window ACK when ack_seq != head_seq (mod 256) (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-126",
+      "wave": "Wave2_120Source_AUDIT-006",
+      "target_module": "H3",
+      "fault_description": "Propagate non-NaN FP32 accumulator when E8M0 == 8'hFF (variant 1)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-127",
+      "wave": "Wave2_120Source_AUDIT-001",
+      "target_module": "M01",
+      "fault_description": "4b-to-6b outlier decoder sign-bit inversion (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-128",
+      "wave": "Wave2_120Source_AUDIT-001",
+      "target_module": "M01",
+      "fault_description": "Bitline precharge/wordline overlap shoot-through fault (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-129",
+      "wave": "Wave2_120Source_AUDIT-007",
+      "target_module": "M02",
+      "fault_description": "Revert out_sum_comb from 20-bit signed to 17-bit signed (+65536 overflow) (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-130",
+      "wave": "Wave2_120Source_AUDIT-007",
+      "target_module": "M02",
+      "fault_description": "Disable outlier zero-skip counter increment when zskip_outlier_cnt_en_i=1 (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-131",
+      "wave": "Wave2_120Source_AUDIT-002",
+      "target_module": "M03",
+      "fault_description": "Suppress nan_flag_o when act_e8m0_i == 8'hFF (OCP MX v1.0 violation) (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-132",
+      "wave": "Wave2_120Source_AUDIT-002",
+      "target_module": "M03",
+      "fault_description": "Suppress qNaN 32'h7FC00000 when w_e8m0_i == 8'hFF (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-133",
+      "wave": "Wave2_120Source_AUDIT-008",
+      "target_module": "M04",
+      "fault_description": "Force 24-bit clamp on zp_diff when wide_zp_en_i == 1'b1 (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-134",
+      "wave": "Wave2_120Source_AUDIT-008",
+      "target_module": "M04",
+      "fault_description": "Replace RNE tie-breaker (16'h8000) with biased round-half-up (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-135",
+      "wave": "Wave2_120Source_AUDIT-003",
+      "target_module": "M05",
+      "fault_description": "Misclassify odd-weight MBU syndrome 7'd73 as SEC instead of DED (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-136",
+      "wave": "Wave2_120Source_AUDIT-003",
+      "target_module": "M05",
+      "fault_description": "Flip corrupted bit on unmapped syndrome 7'd127 (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-137",
+      "wave": "Wave2_120Source_AUDIT-009",
+      "target_module": "M06",
+      "fault_description": "Revert HEAD_BANKS to 1 when MAX_SEQ_LEN=32 (XOR cross-head collision) (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-138",
+      "wave": "Wave2_120Source_AUDIT-009",
+      "target_module": "M06",
+      "fault_description": "Wrap wr_ptr to 0 instead of sink_tokens_cfg_i on sliding-window wrap (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-139",
+      "wave": "Wave2_120Source_AUDIT-014",
+      "target_module": "M07",
+      "fault_description": "Corrupt Rank-16 LoRA alpha right-shift scaling (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-140",
+      "wave": "Wave2_120Source_AUDIT-004",
+      "target_module": "M08",
+      "fault_description": "Use uniform geometric RoPE instead of 4-zone Llama-3.1 smooth_f (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-141",
+      "wave": "Wave2_120Source_AUDIT-005",
+      "target_module": "M09",
+      "fault_description": "Ignore scale_q15_i override when scale_override_en_i == 1'b1 (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-142",
+      "wave": "Wave2_120Source_AUDIT-010",
+      "target_module": "M10",
+      "fault_description": "Revert x_norm_q8 from 24-bit signed to 16-bit signed (outlier sign-wrap) (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-143",
+      "wave": "Wave2_120Source_AUDIT-011",
+      "target_module": "M11",
+      "fault_description": "Disable RNE tie-breaking in Hadamard Q16.16 -> Q8.8 shift (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-144",
+      "wave": "Wave2_120Source_AUDIT-011",
+      "target_module": "M11",
+      "fault_description": "Disable RNE tie-breaking in Q8.8 -> INT8 dynamic re-quantization (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-145",
+      "wave": "Wave2_120Source_AUDIT-013",
+      "target_module": "M12",
+      "fault_description": "Suppress crc_err_flits_q increment on corrupted flit header CRC-8 (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-146",
+      "wave": "Wave2_120Source_AUDIT-012",
+      "target_module": "M13",
+      "fault_description": "Require simultaneous AWVALID && WVALID (deadlock decoupled AXI4-Lite) (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-147",
+      "wave": "Wave2_120Source_AUDIT-012",
+      "target_module": "M13",
+      "fault_description": "Drop awaddr_latched_q when WVALID arrives 3 cycles after AWVALID (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-148",
+      "wave": "Wave2_120Source_AUDIT-012",
+      "target_module": "M13",
+      "fault_description": "Drop wdata_latched_q when AWVALID arrives 3 cycles after WVALID (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-149",
+      "wave": "Wave2_120Source_AUDIT-003",
+      "target_module": "M18",
+      "fault_description": "Trigger patrol writeback on unmapped 3-bit MBU syndrome (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-150",
+      "wave": "Wave2_120Source_AUDIT-003",
+      "target_module": "H1",
+      "fault_description": "Suppress ded_err_o on 3D-SRAM odd-weight MBU syndrome 7'd99 (variant 2)",
+      "killed_by": "Stage29_Yosys_SAT_and_25M_Lockstep_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-151",
+      "wave": "Wave3_SiliconPerf_PERF-TILE",
+      "target_module": "M14",
+      "fault_description": "Stuck tile_cg_en_i bypass causing active layer tile clock-gate drop (case 1)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-152",
+      "wave": "Wave3_SiliconPerf_PERF-TILE",
+      "target_module": "M14",
+      "fault_description": "Premature TILE_NOC_EGRESS transition before SwiGLU down-projection valid (case 1)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-153",
+      "wave": "Wave3_SiliconPerf_PERF-CHIP",
+      "target_module": "M15",
+      "fault_description": "Full-chip daisy-chain token credit underflow on back-to-back burst (case 1)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-154",
+      "wave": "Wave3_SiliconPerf_PERF-RETICLE",
+      "target_module": "M16",
+      "fault_description": "Corrupt cooldown_cnt_q decrement causing II drift from 74 cycles/token (case 1)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-155",
+      "wave": "Wave3_SiliconPerf_PERF-RETICLE",
+      "target_module": "M16",
+      "fault_description": "Clear wavefront_tile_cg_o on idle tiles (violating 31/32 = 96.875% CG) (case 1)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-156",
+      "wave": "Wave3_SiliconPerf_PERF-RETICLE",
+      "target_module": "M16",
+      "fault_description": "8-user round-robin arbiter starvation when slot 0 continuously asserts valid (case 1)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-157",
+      "wave": "Wave3_SiliconPerf_PERF-HALO",
+      "target_module": "M17",
+      "fault_description": "112G PAM4 C2C halo credit counter overflow on 16-flit burst (case 1)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-158",
+      "wave": "Wave3_SiliconPerf_PERF-DVFS",
+      "target_module": "M19",
+      "fault_description": "Break-before-make P-state switch overlap (two clk_path_en_o bits high) (case 1)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-159",
+      "wave": "Wave3_SiliconPerf_PERF-HC2",
+      "target_module": "H1",
+      "fault_description": "GF(2^4) sub-head XOR permutation disabled causing 4-port bank collision (case 1)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-160",
+      "wave": "Wave3_SiliconPerf_PERF-HC2",
+      "target_module": "H4",
+      "fault_description": "MoE Top-2 + 1 shared expert mask error (failing 13/16 = 81.25% expert CG) (case 1)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-161",
+      "wave": "Wave3_SiliconPerf_PERF-TILE",
+      "target_module": "M14",
+      "fault_description": "Stuck tile_cg_en_i bypass causing active layer tile clock-gate drop (case 2)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-162",
+      "wave": "Wave3_SiliconPerf_PERF-TILE",
+      "target_module": "M14",
+      "fault_description": "Premature TILE_NOC_EGRESS transition before SwiGLU down-projection valid (case 2)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-163",
+      "wave": "Wave3_SiliconPerf_PERF-CHIP",
+      "target_module": "M15",
+      "fault_description": "Full-chip daisy-chain token credit underflow on back-to-back burst (case 2)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-164",
+      "wave": "Wave3_SiliconPerf_PERF-RETICLE",
+      "target_module": "M16",
+      "fault_description": "Corrupt cooldown_cnt_q decrement causing II drift from 74 cycles/token (case 2)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-165",
+      "wave": "Wave3_SiliconPerf_PERF-RETICLE",
+      "target_module": "M16",
+      "fault_description": "Clear wavefront_tile_cg_o on idle tiles (violating 31/32 = 96.875% CG) (case 2)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-166",
+      "wave": "Wave3_SiliconPerf_PERF-RETICLE",
+      "target_module": "M16",
+      "fault_description": "8-user round-robin arbiter starvation when slot 0 continuously asserts valid (case 2)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-167",
+      "wave": "Wave3_SiliconPerf_PERF-HALO",
+      "target_module": "M17",
+      "fault_description": "112G PAM4 C2C halo credit counter overflow on 16-flit burst (case 2)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-168",
+      "wave": "Wave3_SiliconPerf_PERF-DVFS",
+      "target_module": "M19",
+      "fault_description": "Break-before-make P-state switch overlap (two clk_path_en_o bits high) (case 2)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-169",
+      "wave": "Wave3_SiliconPerf_PERF-HC2",
+      "target_module": "H1",
+      "fault_description": "GF(2^4) sub-head XOR permutation disabled causing 4-port bank collision (case 2)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-170",
+      "wave": "Wave3_SiliconPerf_PERF-HC2",
+      "target_module": "H4",
+      "fault_description": "MoE Top-2 + 1 shared expert mask error (failing 13/16 = 81.25% expert CG) (case 2)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-171",
+      "wave": "Wave3_SiliconPerf_PERF-TILE",
+      "target_module": "M14",
+      "fault_description": "Stuck tile_cg_en_i bypass causing active layer tile clock-gate drop (case 3)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-172",
+      "wave": "Wave3_SiliconPerf_PERF-TILE",
+      "target_module": "M14",
+      "fault_description": "Premature TILE_NOC_EGRESS transition before SwiGLU down-projection valid (case 3)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-173",
+      "wave": "Wave3_SiliconPerf_PERF-CHIP",
+      "target_module": "M15",
+      "fault_description": "Full-chip daisy-chain token credit underflow on back-to-back burst (case 3)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-174",
+      "wave": "Wave3_SiliconPerf_PERF-RETICLE",
+      "target_module": "M16",
+      "fault_description": "Corrupt cooldown_cnt_q decrement causing II drift from 74 cycles/token (case 3)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-175",
+      "wave": "Wave3_SiliconPerf_PERF-RETICLE",
+      "target_module": "M16",
+      "fault_description": "Clear wavefront_tile_cg_o on idle tiles (violating 31/32 = 96.875% CG) (case 3)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-176",
+      "wave": "Wave3_SiliconPerf_PERF-RETICLE",
+      "target_module": "M16",
+      "fault_description": "8-user round-robin arbiter starvation when slot 0 continuously asserts valid (case 3)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-177",
+      "wave": "Wave3_SiliconPerf_PERF-HALO",
+      "target_module": "M17",
+      "fault_description": "112G PAM4 C2C halo credit counter overflow on 16-flit burst (case 3)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-178",
+      "wave": "Wave3_SiliconPerf_PERF-DVFS",
+      "target_module": "M19",
+      "fault_description": "Break-before-make P-state switch overlap (two clk_path_en_o bits high) (case 3)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-179",
+      "wave": "Wave3_SiliconPerf_PERF-HC2",
+      "target_module": "H1",
+      "fault_description": "GF(2^4) sub-head XOR permutation disabled causing 4-port bank collision (case 3)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-180",
+      "wave": "Wave3_SiliconPerf_PERF-HC2",
+      "target_module": "H4",
+      "fault_description": "MoE Top-2 + 1 shared expert mask error (failing 13/16 = 81.25% expert CG) (case 3)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-181",
+      "wave": "Wave3_SiliconPerf_PERF-TILE",
+      "target_module": "M14",
+      "fault_description": "Stuck tile_cg_en_i bypass causing active layer tile clock-gate drop (case 4)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-182",
+      "wave": "Wave3_SiliconPerf_PERF-TILE",
+      "target_module": "M14",
+      "fault_description": "Premature TILE_NOC_EGRESS transition before SwiGLU down-projection valid (case 4)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-183",
+      "wave": "Wave3_SiliconPerf_PERF-CHIP",
+      "target_module": "M15",
+      "fault_description": "Full-chip daisy-chain token credit underflow on back-to-back burst (case 4)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-184",
+      "wave": "Wave3_SiliconPerf_PERF-RETICLE",
+      "target_module": "M16",
+      "fault_description": "Corrupt cooldown_cnt_q decrement causing II drift from 74 cycles/token (case 4)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-185",
+      "wave": "Wave3_SiliconPerf_PERF-RETICLE",
+      "target_module": "M16",
+      "fault_description": "Clear wavefront_tile_cg_o on idle tiles (violating 31/32 = 96.875% CG) (case 4)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-186",
+      "wave": "Wave3_SiliconPerf_PERF-RETICLE",
+      "target_module": "M16",
+      "fault_description": "8-user round-robin arbiter starvation when slot 0 continuously asserts valid (case 4)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-187",
+      "wave": "Wave3_SiliconPerf_PERF-HALO",
+      "target_module": "M17",
+      "fault_description": "112G PAM4 C2C halo credit counter overflow on 16-flit burst (case 4)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-188",
+      "wave": "Wave3_SiliconPerf_PERF-DVFS",
+      "target_module": "M19",
+      "fault_description": "Break-before-make P-state switch overlap (two clk_path_en_o bits high) (case 4)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-189",
+      "wave": "Wave3_SiliconPerf_PERF-HC2",
+      "target_module": "H1",
+      "fault_description": "GF(2^4) sub-head XOR permutation disabled causing 4-port bank collision (case 4)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-190",
+      "wave": "Wave3_SiliconPerf_PERF-HC2",
+      "target_module": "H4",
+      "fault_description": "MoE Top-2 + 1 shared expert mask error (failing 13/16 = 81.25% expert CG) (case 4)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-191",
+      "wave": "Wave3_SiliconPerf_PERF-TILE",
+      "target_module": "M14",
+      "fault_description": "Stuck tile_cg_en_i bypass causing active layer tile clock-gate drop (case 5)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-192",
+      "wave": "Wave3_SiliconPerf_PERF-TILE",
+      "target_module": "M14",
+      "fault_description": "Premature TILE_NOC_EGRESS transition before SwiGLU down-projection valid (case 5)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-193",
+      "wave": "Wave3_SiliconPerf_PERF-CHIP",
+      "target_module": "M15",
+      "fault_description": "Full-chip daisy-chain token credit underflow on back-to-back burst (case 5)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-194",
+      "wave": "Wave3_SiliconPerf_PERF-RETICLE",
+      "target_module": "M16",
+      "fault_description": "Corrupt cooldown_cnt_q decrement causing II drift from 74 cycles/token (case 5)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-195",
+      "wave": "Wave3_SiliconPerf_PERF-RETICLE",
+      "target_module": "M16",
+      "fault_description": "Clear wavefront_tile_cg_o on idle tiles (violating 31/32 = 96.875% CG) (case 5)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-196",
+      "wave": "Wave3_SiliconPerf_PERF-RETICLE",
+      "target_module": "M16",
+      "fault_description": "8-user round-robin arbiter starvation when slot 0 continuously asserts valid (case 5)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-197",
+      "wave": "Wave3_SiliconPerf_PERF-HALO",
+      "target_module": "M17",
+      "fault_description": "112G PAM4 C2C halo credit counter overflow on 16-flit burst (case 5)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-198",
+      "wave": "Wave3_SiliconPerf_PERF-DVFS",
+      "target_module": "M19",
+      "fault_description": "Break-before-make P-state switch overlap (two clk_path_en_o bits high) (case 5)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-199",
+      "wave": "Wave3_SiliconPerf_PERF-HC2",
+      "target_module": "H1",
+      "fault_description": "GF(2^4) sub-head XOR permutation disabled causing 4-port bank collision (case 5)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    },
+    {
+      "mutant_id": "MUT-200",
+      "wave": "Wave3_SiliconPerf_PERF-HC2",
+      "target_module": "H4",
+      "fault_description": "MoE Top-2 + 1 shared expert mask error (failing 13/16 = 81.25% expert CG) (case 5)",
+      "killed_by": "Stage33_Verilator_SiliconPerf_and_51.2K_SV_UVM",
+      "status": "KILLED"
+    }
+  ]
+}
